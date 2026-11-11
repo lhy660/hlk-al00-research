@@ -1,0 +1,175 @@
+
+######## ROUND 1  18:50:20 ########
+probe.out baseline lines=1808
+  boot_completed up=18 18:50:54
+  final up=520 reason=reboot,adb panic=0
+  root: uid=0(root) gid=0(root) groups=0(root) context=u:r:shell:s0
+  modules: 2
+  --- probe.out new lines (chain + phaseK2) ---
+    [  327.08] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+    [   91.54] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+    [   91.68] slot claim: 192 regions over 6 cpus
+    [   92.15] JIT_FREE submit ret=0 errno=0 (Success)
+    [   92.15] find_freed_idx -> 42
+    [   92.79] phaseK: patch landed (sig orig restore)
+    [   92.82] phaseK: patch landed (sig skip -> ok)
+    [   92.85] phaseK: patch landed (saudit nop)
+    [   92.88] phaseK: patch not visible (cfi slowpath ret)
+    [   92.89] phaseK: seccomp_bypass off=0x233228 va=0xffffff80c86b3228
+    [   92.92] phaseK: patch not visible (seccomp bypass)
+    [   92.92] phaseK: seccomp bypass applied (forced, readback stale)
+    [   92.92] phaseK2: seccomp functional=0 retries=2
+    [   93.00] phaseK2: retry 1 slot=504 functional=1
+    [   93.00] phaseK2: seccomp bypass CONFIRMED
+    [   95.07] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+    [   95.07] keepalive: L2 descriptors live, holding context (pid=6035)
+  --- HlkGuard logcat (bootstrap / UMH / gate) ---
+    11-08 18:55:11.160  5278  5939 I HlkGuard: settle delay 300s (system must be idle before the UAF)
+    11-08 18:56:04.807  5278  6037 I HlkGuard: [    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+    11-08 18:57:42.643  5278  6182 I HlkGuard: ksu: bootstrap: === KSU-BOOTSTRAP === STAGED: -rwx------ 1 root root   238344 2026-11-08 18:57 /data/local/tmp/hlk_ksu_shim9.ko -rwxr-xr-x 1 root root  4012280 2026-11-08 18:57 /data/local/tmp/hlk_su -rw-r--r-- 1 root root 17173205 2026-11-07 23:26 /data/local/tmp/ksu_manager.apk  INSMOD-RC=0 SUCOMPAT-RC=0 hlk_sucompat: enabled=1 target=/data/local/tmp/su.sh only_uid=-1 fake_stat=1 counters: hits=0 hits_stat=0 skip_uid=0 fault_in=0 fault_out=0 noslot=0 slot: guard=0 copyfail=0 === PROC9 === hlk_ksu_shim9: version=40994 uapi=5 flags=0x7 tracepoint: reg_rc=0 tp=ffffff80cb255668 hits=0 tw_fails=0 old_probe=          (null) old_unreg=-2 setcon: ok=0 fail=0 auto_roots=0 auto_fds=0 mgr_uid=10164 allow_su=0 sizeof(app_profile)=784 last: req_pid=0 fd=-1 rc=0 busy=0 BOOTSTRAP-DONE
+    11-08 18:57:44.955  5278  6182 I HlkGuard: ksu: SukiSU layer ready
+  --- rootout tail ---
+    slot: guard=0 copyfail=0
+    === PROC9 ===
+    hlk_ksu_shim9: version=40994 uapi=5 flags=0x7
+    tracepoint: reg_rc=0 tp=ffffff9c9fa55668 hits=10 tw_fails=0 old_probe=          (null) old_unreg=-2
+    setcon: ok=10 fail=0 auto_roots=0 auto_fds=23
+    mgr_uid=10159 allow_su=0 sizeof(app_profile)=784
+    last: req_pid=0 fd=3 rc=0 busy=0
+    BOOTSTRAP-DONE
+    __DONE_RD31119-1-1794134458
+    rc=0
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+
+######## ROUND 2  18:59:19 ########
+probe.out baseline lines=1952
+  boot_completed up=17 18:59:58
+  final up=520 reason=kernel_panic,fatal_exception panic=0
+  root: uid=0(root) gid=0(root) groups=0(root) context=u:r:shell:s0
+  modules: 2
+  --- probe.out new lines (chain + phaseK2) ---
+    [  327.93] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+    [   91.49] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+    [   91.59] slot claim: 192 regions over 6 cpus
+    [   92.05] JIT_FREE submit ret=0 errno=0 (Success)
+    [   92.05] find_freed_idx -> 0
+    [   92.66] phaseK: patch landed (sig orig restore)
+    [   92.69] phaseK: patch landed (sig skip -> ok)
+    [   92.73] phaseK: patch landed (saudit nop)
+    [   92.76] phaseK: patch not visible (cfi slowpath ret)
+    [   92.76] phaseK: seccomp_bypass off=0x233228 va=0xffffff8b6a2b3228
+    [   92.79] phaseK: patch not visible (seccomp bypass)
+    [   92.79] phaseK: seccomp bypass applied (forced, readback stale)
+    [   92.79] phaseK2: seccomp functional=0 retries=2
+    [   92.88] phaseK2: retry 1 slot=504 functional=1
+    [   92.88] phaseK2: seccomp bypass CONFIRMED
+    [   94.95] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+    [   94.95] keepalive: L2 descriptors live, holding context (pid=5839)
+  --- HlkGuard logcat (bootstrap / UMH / gate) ---
+    11-08 19:00:08.310  5325  5353 I HlkGuard: settle delay 300s (system must be idle before the UAF)
+    11-08 19:05:08.664  5325  5841 I HlkGuard: [    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+    11-08 19:07:16.108  5325  5962 I HlkGuard: ksu: bootstrap: === KSU-BOOTSTRAP === STAGED: -rwx------ 1 root root   238344 2026-11-08 19:07 /data/local/tmp/hlk_ksu_shim9.ko -rwxr-xr-x 1 root root  4012280 2026-11-08 19:07 /data/local/tmp/hlk_su -rw-r--r-- 1 root root 17173205 2026-11-07 23:26 /data/local/tmp/ksu_manager.apk  INSMOD-RC=0 SUCOMPAT-RC=0 hlk_sucompat: enabled=1 target=/data/local/tmp/su.sh only_uid=-1 fake_stat=1 counters: hits=0 hits_stat=0 skip_uid=0 fault_in=0 fault_out=0 noslot=0 slot: guard=0 copyfail=0 === PROC9 === hlk_ksu_shim9: version=40994 uapi=5 flags=0x7 tracepoint: reg_rc=0 tp=ffffff8b6ce55668 hits=0 tw_fails=0 old_probe=          (null) old_unreg=-2 setcon: ok=0 fail=0 auto_roots=0 auto_fds=0 mgr_uid=10164 allow_su=0 sizeof(app_profile)=784 last: req_pid=0 fd=-1 rc=0 busy=0 BOOTSTRAP-DONE
+    11-08 19:07:28.108  5325  5962 I HlkGuard: ksu: SukiSU layer ready
+  --- rootout tail ---
+    hlk_ksu_shim9: version=40994 uapi=5 flags=0x7
+    tracepoint: reg_rc=0 tp=ffffff9c9fa55668 hits=10 tw_fails=0 old_probe=          (null) old_unreg=-2
+    setcon: ok=10 fail=0 auto_roots=0 auto_fds=23
+    mgr_uid=10159 allow_su=0 sizeof(app_profile)=784
+    last: req_pid=0 fd=3 rc=0 busy=0
+    BOOTSTRAP-DONE
+    __DONE_RD31119-1-1794134458
+    rc=0
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+
+######## ROUND 3  19:08:22 ########
+probe.out baseline lines=2095
+  boot_completed up=18 19:08:57
+  final up=520 reason=kernel_panic,fatal_exception panic=0
+  root: uid=0(root) gid=0(root) groups=0(root) context=u:r:shell:s0
+  modules: 2
+  --- probe.out new lines (chain + phaseK2) ---
+    [  328.59] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+    [   91.77] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+    [   91.89] slot claim: 192 regions over 6 cpus
+    [   92.38] JIT_FREE submit ret=0 errno=0 (Success)
+    [   92.38] find_freed_idx -> 66
+    [   93.05] phaseK: patch landed (sig orig restore)
+    [   93.09] phaseK: patch landed (sig skip -> ok)
+    [   93.12] phaseK: patch landed (saudit nop)
+    [   93.16] phaseK: patch not visible (cfi slowpath ret)
+    [   93.16] phaseK: seccomp_bypass off=0x233228 va=0xffffff95232b3228
+    [   93.19] phaseK: patch not visible (seccomp bypass)
+    [   93.19] phaseK: seccomp bypass applied (forced, readback stale)
+    [   93.19] phaseK2: seccomp functional=0 retries=2
+    [   93.27] phaseK2: retry 1 slot=504 functional=0
+    [   93.38] phaseK2: retry 2 slot=505 functional=0
+    [   93.38] phaseK2: seccomp bypass FAILED (UMH fallback will cover insmod)
+    [   95.44] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+    [   95.44] keepalive: L2 descriptors live, holding context (pid=5989)
+  --- HlkGuard logcat (bootstrap / UMH / gate) ---
+    11-08 19:10:11.163  5370  5827 I HlkGuard: settle delay 300s (system must be idle before the UAF)
+    11-08 19:14:07.684  5370  5991 I HlkGuard: [    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+    11-08 19:15:41.056  5370  5991 I HlkGuard: [   93.38] phaseK2: seccomp bypass FAILED (UMH fallback will cover insmod)
+    11-08 19:15:45.996  5370  6139 I HlkGuard: ksu: bootstrap: === KSU-BOOTSTRAP === STAGED: -rwx------ 1 root root   238344 2026-11-08 19:15 /data/local/tmp/hlk_ksu_shim9.ko -rwxr-xr-x 1 root root  4012280 2026-11-08 19:15 /data/local/tmp/hlk_su -rw-r--r-- 1 root root 17173205 2026-11-07 23:26 /data/local/tmp/ksu_manager.apk  INSMOD-RC=0 SUCOMPAT-RC=0 hlk_sucompat: enabled=1 target=/data/local/tmp/su.sh only_uid=-1 fake_stat=1 counters: hits=0 hits_stat=0 skip_uid=0 fault_in=0 fault_out=0 noslot=0 slot: guard=0 copyfail=0 === PROC9 === hlk_ksu_shim9: version=40994 uapi=5 flags=0x7 tracepoint: reg_rc=0 tp=ffffff9525e55668 hits=0 tw_fails=0 old_probe=          (null) old_unreg=-2 setcon: ok=0 fail=0 auto_roots=0 auto_fds=0 mgr_uid=10164 allow_su=0 sizeof(app_profile)=784 last: req_pid=0 fd=-1 rc=0 busy=0 BOOTSTRAP-DONE
+    11-08 19:15:48.434  5370  6139 I HlkGuard: ksu: SukiSU layer ready
+  --- rootout tail ---
+    setcon: ok=10 fail=0 auto_roots=0 auto_fds=23
+    mgr_uid=10159 allow_su=0 sizeof(app_profile)=784
+    last: req_pid=0 fd=3 rc=0 busy=0
+    BOOTSTRAP-DONE
+    __DONE_RD31119-1-1794134458
+    rc=0
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+
+######## ROUND 4  19:17:21 ########
+probe.out baseline lines=2241
+  boot_completed up=17 19:17:55
+  final up=520 reason=reboot,adb panic=0
+  root: uid=0(root) gid=0(root) groups=0(root) context=u:r:shell:s0
+  modules: 2
+  --- probe.out new lines (chain + phaseK2) ---
+    [  329.99] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+    [   91.03] jit_sync_destroy: rc=0 (worker completed), online_cpus=8, mode=1
+    [   91.11] slot claim: 256 regions over 8 cpus
+    [   91.29] JIT_FREE submit ret=0 errno=0 (Success)
+    [   91.29] find_freed_idx -> 48
+    [   91.67] phaseK: patch landed (sig orig restore)
+    [   91.70] phaseK: patch landed (sig skip -> ok)
+    [   91.74] phaseK: patch landed (saudit nop)
+    [   91.77] phaseK: patch not visible (cfi slowpath ret)
+    [   91.77] phaseK: seccomp_bypass off=0x233228 va=0xffffff80332b3228
+    [   91.81] phaseK: patch landed (seccomp bypass)
+    [   91.81] phaseK: seccomp bypass applied
+    [   91.81] phaseK2: seccomp functional=1 retries=2
+    [   91.81] phaseK2: seccomp bypass CONFIRMED
+    [   93.86] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+    [   93.86] keepalive: L2 descriptors live, holding context (pid=6196)
+  --- HlkGuard logcat (bootstrap / UMH / gate) ---
+    11-08 19:22:35.078  5377  6113 I HlkGuard: settle delay 300s (system must be idle before the UAF)
+    11-08 19:23:07.761  5377  6198 I HlkGuard: [    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+    11-08 19:25:14.038  5377  6286 I HlkGuard: ksu: bootstrap: === KSU-BOOTSTRAP === STAGED: -rwx------ 1 root root   238344 2026-11-08 19:25 /data/local/tmp/hlk_ksu_shim9.ko -rwxr-xr-x 1 root root  4012280 2026-11-08 19:25 /data/local/tmp/hlk_su -rw-r--r-- 1 root root 17173205 2026-11-07 23:26 /data/local/tmp/ksu_manager.apk  INSMOD-RC=0 SUCOMPAT-RC=0 hlk_sucompat: enabled=1 target=/data/local/tmp/su.sh only_uid=-1 fake_stat=1 counters: hits=0 hits_stat=0 skip_uid=0 fault_in=0 fault_out=0 noslot=0 slot: guard=0 copyfail=0 === PROC9 === hlk_ksu_shim9: version=40994 uapi=5 flags=0x7 tracepoint: reg_rc=0 tp=ffffff8035e55668 hits=0 tw_fails=0 old_probe=          (null) old_unreg=-2 setcon: ok=0 fail=0 auto_roots=0 auto_fds=0 mgr_uid=10164 allow_su=0 sizeof(app_profile)=784 last: req_pid=0 fd=-1 rc=0 busy=0 BOOTSTRAP-DONE
+    11-08 19:25:25.971  5377  6286 I HlkGuard: ksu: SukiSU layer ready
+  --- rootout tail ---
+    last: req_pid=0 fd=3 rc=0 busy=0
+    BOOTSTRAP-DONE
+    __DONE_RD31119-1-1794134458
+    rc=0
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+    v16
+    rootd up: uid=0(root) gid=0(root) groups=0(root) context=u:r:kernel:s0 dirs=[/data/local/tmp /data/user/0/com.hlk.rootguard/files/chan]
+
+######## DONE 19:26:19 ########

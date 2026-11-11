@@ -1,0 +1,2 @@
+obj-m += hlk_sucompat.o
+# kbuild_env.sh appends -mno-outline-atomics when the cross compiler supports it

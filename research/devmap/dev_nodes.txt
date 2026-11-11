@@ -1,0 +1,249 @@
+ls: /dev/event-log-tags: Permission denied
+ls: /dev/oinv: Permission denied
+ls: /dev/.coldboot_done: Permission denied
+ls: /dev/cgroup_info: Permission denied
+total 8
+crw-------  1 root      root      247,   3 2021-07-29 11:10 0:0:0:0
+crw-------  1 root      root      247,   4 2021-07-29 11:10 0:0:0:1
+crw-------  1 root      root      247,   5 2021-07-29 11:10 0:0:0:2
+crw-------  1 root      root      247,   6 2021-07-29 11:10 0:0:0:3
+crw-------  1 root      root      247,   1 2021-07-29 11:10 0:0:0:49456
+crw-------  1 root      root      247,   2 2021-07-29 11:10 0:0:0:49476
+crw-------  1 root      root      247,   0 2021-07-29 11:10 0:0:0:49488
+drwx--x--x  2 root      root          5140 2021-07-29 11:10 __properties__
+crw-rw-r--  1 system    system    246,   0 2021-07-29 11:10 acm
+crw-rw----  1 system    system     10,  60 2021-07-29 11:10 acpuddr_link_governor_level
+crw-rw----  1 radio     radio     494,   0 2021-07-29 11:10 act
+crw-------  1 root      root      494,   1 2021-07-29 11:10 actr
+crw-rw----  1 radio     radio     502,   0 2021-07-29 11:10 appvcom
+crw-rw----  1 radio     radio     501,   1 2021-07-29 11:10 appvcom1
+crw-rw----  1 radio     radio     257,  10 2021-07-29 11:10 appvcom10
+crw-rw----  1 root      root      258,  11 2021-07-29 11:10 appvcom11
+crw-rw----  1 gps       system    259,  12 2021-07-29 11:10 appvcom12
+crw-rw----  1 radio     radio     260,  13 2021-07-29 11:10 appvcom13
+crw-rw----  1 radio     radio     261,  14 2021-07-29 11:10 appvcom14
+crw-rw----  1 radio     radio     262,  15 2021-07-29 11:10 appvcom15
+crw-rw----  1 root      root      263,  16 2021-07-29 11:10 appvcom16
+crw-rw----  1 system    system    264,  17 2021-07-29 11:10 appvcom17
+crw-rw----  1 system    system    265,  18 2021-07-29 11:10 appvcom18
+crw-rw----  1 radio     radio     266,  19 2021-07-29 11:10 appvcom19
+crw-rw----  1 system    system    249,   2 2021-07-29 11:10 appvcom2
+crw-rw----  1 radio     radio     267,  20 2021-07-29 11:10 appvcom20
+crw-rw----  1 radio     radio     268,  21 2021-07-29 11:10 appvcom21
+crw-rw----  1 system    system    269,  22 2021-07-29 11:10 appvcom22
+crw-rw----  1 root      root      270,  23 2021-07-29 11:10 appvcom23
+crw-rw----  1 root      root      271,  24 2021-07-29 11:10 appvcom24
+crw-rw----  1 radio     radio     272,  25 2021-07-29 11:10 appvcom25
+crw-rw----  1 radio     radio     273,  26 2021-07-29 11:10 appvcom26
+crw-rw----  1 radio     radio     274,  27 2021-07-29 11:10 appvcom27
+crw-rw----  1 radio     radio     275,  28 2021-07-29 11:10 appvcom28
+crw-rw----  1 radio     radio     276,  29 2021-07-29 11:10 appvcom29
+crw-rw----  1 root      root      500,   3 2021-07-29 11:10 appvcom3
+crw-rw----  1 radio     radio     277,  30 2021-07-29 11:10 appvcom30
+crw-rw----  1 radio     radio     278,  31 2021-07-29 11:10 appvcom31
+crw-rw----  1 radio     radio     279,  32 2021-07-29 11:10 appvcom32
+crw-rw----  1 system    system    280,  33 2021-07-29 11:10 appvcom33
+crw-rw----  1 system    system    281,  34 2021-07-29 11:10 appvcom34
+crw-rw----  1 media     media     499,   4 2021-07-29 11:10 appvcom4
+crw-rw----  1 radio     radio     498,   5 2021-07-29 11:10 appvcom5
+crw-rw----  1 radio     radio     497,   6 2021-07-29 11:10 appvcom6
+crw-rw----  1 root      root      496,   7 2021-07-29 11:10 appvcom7
+crw-rw----  1 system    system    255,   8 2021-07-29 11:10 appvcom8
+crw-rw----  1 gps       system    256,   9 2021-07-29 11:10 appvcom9
+crw-rw----  1 system    system    300,  53 2021-07-29 11:10 appvcomERRLOG
+crw-rw----  1 root      root      302,  55 2021-07-29 11:10 appvcomLOG
+crw-rw----  1 root      root      303,  56 2021-07-29 11:10 appvcomLOG1
+crw-rw----  1 root      root      301,  54 2021-07-29 11:10 appvcomTLLOG
+crw-rw----  1 radio     system     10,  54 2021-07-29 11:10 ar
+crw-rw-rw-  1 root      root       10,  85 2021-07-29 11:10 ashmem
+crw-------  1 root      root      507,   0 2021-07-29 11:10 bastet
+crw-------  1 root      root      503,   0 2021-07-29 11:10 bastet_modem
+crw-rw-rw-  1 root      root       10,  80 2021-07-29 11:10 binder
+drwxr-xr-x  7 system    system           0 2021-07-29 11:10 blkio
+drwxr-xr-x  7 root      root          2740 2021-07-29 11:10 block
+drwxr-xr-x  3 root      root            60 2021-07-29 11:10 bus
+drw-------  2 root      root             0 2021-07-29 11:10 cg2_bpf
+crw-rw----  1 system    system     10,  44 2021-07-29 11:10 chrKmsgPlat
+crw-------  1 root      root        5,   1 2021-07-29 11:10 console
+crw-rw----  1 system    system     10,  67 2021-07-29 11:10 cpu_dma_latency
+-r--r--r--  1 root      root            10 2021-07-29 11:10 cpu_variant:arm
+-r--r--r--  1 root      root             7 2021-07-29 11:10 cpu_variant:arm64
+drwxr-xr-x  3 system    system           0 2021-07-29 11:10 cpuctl
+drwxr-xr-x 10 system    system           0 2021-07-29 11:10 cpuset
+crw-rw----  1 system    system    510,   0 2021-07-29 11:10 davinci0
+crw-rw----  1 system    system    511,   0 2021-07-29 11:10 davinci_manager
+crw-------  1 root      root       10, 236 2021-07-29 11:09 device-mapper
+crw-------  1 root      root      225,   0 2021-07-29 11:10 dpm_ldm
+crw-rw----  1 system    dsm        10, 254 2021-07-29 11:10 dsm
+crw-rw----  1 root      root       10,  57 2021-07-29 11:10 dubai
+crw-------  1 root      root      248,   0 2021-07-29 11:10 efuse
+drwxrwxr-x  2 root      root            60 2021-07-29 11:10 f2fs-tools
+lrwxrwxrwx  1 root      root            13 2021-07-29 11:10 fd -> /proc/self/fd
+crw-rw----  1 system    system    506,   0 2021-07-29 11:10 fingerprint
+crw-rw----  1 system    system     10,  51 2021-07-29 11:10 fingerprinthub
+crw-rw----  1 system    system     10,  50 2021-07-29 11:10 fingerprinthub_ud
+crw-rw----  1 radio     system     10,  55 2021-07-29 11:10 flp
+drwxrwxr-x 23 root      root             0 2021-07-29 11:10 frz
+drwxrwx---  2 root      system          40 2021-07-29 11:10 fscklogs
+crw-rw-rw-  1 root      root        1,   7 2021-07-29 11:10 full
+crw-------  1 root      root       10, 229 2021-07-29 11:10 fuse
+crw-------  1 root      root      254,   0 2021-07-29 11:10 gpiochip0
+crw-------  1 root      root      254,   1 2021-07-29 11:10 gpiochip1
+crw-------  1 root      root      254,  10 2021-07-29 11:10 gpiochip10
+crw-------  1 root      root      254,  11 2021-07-29 11:10 gpiochip11
+crw-------  1 root      root      254,  12 2021-07-29 11:10 gpiochip12
+crw-------  1 root      root      254,  13 2021-07-29 11:10 gpiochip13
+crw-------  1 root      root      254,  14 2021-07-29 11:10 gpiochip14
+crw-------  1 root      root      254,  15 2021-07-29 11:10 gpiochip15
+crw-------  1 root      root      254,  16 2021-07-29 11:10 gpiochip16
+crw-------  1 root      root      254,  17 2021-07-29 11:10 gpiochip17
+crw-------  1 root      root      254,  18 2021-07-29 11:10 gpiochip18
+crw-------  1 root      root      254,  19 2021-07-29 11:10 gpiochip19
+crw-------  1 root      root      254,   2 2021-07-29 11:10 gpiochip2
+crw-------  1 root      root      254,  20 2021-07-29 11:10 gpiochip20
+crw-------  1 root      root      254,  21 2021-07-29 11:10 gpiochip21
+crw-------  1 root      root      254,  22 2021-07-29 11:10 gpiochip22
+crw-------  1 root      root      254,  23 2021-07-29 11:10 gpiochip23
+crw-------  1 root      root      254,  24 2021-07-29 11:10 gpiochip24
+crw-------  1 root      root      254,  25 2021-07-29 11:10 gpiochip25
+crw-------  1 root      root      254,  26 2021-07-29 11:10 gpiochip26
+crw-------  1 root      root      254,  27 2021-07-29 11:10 gpiochip27
+crw-------  1 root      root      254,  28 2021-07-29 11:10 gpiochip28
+crw-------  1 root      root      254,  29 2021-07-29 11:10 gpiochip29
+crw-------  1 root      root      254,   3 2021-07-29 11:10 gpiochip3
+crw-------  1 root      root      254,  30 2021-07-29 11:10 gpiochip30
+crw-------  1 root      root      254,  31 2021-07-29 11:10 gpiochip31
+crw-------  1 root      root      254,  32 2021-07-29 11:10 gpiochip32
+crw-------  1 root      root      254,  33 2021-07-29 11:10 gpiochip33
+crw-------  1 root      root      254,   4 2021-07-29 11:10 gpiochip4
+crw-------  1 root      root      254,   5 2021-07-29 11:10 gpiochip5
+crw-------  1 root      root      254,   6 2021-07-29 11:10 gpiochip6
+crw-------  1 root      root      254,   7 2021-07-29 11:10 gpiochip7
+crw-------  1 root      root      254,   8 2021-07-29 11:10 gpiochip8
+crw-------  1 root      root      254,   9 2021-07-29 11:10 gpiochip9
+drwxr-xr-x  2 root      root           100 2021-07-29 11:10 graphics
+crw-rw----  1 system    camera    235,   0 2021-07-29 11:10 hi_vdec
+crw-rw----  1 system    camera    236,   0 2021-07-29 11:10 hi_venc
+crw-rw----  1 system    camera     10,  93 2021-07-29 11:10 hicam_buf
+crwxrwx---  1 root      audio      10,  91 2021-07-29 11:10 hifi_misc
+crw-rw----  1 system    camera     10,  73 2021-07-29 11:10 hisi-ivp
+crw-rw----  1 system    system     10,  70 2021-07-29 11:10 hisi_perf_ctrl
+cr--------  1 root      root       10,  71 2021-07-29 11:10 hisi_teelog
+crw-rw----  1 system    system     10,  92 2021-07-29 11:09 hw_bfm
+crw-r-----  1 root      system     10,  39 2021-07-29 11:10 hwbfgdbg
+crw-rw----  1 root      system     10,  38 2021-07-29 11:10 hwbfgexcp
+crw-rw-rw-  1 root      root       10,  79 2021-07-29 11:10 hwbinder
+crw-rw----  1 bluetooth bluetooth  10,  43 2021-07-29 11:10 hwbt
+crw-rw----  1 system    system     10,  42 2021-07-29 11:10 hwfm
+crw-rw----  1 system    system     10,  41 2021-07-29 11:10 hwgnss
+crw-rw----  1 system    system     10,  40 2021-07-29 11:10 hwir
+crw-rw--w-  1 root      system     10,  82 2021-07-29 11:10 hwlog_dubai
+crw-rw--w-  1 root      log        10,  84 2021-07-29 11:10 hwlog_exception
+crw-rw--w-  1 root      system     10,  83 2021-07-29 11:10 hwlog_jank
+crw-rw----  1 system    system     10,  81 2021-07-29 11:10 hwlog_tag
+crw-rw----  1 root      system     10,  37 2021-07-29 11:10 hwwifiexcp
+crw-rw----  1 system    system     10,  90 2021-07-29 11:10 iaware_qos_ctrl
+drwxr-xr-x  2 root      root           180 2021-07-29 11:10 input
+crw-rw----  1 root      system     10,  76 2021-07-29 11:10 input_mt_wrapper
+dr-xr-xr-x  4 system    system           0 2021-07-29 11:10 iolimit
+crw-rw-r--  1 system    system     10,  95 2021-07-29 11:10 ion
+crw-------  1 root      root       10,  72 2021-07-29 11:10 isp_log
+crw-rw----  1 system    camera     10,  74 2021-07-29 11:10 ivp-ipc
+crw-------  1 root      root        1,  11 2021-07-29 11:09 kmsg
+crw-rw----  1 system    system    509,   0 2021-07-29 11:10 log_drv
+crw-------  1 root      root       10, 237 2021-07-29 11:10 loop-control
+crw-------  1 root      root      505,   0 2021-07-29 11:10 madapt
+crw-rw-rw-  1 system    system     10,  86 2021-07-29 11:10 mali0
+crw-rw----  1 system    camera    251,   0 2021-07-29 11:10 media0
+crw-rw----  1 system    camera    251,   1 2021-07-29 11:10 media1
+crw-rw----  1 system    camera    251,   2 2021-07-29 11:10 media2
+crw-rw----  1 system    camera    251,   3 2021-07-29 11:10 media3
+crw-rw----  1 system    camera    251,   4 2021-07-29 11:10 media4
+crw-rw----  1 system    camera    251,   5 2021-07-29 11:10 media5
+crw-rw----  1 system    camera    251,   6 2021-07-29 11:10 media6
+crw-rw----  1 system    camera    251,   7 2021-07-29 11:10 media7
+crw-rw----  1 system    camera    251,   8 2021-07-29 11:10 media8
+dr-xr-xr-x  7 root      root             0 2021-07-29 11:10 memcg
+crw-------  1 root      root       10,  64 2021-07-29 11:10 memory_bandwidth
+crw-rw----  1 system    system     10,  63 2021-07-29 11:10 memory_latency
+crw-rw----  1 system    system     10,  62 2021-07-29 11:10 memory_throughput
+crw-rw----  1 system    system     10,  61 2021-07-29 11:10 memory_throughput_up_threshold
+crw-rw----  1 system    system     10,  52 2021-07-29 11:10 motionhub
+crw-rw----  1 root      mtp        10,  47 2021-07-29 11:10 mtp_usb
+crw-------  1 root      root       10,  66 2021-07-29 11:10 network_latency
+crw-------  1 root      root       10,  65 2021-07-29 11:10 network_throughput
+crw-------  1 root      root      495,   0 2021-07-29 11:10 nmctrlvcom
+crw-------  1 root      root      241,   0 2021-07-29 11:10 node
+crw-rw----  1 system    system     10,  59 2021-07-29 11:10 npu_freq_dnlimit
+crw-rw----  1 system    system     10,  58 2021-07-29 11:10 npu_freq_uplimit
+crw-rw-rw-  1 root      root        1,   3 2021-07-29 11:09 null
+crwxrwx---  1 root      system    245,   0 2021-07-29 11:10 nve0
+crw-------  1 root      root      240,   0 2021-07-29 11:10 ois
+crw-------  1 root      root      504,   0 2021-07-29 11:10 phys_mem
+crw-rw----  1 system    system     10,  45 2021-07-29 11:10 pmom
+crw-------  1 root      root       10,  56 2021-07-29 11:10 power_watchdog
+crw-rw----  1 radio     vpn       108,   0 2021-07-29 11:10 ppp
+crw-rw----  1 system    system    508,   0 2021-07-29 11:10 prof_drv
+crw-------  1 root      root       10,   1 2021-07-29 11:10 psaux
+crw-rw-rw-  1 root      root        5,   2 2021-07-29 11:09 ptmx
+drwxr-xr-x  2 root      root             0 2021-07-29 11:09 pts
+crw-rw-rw-  1 root      root        1,   8 2021-07-29 11:09 random
+crw-------  1 root      root       10,  94 2021-07-29 11:10 rfkill
+crw-r-----  1 system    system    252,   0 2021-07-29 11:10 rtc0
+crw-rw----  1 system    system     10,  53 2021-07-29 11:10 sensorhub
+drwxr-xr-x  2 root      root           300 2021-07-29 11:10 snd
+drwxr-xr-x  3 root      root           660 2021-07-29 11:11 socket
+crw-rw----  1 root      system     10,  88 2021-07-29 11:10 sop_privileged
+crw-rw-r--  1 root      root       10,  87 2021-07-29 11:10 sop_unprivileged
+lrwxrwxrwx  1 root      root            15 2021-07-29 11:10 stderr -> /proc/self/fd/2
+lrwxrwxrwx  1 root      root            15 2021-07-29 11:10 stdin -> /proc/self/fd/0
+lrwxrwxrwx  1 root      root            15 2021-07-29 11:10 stdout -> /proc/self/fd/1
+dr-xr-xr-x 10 system    system           0 2021-07-29 11:10 stune
+crw-------  1 root      root      249,   0 2021-07-29 11:10 tc_ns_client
+cr--r-----  1 system    system     10,  89 2021-07-29 11:10 tcrypt
+crw-------  1 root      root       10,  77 2021-07-29 11:10 thp
+crw-------  1 root      root       10,  49 2021-07-29 11:10 thphub
+crw-rw-rw-  1 root      root        5,   0 2021-07-29 11:10 tty
+crw-rw----  1 media     media     204,  64 2021-07-29 11:10 ttyAMA0
+crw-------  1 root      root      204,  66 2021-07-29 11:10 ttyAMA2
+crw-rw----  1 system    system    204,  68 2021-07-29 11:10 ttyAMA4
+crw-------  1 root      root      204,  69 2021-07-29 11:10 ttyAMA5
+crw-------  1 root      root      204,  70 2021-07-29 11:10 ttyAMA6
+crw-------  1 root      root      242,   0 2021-07-29 11:10 ttyHwGS0
+crw-rw----  1 root      system    242,   1 2021-07-29 11:10 ttyHwGS1
+crw-------  1 root      root      242,   2 2021-07-29 11:10 ttyHwGS2
+crw-rw----  1 system    vpn        10, 200 2021-07-29 11:10 tun
+crw-rw----  1 uhid      uhid       10, 239 2021-07-29 11:10 uhid
+crw-rw----  1 uhid      uhid       10, 223 2021-07-29 11:10 uinput
+crw-rw-rw-  1 root      root        1,   9 2021-07-29 11:09 urandom
+drwxrwx---  4 shell     shell           80 2021-07-29 11:10 usb-ffs
+crw-rw----  1 root      usb        10,  46 2021-07-29 11:10 usb_accessory
+crw-rw----  1 root      usb        10,  48 2021-07-29 11:10 usb_pcinfo_common
+crw-rw----  1 system    camera     81,   1 2021-07-29 11:10 v4l-subdev0
+crw-rw----  1 system    camera     81,   2 2021-07-29 11:10 v4l-subdev1
+crw-rw----  1 system    camera     81,  19 2021-07-29 11:10 v4l-subdev10
+crw-rw----  1 system    camera     81,   3 2021-07-29 11:10 v4l-subdev2
+crw-rw----  1 system    camera     81,   5 2021-07-29 11:10 v4l-subdev3
+crw-rw----  1 system    camera     81,   7 2021-07-29 11:10 v4l-subdev4
+crw-rw----  1 system    camera     81,   9 2021-07-29 11:10 v4l-subdev5
+crw-rw----  1 system    camera     81,  11 2021-07-29 11:10 v4l-subdev6
+crw-rw----  1 system    camera     81,  13 2021-07-29 11:10 v4l-subdev7
+crw-rw----  1 system    camera     81,  15 2021-07-29 11:10 v4l-subdev8
+crw-rw----  1 system    camera     81,  17 2021-07-29 11:10 v4l-subdev9
+crw-rw----  1 system    camera     81,   0 2021-07-29 11:10 video0
+crw-rw----  1 system    camera     81,   4 2021-07-29 11:10 video1
+crw-rw----  1 system    camera     81,   6 2021-07-29 11:10 video2
+crw-rw----  1 system    camera     81,   8 2021-07-29 11:10 video3
+crw-rw----  1 system    camera     81,  10 2021-07-29 11:10 video4
+crw-rw----  1 system    camera     81,  12 2021-07-29 11:10 video5
+crw-rw----  1 system    camera     81,  14 2021-07-29 11:10 video6
+crw-rw----  1 system    camera     81,  16 2021-07-29 11:10 video7
+crw-rw----  1 system    camera     81,  18 2021-07-29 11:10 video8
+crw-rw-rw-  1 root      root       10,  78 2021-07-29 11:10 vndbinder
+crw-rw----  1 media     media      10,  68 2021-07-29 11:10 voice_proxy_ctl_dev
+crw-rw----  1 system    system     10,  69 2021-07-29 11:10 voice_proxy_extdev
+crw-rw----  1 system    audio      10,  75 2021-07-29 11:10 voice_proxy_vowifi
+crw-------  1 root      root       10, 130 2021-07-29 11:10 watchdog
+crw-------  1 root      root      250,   0 2021-07-29 11:10 watchdog0
+dr-xr-xr-x  4 root      root             0 2021-07-29 11:10 workingset
+crw-rw-rw-  1 root      root        1,   5 2021-07-29 11:10 zero

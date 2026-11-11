@@ -1,0 +1,72 @@
+#!/bin/bash
+# v1.3 real-world verification: N full boot cycles with the installed v1.3 APK.
+#
+# Each round reboots the phone, waits for the 400 s time gate to open, then
+# checks the *outcome* from outside the exploit:
+#   - JIT_FREE / find_freed_idx / PHASE_I OK  (v1.2 UAF fix still intact)
+#   - phaseK2 functional verdict              (v1.3 seccomp patch hardening)
+#   - INSMOD-RC / UMH-* recovery lines        (v1.3 seccomp-free fallback)
+#   - uid=0 + two hlk_ modules               (the only verdict that matters)
+#
+# Usage: sh hlk-root-dist/probe/v13/boot_verify.sh [rounds]
+set -u
+cd /f/person/aisky/hlk-al00-research
+export MSYS_NO_PATHCONV=1
+ROUNDS=${1:-4}
+TARGET_UP=${TARGET_UP:-520}
+LOG=hlk-root-dist/probe/v13/boot_verify.log
+: > "$LOG"
+
+u() { adb shell 'cut -d. -f1 /proc/uptime' 2>/dev/null | tr -d '\r\n' | cut -d. -f1; }
+say() { echo "$*" | tee -a "$LOG"; }
+
+wait_boot() {
+    adb wait-for-device >/dev/null 2>&1
+    for i in $(seq 1 90); do
+        st=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r\n')
+        [ "$st" = "1" ] && return
+        sleep 3
+    done
+}
+
+for r in $(seq 1 "$ROUNDS"); do
+    say ""
+    say "######## ROUND $r  $(date +%H:%M:%S) ########"
+    base=$(adb shell 'wc -l < /sdcard/Android/data/com.hlk.rootguard/files/probe.out 2>/dev/null' 2>/dev/null | tr -d '\r\n ')
+    [ -z "$base" ] && base=0
+    say "probe.out baseline lines=$base"
+    adb reboot >/dev/null 2>&1
+    wait_boot
+    say "  boot_completed up=$(u) $(date +%H:%M:%S)"
+    panic=0
+    for t in $(seq 1 115); do
+        cur=$(u)
+        if [ -z "$cur" ]; then
+            sleep 6
+            continue
+        fi
+        if [ "$cur" -lt 60 ] && [ "$t" -gt 12 ]; then
+            say "  *** RESTART DETECTED at t=$t (up=$cur) -> PANIC ***"
+            panic=1
+            wait_boot
+            break
+        fi
+        [ "$cur" -ge "$TARGET_UP" ] && break
+        sleep 6
+    done
+    say "  final up=$(u) reason=$(adb shell getprop sys.boot.reason 2>/dev/null | tr -d '\r\n') panic=$panic"
+    say "  root: $(adb shell '/data/local/tmp/hlk_su id' 2>/dev/null | tr -d '\r\n' | head -c 90)"
+    say "  modules: $(adb shell 'lsmod 2>/dev/null | grep -c hlk_' 2>/dev/null | tr -d '\r\n')"
+    say "  --- probe.out new lines (chain + phaseK2) ---"
+    adb shell "tail -n +$((base + 1)) /sdcard/Android/data/com.hlk.rootguard/files/probe.out 2>/dev/null | grep -E 'chain_config|jit_sync_destroy|slot claim|JIT_FREE submit|find_freed_idx|phaseK: patch|phaseK: seccomp|phaseK2|PHASE_I OK|keepalive'" 2>/dev/null \
+        | tr -d '\r' | tail -18 | sed 's/^/    /' | tee -a "$LOG"
+    say "  --- HlkGuard logcat (bootstrap / UMH / gate) ---"
+    adb logcat -d -s HlkGuard 2>/dev/null \
+        | grep -E 'bootstrap:|INSMOD-RC|SUCOMPAT-RC|UMH|SukiSU layer ready|gate_config|settle delay' \
+        | tail -12 | sed 's/^/    /' | tee -a "$LOG"
+    say "  --- rootout tail ---"
+    adb shell 'tail -12 /data/local/tmp/rootout 2>/dev/null' 2>/dev/null \
+        | tr -d '\r' | sed 's/^/    /' | tee -a "$LOG"
+done
+say ""
+say "######## DONE $(date +%H:%M:%S) ########"

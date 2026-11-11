@@ -1,0 +1,8 @@
+kernel/kptr_restrict = cat: /proc/sys/kernel/kptr_restrict: Permission denied
+kernel/dmesg_restrict = cat: /proc/sys/kernel/dmesg_restrict: Permission denied
+kernel/perf_event_paranoid = 3
+kernel/unprivileged_bpf_disabled = cat: /proc/sys/kernel/unprivileged_bpf_disabled: Permission denied
+kernel/randomize_va_space = cat: /proc/sys/kernel/randomize_va_space: Permission denied
+kernel/yama/ptrace_scope = cat: /proc/sys/kernel/yama/ptrace_scope: No such file or directory
+kernel/unprivileged_userns_clone = cat: /proc/sys/kernel/unprivileged_userns_clone: No such file or directory
+user/namespace.enabled = cat: /proc/sys/user/namespace.enabled: No such file or directory

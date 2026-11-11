@@ -1,0 +1,39 @@
+#!/system/bin/sh
+# r - run one command through the kernel-domain rootd daemon.
+# Usage: r <command...>   or:  r - <<'EOF' ... EOF
+#
+# rootd polls /data/local/tmp/rootcmd once a second; the file is published
+# with an atomic rename and every command carries a unique completion token,
+# so a command that the daemon skipped (rename raced its mv) is retried.
+D=/data/local/tmp
+if [ "$1" = "-" ]; then
+	CMD=$(cat)
+else
+	CMD="$*"
+fi
+
+i=0
+while [ "$i" -lt 3 ]; do
+	i=$((i + 1))
+	tok="RD$$-$i-$(date +%s)"
+	{
+		printf '%s\n' "$CMD"
+		printf 'echo __DONE_%s\n' "$tok"
+	} > "$D/rootcmd.tmp" || exit 1
+	: > "$D/rootout"
+	rm -f "$D/rootcmd.done"
+	mv -f "$D/rootcmd.tmp" "$D/rootcmd" || exit 1
+
+	n=0
+	while [ "$n" -lt 160 ]; do
+		grep -q "__DONE_$tok" "$D/rootout" 2>/dev/null && break
+		n=$((n + 1))
+		sleep 0.25
+	done
+	if grep -q "__DONE_$tok" "$D/rootout" 2>/dev/null; then
+		sed "/__DONE_$tok/d" "$D/rootout"
+		exit 0
+	fi
+done
+echo "r: rootd did not acknowledge the command" >&2
+exit 1

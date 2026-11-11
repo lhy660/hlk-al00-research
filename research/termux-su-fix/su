@@ -1,0 +1,80 @@
+#!/system/bin/sh
+# ---------------------------------------------------------------------------
+# HLK-TERMUX-SU-FIX
+# HLK-AL00 root "su" front-end for Termux.  Also the target of `sudo`, and the
+# first entry of tsu's SU_BINARY_SEARCH.
+#
+# This is a REAL executable file in $PREFIX/bin, so both `[[ -x ... ]]` and
+# execve() hit it directly.  It does NOT rely on hlk_sucompat.ko rewriting the
+# pathname of a non-existent /system/xbin/su -- that rewrite is probabilistic
+# (stack_slot() guard) and made tsu/sudo fail intermittently.
+#
+# It normalises the su(1) options that tsu / sudo / tmoe actually pass, then
+# execs /data/local/tmp/hlk_su, which does GRANT_ROOT + ambient caps + execv.
+# ---------------------------------------------------------------------------
+HLK=/data/local/tmp/hlk_su
+
+# Termux's PATH is normally just $PREFIX/bin, with NO /system/bin.  hlk_su
+# execs /system/bin/sh by absolute path but inherits PATH verbatim, so Android
+# tools (mount, umount, toybox, ...) become invisible to `su -c ...`.
+# tmoe's chroot startup issues ~20 `su -c "mount ..."` calls; without this it
+# fails with:  /system/bin/sh: mount: inaccessible or not found
+# Append the system paths WITHOUT displacing Termux tools ($PREFIX/bin stays
+# first, so bash/coreutils/pkg keep resolving to the Termux copies).
+case ":${PATH}:" in
+	*:/system/bin:*) ;;
+	*)
+		PATH="${PATH:+$PATH:}/sbin:/system/sbin:/product/bin:/apex/com.android.runtime/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin"
+		export PATH
+		;;
+esac
+
+if [ ! -x "$HLK" ]; then
+	echo "hlk-termux-su: $HLK is missing or not executable" >&2
+	exit 1
+fi
+
+cmd=
+while [ $# -gt 0 ]; do
+	case "$1" in
+	-c|--command)
+		shift
+		cmd="$*"
+		break
+		;;
+	-s|--shell|-u|--user|--context|-cn)
+		# option that takes a value: drop the value too
+		shift
+		;;
+	-h|--help)
+		echo "HLK su (hlk_ksu_shim9)"
+		exit 0
+		;;
+	-v|-V|--version)
+		echo "HLK su 40994-5"
+		exit 0
+		;;
+	--)
+		shift
+		cmd="$*"
+		break
+		;;
+	-*)
+		# --mount-master, -mm, -M, --login, -l, -p,
+		# --preserve-environment, unknown flags: no-ops for us
+		;;
+	su)
+		# tolerate "sudo su -c ...": tsu may leave a literal su in argv
+		;;
+	*)
+		cmd="$*"
+		break
+		;;
+	esac
+	shift
+done
+
+if [ -n "$cmd" ]; then
+	exec "$HLK" -c "$cmd"
+fi
+exec "$HLK"

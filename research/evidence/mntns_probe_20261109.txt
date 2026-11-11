@@ -1,0 +1,42 @@
+# 2026-11-09 mount namespace 隔离性实测输出
+
+设备 MGFVB19B13014705 / HLK-AL00，root 会话 CapEff=1fffffffff Seccomp=0，双 permanent 模块在。
+探针：research/evidence/mntns_probe.c（隔离 + shared 传播对照）、mntns_multi.c（并行双实例）
+执行：adb shell '/data/local/tmp/hlk_su -c /data/local/tmp/mntns_probe'
+
+=== probe A/B ===
+PARENT mnt ns: mnt:[4026532835]
+initial: A=0 B=0
+
+=== case A (MS_PRIVATE|MS_REC = 1) ===
+  child unshare(CLONE_NEWNS)      rc=0 
+  child mnt ns id                 mnt:[4026533185]
+  child MS_PRIVATE|MS_REC         rc=0 
+  child mount tmpfs               rc=0 
+  child sees own mount            1
+  PARENT sees mount while child   0
+  PARENT sees mount after exit    0
+
+=== case B (MS_PRIVATE|MS_REC = 0) ===
+  child unshare(CLONE_NEWNS)      rc=0 
+  child mnt ns id                 mnt:[4026533185]
+  child MS_PRIVATE|MS_REC         rc=0 (skipped)
+  child mount tmpfs               rc=0 
+  child sees own mount            1
+  PARENT sees mount while child   1
+  PARENT sees mount after exit    1
+
+=== cleanup ===
+umount A rc=0  B rc=0 (residue reported: A=0 B=1)
+FINAL parent sees: A=0 B=0
+
+=== probe 并行双实例 ===
+PARENT ns: mnt:[4026532835]
+both children ready, PARENT sees: a=0 b=0
+child A (id=1, mounted a): unshare rc=0 ns=mnt:[4026533185]  sees a=1 b=0
+child B (id=2, mounted b): unshare rc=0 ns=mnt:[4026533196]  sees a=0 b=1
+after exit PARENT sees: a=0 b=0
+cleaned, FINAL: a=0 b=0
+
+=== 设备残留检查 ===
+mounts: clean

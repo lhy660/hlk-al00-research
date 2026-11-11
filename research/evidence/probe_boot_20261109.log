@@ -1,0 +1,2667 @@
+[    0.00] === jit_write phase C === pid=6833
+[    0.01] gate_config: mode=signal hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.01] gate_sample: up=325s avail=3665 MiB cached=2190 MiB win=1/6 spread_av=0 spread_ca=0
+[   30.01] gate_sample: up=355s avail=3675 MiB cached=2190 MiB win=2/6 spread_av=10 spread_ca=0
+[   60.01] gate_sample: up=385s avail=3659 MiB cached=2202 MiB win=3/6 spread_av=16 spread_ca=12
+[   90.01] gate: HARD LIMIT up=415s >= 400s -> proceed
+[   90.02] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.02] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.04] drain region pre-allocated (0x41000)
+[   90.04] landing page at 0x7feffe000
+[   90.04] JIT_ALLOC event code=0x1 atom=1
+[   90.04] jit_va = 0x7ff000000
+[   90.04] query before: ret=0 value=25
+[   90.04] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.06] chunk 0: pressure=32 MiB commit=25
+[   90.17] chunk 7: pressure=256 MiB commit=25
+[   90.31] chunk 15: pressure=512 MiB commit=25
+[   90.45] chunk 23: pressure=768 MiB commit=25
+[   90.59] chunk 31: pressure=1024 MiB commit=25
+[   90.74] chunk 39: pressure=1280 MiB commit=25
+[   90.96] evicted at chunk 46 (pressure 992 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.01] committed 1024 regions x 25 pages
+[   91.03] created 1024 nents=1 aliases
+[   91.04] alias coherency check done, mismatches=0
+[   91.22] released 31 pressure chunks
+[   91.25] drain pool filled and released
+[   91.25] JIT_FREE submit ret=0 errno=0 (Success)
+[   91.25] drained stale event atom=2 code=0x1
+[   91.25] spray[2] commit: ret=0 value=0
+[   91.25] find_freed_idx -> 2
+[   91.25] pre-reuse alias[2]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   91.25] mapped 32 reserved regions on fd2
+[   91.26] post-reuse alias[2]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   91.26] find_pgd -> idx=23 entry=0x400000a7f6e443
+[   91.26] PHASE_B OK freed_idx=2 pgd_idx=23 pgd_gpu_va=0x7f8bca000 entry=0x400000a7f6e443
+[   91.26] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   91.26] phaseC: k=509 orig=0x400000a7f6e443 t=510 target_pa=0xa7f6d000
+[   91.26] phaseC: PTE write ret=0 readback=0xa7f6d443
+[   91.26] phaseC: 2 candidate 2M blocks
+[   91.26] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   91.26] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   91.26] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   91.26] phaseC: PTE restore ret=0 readback=0x400000a7f6e443
+[   91.26] PHASE_C OK freed_idx=2 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   91.26] phaseD: target_pa=0xa7f6d000 cpu_val=0x447564445f524541
+[   91.26] phaseD: cfg transtab=0x7beda000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   91.26] phaseD: rec0 level=0 pa=0x7beda000 valid=1 first=0x839a9403
+[   91.26] phaseD: rec1 level=1 pa=0x839a9000 valid=1 first=0x2
+[   91.26] phaseD: rec2 level=2 pa=0x839a8000 valid=3 first=0x2
+[   91.26] phaseD: rec3 level=3 pa=0x20203a000 valid=3 first=0x2
+[   91.26] phaseD: rec4 level=3 pa=0x202039000 valid=512 first=0x400000832b3443
+[   91.26] phaseD: rec5 level=3 pa=0x852cf000 valid=510 first=0x4000009b3c1443
+[   91.26] phaseD: dump end marker after 6 records
+[   91.27] phaseD: l2_pa=0x839a8000 slot=0 orig=0x2
+[   91.29] phaseD: L2 page not in alias, fall back to GPU writes
+[   91.29] phaseD: pt leaf[509]=0x400000a7f6e443
+[   91.29] phaseD: pt leaf[510]=0x400000a7f6d443
+[   91.29] phaseD: pt leaf[511]=0x400000a7f6c443
+[   91.30] phaseD: rec0 lv=0 pa=0x7beda000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   91.30] phaseD: rec1 lv=1 pa=0x839a9000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   91.30] phaseD: rec2 lv=2 pa=0x839a8000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.30] phaseD: rec3 lv=3 pa=0x20203a000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.30] phaseD: rec4 lv=3 pa=0x202039000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.30] phaseD: rec5 lv=3 pa=0x852cf000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.30] phaseD: hijack visible in rec3 pa=0x20203a000 entry=0xa7f6d443
+[   91.30] phaseD: visibility test ret=0
+[   91.30] phaseD: L2 insert ret=0
+[   91.33] phaseD: target record 3 dump_val=0x447564445f524541
+[   91.33] phaseD: restore ret=0 l2=0x0 pte=0x400000a7f6e443
+[   91.33] PHASE_D OK target_pa=0xa7f6d000 value=0x447564445f524541 l2_pa=0x839a8000 slot=0
+[   91.38] phaseE: scan 0x80000..0xfe80000 n=128
+[   91.38] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   91.38] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   91.38] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.38] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.38] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.38] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.38] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.38] phaseE: pa=0xe080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.38] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   91.38] phaseE: koffs.txt present, skip image dump
+[   91.38] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   91.38] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   91.38] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x839a8000 base=0x7c0000000
+[   91.41] phaseF: ni244=ffffff8144a65c74 ni262=ffffff8144a65c74
+[   91.42] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   91.42] phaseF: forced slot=148 orig=ffffff8144a49670 (not an ni entry)
+[   91.42] phaseF: hook slot=148, 1 callable ni slots: 
+[   91.42] phaseF: text=0xffffff8143080000 flush=148/0xffffff8144a5ebc0
+[   91.45] phaseI: init_task pa=0x2c25100 next=0xffffffc86974a6f0 prev=0xffffffc8aaf226f0 comm=[swapper/0]
+[   91.48] phaseI: memstart_addr=0xfffffff7c0000000 lm_base=0xffffffc840000000
+[   91.51] phaseI: lm_base=0xffffffc840000000 memstart=0x0
+[   91.54] walk: hop0 pa=0x6af22080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.58] walk: hop1 pa=0xa7358000 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.61] walk: hop2 pa=0x76e430c0 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   91.61] walk: match 'jit_write_probe' at hop 2 cred=0xffffffc89ecd2480
+[   91.61] walk: 'jit_write_probe' prev done hops=3 found=1 0.10s
+[   91.64] phaseI: donor cred va=0xffffffc89ecd2480 pa=0x5ecd2480 uid=10158 gid=10158 euid=10158 sess=0xffffffca4804eb00 (self)
+[   91.67] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   91.71] phaseI: reserved page round-trip ok
+[   91.71] phaseI: fake cred pa=0xa7f6d000 va=0xffffffc8e7f6d000 usage=4096 caps=7fffffffff
+[   91.71] phaseI: go-file present, committing (relay pid=6979)
+[   91.74] phaseF: poker slot 148 wr=0 got=ffffff8144a5ebc0 want=ffffff8144a5ebc0 LANDED
+[   91.74] phaseF: poker chose slot 148 (orig=ffffff8144a49670)
+[   91.74] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff814373866c
+[   91.77] phaseJ: slot501 preflight wr=0 map_ok=1
+[   91.84] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff8143738000
+[   91.84] phaseK: modsig_restore off=0x1f41e8 va=0xffffff81432741e8
+[   91.87] phaseK: patch landed (sig orig restore)
+[   91.87] phaseK: sig orig restore applied
+[   91.87] phaseK: modsig_patch off=0x1f41e4 va=0xffffff81432741e4
+[   91.91] phaseK: patch landed (sig skip -> ok)
+[   91.91] phaseK: sig skip -> ok applied
+[   91.91] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8143274204
+[   91.94] phaseK: patch landed (saudit nop)
+[   91.94] phaseK: saudit nop applied
+[   91.94] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff814330b9e4
+[   91.97] phaseK: patch not visible (cfi slowpath ret)
+[   91.97] phaseK: seccomp_bypass off=0x233228 va=0xffffff81432b3228
+[   92.01] phaseK: patch landed (seccomp bypass)
+[   92.05] phaseK: seccomp bypass applied
+[   92.08] phaseI: try0 wr=0 entry262=ffffff8144a30da8 want=ffffff8144a30da8 ok
+[   92.08] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.08] lmk: pid 6833 oom_score_adj=-1000 (5)
+[   92.09] lmk: pid 6979 oom_score_adj=-1000 (5)
+[   92.09] phaseI: append existing file = -1 (No such file or directory)
+[   92.09] phaseI: create new file = 7 errno=0 (ok)
+[   92.09] phaseI: domain [u:r:kernel:s0]
+[   92.09] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.09] stage: 3/3 channel files in /data/local/tmp
+[   92.09] root channel: rootd=6982 (rootsrv/watchdog supervised by rootd)
+[   92.10] root channel: probe migrated to top-app cpuset
+[   94.10] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.10] keepalive: L2 descriptors live, holding context (pid=6833)
+[    0.00] === jit_write phase C === pid=6113
+[    0.00] gate_config: mode=signal hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate_sample: up=330s avail=3934 MiB cached=1968 MiB win=1/6 spread_av=0 spread_ca=0
+[   30.01] gate_sample: up=360s avail=3618 MiB cached=2054 MiB win=2/6 spread_av=316 spread_ca=86
+[   60.01] gate_sample: up=390s avail=3625 MiB cached=2055 MiB win=3/6 spread_av=316 spread_ca=87
+[   90.01] gate: HARD LIMIT up=420s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.02] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.05] JIT_ALLOC event code=0x1 atom=1
+[   90.05] jit_va = 0x7ff000000
+[   90.05] query before: ret=0 value=25
+[   90.05] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.07] chunk 0: pressure=32 MiB commit=25
+[   90.20] chunk 7: pressure=256 MiB commit=25
+[   90.33] chunk 15: pressure=512 MiB commit=25
+[   90.48] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.93] chunk 47: pressure=1536 MiB commit=25
+[   91.07] sched_setaffinity(cpu0) failed: Invalid argument
+[   91.12] evicted at chunk 51 (pressure 1152 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.17] committed 1024 regions x 25 pages
+[   91.19] created 1024 nents=1 aliases
+[   91.21] alias coherency check done, mismatches=0
+[   91.38] released 36 pressure chunks
+[   91.40] drain pool filled and released
+[    0.00] === jit_write phase C === pid=6702
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.01] gate: time mode up=330s / 400s waiting
+[   90.01] gate: HARD LIMIT up=420s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.06] landing page at 0x7feffe000
+[   90.06] JIT_ALLOC event code=0x1 atom=1
+[   90.06] jit_va = 0x7ff000000
+[   90.06] query before: ret=0 value=25
+[   90.06] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.17] chunk 7: pressure=256 MiB commit=25
+[   90.27] chunk 15: pressure=512 MiB commit=25
+[   90.38] chunk 23: pressure=768 MiB commit=25
+[   90.49] chunk 31: pressure=1024 MiB commit=25
+[   90.60] chunk 39: pressure=1280 MiB commit=25
+[   90.71] chunk 47: pressure=1536 MiB commit=25
+[   90.88] chunk 55: pressure=1792 MiB commit=25
+[   91.02] chunk 63: pressure=2048 MiB commit=25
+[   91.17] chunk 71: pressure=2304 MiB commit=25
+[   91.39] chunk 79: pressure=2560 MiB commit=25
+[   91.60] chunk 87: pressure=2816 MiB commit=25
+[   91.73] evicted at chunk 90 (pressure 2400 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.78] committed 1024 regions x 25 pages
+[   91.81] created 1024 nents=1 aliases
+[   91.82] alias coherency check done, mismatches=0
+[   92.26] released 75 pressure chunks
+[   92.28] drain pool filled and released
+[    0.00] === jit_write phase C === pid=6576
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=331s / 400s waiting
+[   90.00] gate: HARD LIMIT up=421s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.06] JIT_ALLOC event code=0x1 atom=1
+[   90.06] jit_va = 0x7ff000000
+[   90.06] query before: ret=0 value=25
+[   90.06] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.21] chunk 7: pressure=256 MiB commit=25
+[   90.35] chunk 15: pressure=512 MiB commit=25
+[   90.49] chunk 23: pressure=768 MiB commit=25
+[   90.64] chunk 31: pressure=1024 MiB commit=25
+[   90.78] chunk 39: pressure=1280 MiB commit=25
+[   90.93] chunk 47: pressure=1536 MiB commit=25
+[   91.07] chunk 55: pressure=1792 MiB commit=25
+[   91.26] chunk 63: pressure=2048 MiB commit=25
+[   91.41] evicted at chunk 64 (pressure 1568 MiB, commit 0, released 16 chunks); sprayed 1024 native regions
+[   91.46] committed 1024 regions x 25 pages
+[   91.48] created 1024 nents=1 aliases
+[   91.50] alias coherency check done, mismatches=0
+[   91.77] released 49 pressure chunks
+[   91.79] drain pool filled and released
+[   91.79] JIT_FREE submit ret=0 errno=0 (Success)
+[   91.79] drained stale event atom=2 code=0x1
+[   91.79] spray[9] commit: ret=0 value=0
+[   91.80] find_freed_idx -> 9
+[   91.80] pre-reuse alias[9]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   91.80] mapped 32 reserved regions on fd2
+[   91.80] post-reuse alias[9]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   91.80] find_pgd -> idx=23 entry=0x40000206cb7443
+[   91.80] PHASE_B OK freed_idx=9 pgd_idx=23 pgd_gpu_va=0x7f8b1b000 entry=0x40000206cb7443
+[   91.80] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   91.80] phaseC: k=509 orig=0x40000206cb7443 t=510 target_pa=0x2067ad000
+[   91.80] phaseC: PTE write ret=0 readback=0x2067ad443
+[   91.81] phaseC: 2 candidate 2M blocks
+[   91.81] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   91.81] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   91.81] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   91.81] phaseC: PTE restore ret=0 readback=0x40000206cb7443
+[   91.81] PHASE_C OK freed_idx=9 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   91.81] phaseD: target_pa=0x2067ad000 cpu_val=0x447564445f524541
+[   91.81] phaseD: cfg transtab=0x11b0b2000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   91.81] phaseD: rec0 level=0 pa=0x11b0b2000 valid=1 first=0x20374b403
+[   91.81] phaseD: rec1 level=1 pa=0x20374b000 valid=1 first=0x2
+[   91.81] phaseD: rec2 level=2 pa=0x2101e4000 valid=3 first=0x2
+[   91.81] phaseD: rec3 level=3 pa=0x20061a000 valid=3 first=0x2
+[   91.81] phaseD: rec4 level=3 pa=0x200618000 valid=512 first=0x40000206c7f443
+[   91.81] phaseD: rec5 level=3 pa=0x2066bc000 valid=510 first=0x400000cbf27443
+[   91.81] phaseD: dump end marker after 6 records
+[   91.81] phaseD: l2_pa=0x2101e4000 slot=0 orig=0x2
+[   91.84] phaseD: L2 page not in alias, fall back to GPU writes
+[   91.84] phaseD: pt leaf[509]=0x40000206cb7443
+[   91.84] phaseD: pt leaf[510]=0x400002067ad443
+[   91.84] phaseD: pt leaf[511]=0x40000206ce0443
+[   91.84] phaseD: rec0 lv=0 pa=0x11b0b2000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   91.84] phaseD: rec1 lv=1 pa=0x20374b000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   91.84] phaseD: rec2 lv=2 pa=0x2101e4000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.84] phaseD: rec3 lv=3 pa=0x20061a000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.84] phaseD: rec4 lv=3 pa=0x200618000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.84] phaseD: rec5 lv=3 pa=0x2066bc000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.85] phaseD: hijack visible in rec3 pa=0x20061a000 entry=0x2067ad443
+[   91.85] phaseD: visibility test ret=0
+[   91.85] phaseD: L2 insert ret=0
+[   91.88] phaseD: target record 3 dump_val=0x447564445f524541
+[   91.88] phaseD: restore ret=0 l2=0x0 pte=0x40000206cb7443
+[   91.88] PHASE_D OK target_pa=0x2067ad000 value=0x447564445f524541 l2_pa=0x2101e4000 slot=0
+[   91.93] phaseE: scan 0x80000..0xfe80000 n=128
+[   91.93] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   91.93] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   91.93] phaseE: pa=0x4080000 m0=0xfffffffb00497800 off=0x0 size=0x19 flags=0x0 
+[   91.93] phaseE: pa=0x6080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.93] phaseE: pa=0x8080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.93] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.93] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.93] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.93] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   91.93] phaseE: koffs.txt present, skip image dump
+[   91.93] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   91.93] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   91.93] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x2101e4000 base=0x7c0000000
+[   91.96] phaseF: ni244=ffffff8cb3265c74 ni262=ffffff8cb3265c74
+[   91.96] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   91.97] phaseF: forced slot=148 orig=ffffff8cb3249670 (not an ni entry)
+[   91.97] phaseF: hook slot=148, 1 callable ni slots: 
+[   91.97] phaseF: text=0xffffff8cb1880000 flush=148/0xffffff8cb325ebc0
+[   92.00] phaseI: init_task pa=0x2c25100 next=0xfffffff92974d7b0 prev=0xfffffff9ae7ac770 comm=[swapper/0]
+[   92.03] phaseI: memstart_addr=0xffffffc700000000 lm_base=0xfffffff900000000
+[   92.06] phaseI: lm_base=0xfffffff900000000 memstart=0x0
+[   92.09] walk: hop0 pa=0xae7ac100 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.13] walk: hop1 pa=0xae7ab0c0 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.16] walk: hop2 pa=0xae55b0c0 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.16] walk: match 'jit_write_probe' at hop 2 cred=0xfffffff97bccf300
+[   92.16] walk: 'jit_write_probe' prev done hops=3 found=1 0.10s
+[   92.19] phaseI: donor cred va=0xfffffff97bccf300 pa=0x7bccf300 uid=10158 gid=10158 euid=10158 sess=0xfffffffb01d64600 (self)
+[   92.22] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.26] phaseI: reserved page round-trip ok
+[   92.26] phaseI: fake cred pa=0x2067ad000 va=0xfffffffb067ad000 usage=4096 caps=7fffffffff
+[   92.26] phaseI: go-file present, committing (relay pid=6628)
+[   92.29] phaseF: poker slot 148 wr=0 got=ffffff8cb325ebc0 want=ffffff8cb325ebc0 LANDED
+[   92.29] phaseF: poker chose slot 148 (orig=ffffff8cb3249670)
+[   92.29] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff8cb1f3866c
+[   92.32] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.39] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff8cb1f38000
+[   92.39] phaseK: modsig_restore off=0x1f41e8 va=0xffffff8cb1a741e8
+[   92.42] phaseK: patch landed (sig orig restore)
+[   92.43] phaseK: sig orig restore applied
+[   92.43] phaseK: modsig_patch off=0x1f41e4 va=0xffffff8cb1a741e4
+[   92.46] phaseK: patch landed (sig skip -> ok)
+[   92.46] phaseK: sig skip -> ok applied
+[   92.46] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8cb1a74204
+[   92.50] phaseK: patch landed (saudit nop)
+[   92.50] phaseK: saudit nop applied
+[   92.50] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff8cb1b0b9e4
+[   92.53] phaseK: patch not visible (cfi slowpath ret)
+[   92.53] phaseK: seccomp_bypass off=0x233228 va=0xffffff8cb1ab3228
+[   92.56] phaseK: patch landed (seccomp bypass)
+[   92.57] phaseK: seccomp bypass applied
+[   92.60] phaseI: try0 wr=0 entry262=ffffff8cb3230da8 want=ffffff8cb3230da8 ok
+[   92.60] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.60] lmk: pid 6576 oom_score_adj=-1000 (5)
+[   92.60] lmk: pid 6628 oom_score_adj=-1000 (5)
+[   92.60] phaseI: append existing file = 7 (ok)
+[   92.60] phaseI: create new file = 7 errno=0 (ok)
+[   92.60] phaseI: domain [u:r:kernel:s0]
+[   92.60] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.61] stage: 3/3 channel files in /data/local/tmp
+[   92.61] root channel: rootd=6631 (rootsrv/watchdog supervised by rootd)
+[   92.61] root channel: probe migrated to top-app cpuset
+[   94.61] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.61] keepalive: L2 descriptors live, holding context (pid=6576)
+[    0.00] === jit_write phase C === pid=6195
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=330s / 400s waiting
+[   90.00] gate: HARD LIMIT up=420s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.02] drain region pre-allocated (0x41000)
+[   90.02] landing page at 0x7feffe000
+[   90.02] JIT_ALLOC event code=0x1 atom=1
+[   90.02] jit_va = 0x7ff000000
+[   90.02] query before: ret=0 value=25
+[   90.02] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.04] chunk 0: pressure=32 MiB commit=25
+[   90.16] chunk 7: pressure=256 MiB commit=25
+[   90.31] chunk 15: pressure=512 MiB commit=25
+[   90.45] chunk 23: pressure=768 MiB commit=25
+[   90.59] chunk 31: pressure=1024 MiB commit=25
+[   90.73] chunk 39: pressure=1280 MiB commit=25
+[   90.87] chunk 47: pressure=1536 MiB commit=25
+[   91.02] chunk 55: pressure=1792 MiB commit=25
+[   91.20] chunk 63: pressure=2048 MiB commit=25
+[   91.37] chunk 71: pressure=2304 MiB commit=25
+[   91.54] chunk 79: pressure=2560 MiB commit=25
+[   91.82] chunk 87: pressure=2816 MiB commit=25
+[   92.04] chunk 95: pressure=3072 MiB commit=25
+[   92.30] chunk 103: pressure=3328 MiB commit=25
+[   92.50] chunk 111: pressure=3584 MiB commit=25
+[   92.73] evicted at chunk 113 (pressure 3136 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   92.81] committed 1024 regions x 25 pages
+[   92.84] created 1024 nents=1 aliases
+[   92.85] alias coherency check done, mismatches=0
+[   93.43] released 98 pressure chunks
+[   93.45] drain pool filled and released
+[   93.45] JIT_FREE submit ret=0 errno=0 (Success)
+[   93.45] drained stale event atom=2 code=0x1
+[   93.45] spray[14] commit: ret=0 value=0
+[   93.45] find_freed_idx -> 14
+[   93.46] pre-reuse alias[14]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   93.46] mapped 32 reserved regions on fd2
+[   93.46] post-reuse alias[14]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   93.46] find_pgd -> idx=23 entry=0x40000143353443
+[   93.46] PHASE_B OK freed_idx=14 pgd_idx=23 pgd_gpu_va=0x7f8a9e000 entry=0x40000143353443
+[   93.46] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   93.46] phaseC: k=509 orig=0x40000143353443 t=510 target_pa=0x143352000
+[   93.46] phaseC: PTE write ret=0 readback=0x143352443
+[   93.46] phaseC: 2 candidate 2M blocks
+[   93.46] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   93.46] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   93.46] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   93.46] phaseC: PTE restore ret=0 readback=0x40000143353443
+[   93.46] PHASE_C OK freed_idx=14 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   93.46] phaseD: target_pa=0x143352000 cpu_val=0x447564445f524541
+[   93.47] phaseD: cfg transtab=0xdaab0000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   93.47] phaseD: rec0 level=0 pa=0xdaab0000 valid=1 first=0x14b06e403
+[   93.47] phaseD: rec1 level=1 pa=0x14b06e000 valid=1 first=0x2
+[   93.47] phaseD: rec2 level=2 pa=0x14b06d000 valid=3 first=0x2
+[   93.47] phaseD: rec3 level=3 pa=0x10533e000 valid=3 first=0x2
+[   93.47] phaseD: rec4 level=3 pa=0x10533f000 valid=512 first=0x40000143350443
+[   93.47] phaseD: rec5 level=3 pa=0x14b06c000 valid=510 first=0x40000105890443
+[   93.47] phaseD: dump end marker after 6 records
+[   93.47] phaseD: l2_pa=0x14b06d000 slot=0 orig=0x2
+[   93.49] phaseD: L2 page not in alias, fall back to GPU writes
+[   93.50] phaseD: pt leaf[509]=0x40000143353443
+[   93.50] phaseD: pt leaf[510]=0x40000143352443
+[   93.50] phaseD: pt leaf[511]=0x40000143351443
+[   93.50] phaseD: rec0 lv=0 pa=0xdaab0000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   93.50] phaseD: rec1 lv=1 pa=0x14b06e000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   93.50] phaseD: rec2 lv=2 pa=0x14b06d000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   93.50] phaseD: rec3 lv=3 pa=0x10533e000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   93.50] phaseD: rec4 lv=3 pa=0x10533f000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   93.50] phaseD: rec5 lv=3 pa=0x14b06c000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   93.50] phaseD: hijack visible in rec3 pa=0x10533e000 entry=0x143352443
+[   93.50] phaseD: visibility test ret=0
+[   93.50] phaseD: L2 insert ret=0
+[   93.53] phaseD: target record 3 dump_val=0x447564445f524541
+[   93.53] phaseD: restore ret=0 l2=0x0 pte=0x40000143353443
+[   93.54] PHASE_D OK target_pa=0x143352000 value=0x447564445f524541 l2_pa=0x14b06d000 slot=0
+[   93.58] phaseE: scan 0x80000..0xfe80000 n=128
+[   93.58] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   93.58] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   93.58] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   93.58] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   93.58] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   93.58] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   93.58] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   93.58] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   93.58] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   93.58] phaseE: koffs.txt present, skip image dump
+[   93.58] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   93.59] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   93.59] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x14b06d000 base=0x7c0000000
+[   93.62] phaseF: ni244=ffffff8594265c74 ni262=ffffff8594265c74
+[   93.62] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   93.62] phaseF: forced slot=148 orig=ffffff8594249670 (not an ni entry)
+[   93.62] phaseF: hook slot=148, 1 callable ni slots: 
+[   93.62] phaseF: text=0xffffff8592880000 flush=148/0xffffff859425ebc0
+[   93.65] phaseI: init_task pa=0x2c25100 next=0xfffffff9a97496b0 prev=0xfffffffa1a90a6f0 comm=[swapper/0]
+[   93.68] phaseI: memstart_addr=0xffffffc680000000 lm_base=0xfffffff980000000
+[   93.72] phaseI: lm_base=0xfffffff980000000 memstart=0x0
+[   93.75] walk: hop0 pa=0x9a90a080 comm=2f72656b726f776b0000000000303a36 [kworker/6:0]
+[   93.78] walk: hop1 pa=0xdfe60000 comm=2f72656b726f776b000000353a363175 [kworker/u16:5]
+[   93.82] walk: hop2 pa=0xc255c100 comm=2f72656b726f776b000000333a363175 [kworker/u16:3]
+[   93.85] walk: hop3 pa=0x101555140 comm=2f72656b726f776b0000000000303a37 [kworker/7:0]
+[   93.88] walk: hop4 pa=0x2139a30c0 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   93.91] walk: hop5 pa=0xaabec100 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   93.95] walk: hop6 pa=0xaa4f8000 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   93.95] walk: match 'jit_write_probe' at hop 6 cred=0xfffffffa2a442780
+[   93.95] walk: 'jit_write_probe' prev done hops=7 found=1 0.23s
+[   93.98] phaseI: donor cred va=0xfffffffa2a442780 pa=0xaa442780 uid=10158 gid=10158 euid=10158 sess=0xfffffffb88950b00 (self)
+[   94.01] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   94.04] phaseI: reserved page round-trip ok
+[   94.05] phaseI: fake cred pa=0x143352000 va=0xfffffffac3352000 usage=4096 caps=7fffffffff
+[   94.05] phaseI: go-file present, committing (relay pid=6285)
+[   94.08] phaseF: poker slot 148 wr=0 got=ffffff859425ebc0 want=ffffff859425ebc0 LANDED
+[   94.08] phaseF: poker chose slot 148 (orig=ffffff8594249670)
+[   94.08] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff8592f3866c
+[   94.11] phaseJ: slot501 preflight wr=0 map_ok=1
+[   94.17] phaseJ: patched ok, flushed 2/2 cpus, icache 0xffffff8592f38000
+[   94.17] phaseK: modsig_restore off=0x1f41e8 va=0xffffff8592a741e8
+[   94.20] phaseK: patch landed (sig orig restore)
+[   94.20] phaseK: sig orig restore applied
+[   94.20] phaseK: modsig_patch off=0x1f41e4 va=0xffffff8592a741e4
+[   94.24] phaseK: patch landed (sig skip -> ok)
+[   94.24] phaseK: sig skip -> ok applied
+[   94.24] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8592a74204
+[   94.27] phaseK: patch landed (saudit nop)
+[   94.27] phaseK: saudit nop applied
+[   94.27] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff8592b0b9e4
+[   94.30] phaseK: patch not visible (cfi slowpath ret)
+[   94.30] phaseK: seccomp_bypass off=0x233228 va=0xffffff8592ab3228
+[   94.33] phaseK: patch not visible (seccomp bypass)
+[   94.37] phaseI: try0 wr=0 entry262=ffffff8594230da8 want=ffffff8594230da8 ok
+[   94.37] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   94.37] lmk: pid 6195 oom_score_adj=-1000 (5)
+[   94.37] lmk: pid 6285 oom_score_adj=-1000 (5)
+[   94.37] phaseI: append existing file = 7 (ok)
+[   94.37] phaseI: create new file = 7 errno=0 (ok)
+[   94.37] phaseI: domain [u:r:kernel:s0]
+[   94.37] phaseL: superseded by phaseK seccomp bypass, skipped
+[   94.37] stage: 3/3 channel files in /data/local/tmp
+[   94.38] root channel: rootd=6296 (rootsrv/watchdog supervised by rootd)
+[   94.38] root channel: probe migrated to top-app cpuset
+[   96.38] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   96.38] keepalive: L2 descriptors live, holding context (pid=6195)
+[    0.00] === jit_write phase C === pid=6054
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=330s / 400s waiting
+[   90.00] gate: HARD LIMIT up=420s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.02] drain region pre-allocated (0x41000)
+[   90.03] landing page at 0x7feffe000
+[   90.03] JIT_ALLOC event code=0x1 atom=1
+[   90.03] jit_va = 0x7ff000000
+[   90.03] query before: ret=0 value=25
+[   90.03] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.05] chunk 0: pressure=32 MiB commit=25
+[   90.17] chunk 7: pressure=256 MiB commit=25
+[   90.32] chunk 15: pressure=512 MiB commit=25
+[   90.46] chunk 23: pressure=768 MiB commit=25
+[   90.60] chunk 31: pressure=1024 MiB commit=25
+[   90.74] chunk 39: pressure=1280 MiB commit=25
+[   90.92] chunk 47: pressure=1536 MiB commit=25
+[   91.26] sched_setaffinity(cpu0) failed: Invalid argument
+[   91.31] evicted at chunk 53 (pressure 1216 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.36] committed 1024 regions x 25 pages
+[   91.38] created 1024 nents=1 aliases
+[   91.40] alias coherency check done, mismatches=0
+[   91.58] released 38 pressure chunks
+[   91.60] drain pool filled and released
+[  458.22] chain_config: fast=1 spray=1536
+[    0.00] === jit_write phase C === pid=7243
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: HARD LIMIT up=458s >= 400s -> proceed
+[    0.00] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[    0.00] JIT_INIT ok (va=0x1000 trim=100)
+[    0.01] fd2 reserved 32 regions of 32 pages
+[    0.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[    0.03] drain region pre-allocated (0x41000)
+[    0.03] landing page at 0x7feffe000
+[    0.03] JIT_ALLOC event code=0x1 atom=1
+[    0.03] jit_va = 0x7ff000000
+[    0.03] query before: ret=0 value=25
+[    0.03] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[    0.05] chunk 0: pressure=32 MiB commit=25
+[    0.17] chunk 7: pressure=256 MiB commit=25
+[    0.32] chunk 15: pressure=512 MiB commit=25
+[    0.46] chunk 23: pressure=768 MiB commit=25
+[    0.60] chunk 31: pressure=1024 MiB commit=25
+[    0.75] chunk 39: pressure=1280 MiB commit=25
+[    0.91] chunk 47: pressure=1536 MiB commit=25
+[    1.30] chunk 55: pressure=1792 MiB commit=25
+[    1.64] chunk 63: pressure=2048 MiB commit=25
+[    1.94] evicted at chunk 67 (pressure 1664 MiB, commit 0, released 16 chunks); sprayed 1536 native regions
+[    2.01] committed 1536 regions x 25 pages
+[    2.04] created 1536 nents=1 aliases
+[    2.06] alias coherency check done, mismatches=0
+[    2.36] released 52 pressure chunks
+[    2.38] drain pool filled and released
+[    2.38] JIT_FREE submit ret=0 errno=0 (Success)
+[    2.38] drained stale event atom=2 code=0x1
+[    2.39] find_freed_idx -> -1
+[    2.39] PHASE_B FAIL: no sprayed region was freed (UAF pointer not reused)
+[  332.43] chain_config: fast=1 spray=1536
+[    0.00] === jit_write phase C === pid=6466
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=332s / 400s waiting
+[   90.00] gate: HARD LIMIT up=422s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.03] drain region pre-allocated (0x41000)
+[   90.03] landing page at 0x7feffe000
+[   90.04] JIT_ALLOC event code=0x1 atom=1
+[   90.04] jit_va = 0x7ff000000
+[   90.04] query before: ret=0 value=25
+[   90.04] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.06] chunk 0: pressure=32 MiB commit=25
+[   90.18] chunk 7: pressure=256 MiB commit=25
+[   90.33] chunk 15: pressure=512 MiB commit=25
+[   90.47] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.90] chunk 47: pressure=1536 MiB commit=25
+[   91.18] chunk 55: pressure=1792 MiB commit=25
+[   91.68] evicted at chunk 63 (pressure 1536 MiB, query errno 22, released 16 chunks); sprayed 1536 native regions
+[   91.75] committed 1536 regions x 25 pages
+[   91.79] created 1536 nents=1 aliases
+[   91.81] alias coherency check done, mismatches=0
+[   92.04] released 48 pressure chunks
+[   92.06] drain pool filled and released
+[   92.06] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.06] drained stale event atom=2 code=0x1
+[   92.06] spray[2] commit: ret=0 value=0
+[   92.07] find_freed_idx -> 2
+[   92.07] pre-reuse alias[2]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.07] mapped 32 reserved regions on fd2
+[   92.07] post-reuse alias[2]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.07] find_pgd -> idx=23 entry=0x4000006d96a443
+[   92.07] PHASE_B OK freed_idx=2 pgd_idx=23 pgd_gpu_va=0x7f59ca000 entry=0x4000006d96a443
+[   92.07] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.07] phaseC: k=509 orig=0x4000006d96a443 t=510 target_pa=0x6d969000
+[   92.07] phaseC: PTE write ret=0 readback=0x6d969443
+[   92.07] phaseC: 2 candidate 2M blocks
+[   92.07] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.07] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.07] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.08] phaseC: PTE restore ret=0 readback=0x4000006d96a443
+[   92.08] PHASE_C OK freed_idx=2 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.08] phaseD: target_pa=0x6d969000 cpu_val=0x447564445f524541
+[   92.08] phaseD: cfg transtab=0x9eb9d000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.08] phaseD: rec0 level=0 pa=0x9eb9d000 valid=1 first=0x6d945403
+[   92.08] phaseD: rec1 level=1 pa=0x6d945000 valid=1 first=0x2
+[   92.08] phaseD: rec2 level=2 pa=0x6d944000 valid=3 first=0x2
+[   92.08] phaseD: rec3 level=3 pa=0xae136000 valid=3 first=0x2
+[   92.08] phaseD: rec4 level=3 pa=0xcaf7b000 valid=512 first=0x4000006d967443
+[   92.08] phaseD: rec5 level=3 pa=0x6d943000 valid=510 first=0x40000102ae7443
+[   92.08] phaseD: dump end marker after 6 records
+[   92.08] phaseD: l2_pa=0x6d944000 slot=0 orig=0x2
+[   92.11] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.11] phaseD: pt leaf[509]=0x4000006d96a443
+[   92.11] phaseD: pt leaf[510]=0x4000006d969443
+[   92.11] phaseD: pt leaf[511]=0x4000006d968443
+[   92.11] phaseD: rec0 lv=0 pa=0x9eb9d000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.11] phaseD: rec1 lv=1 pa=0x6d945000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.11] phaseD: rec2 lv=2 pa=0x6d944000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.11] phaseD: rec3 lv=3 pa=0xae136000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.11] phaseD: rec4 lv=3 pa=0xcaf7b000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.11] phaseD: rec5 lv=3 pa=0x6d943000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.11] phaseD: hijack visible in rec3 pa=0xae136000 entry=0x6d969443
+[   92.12] phaseD: visibility test ret=0
+[   92.12] phaseD: L2 insert ret=0
+[   92.14] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.15] phaseD: restore ret=0 l2=0x0 pte=0x4000006d96a443
+[   92.15] PHASE_D OK target_pa=0x6d969000 value=0x447564445f524541 l2_pa=0x6d944000 slot=0
+[   92.19] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.19] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.19] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.19] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.19] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.19] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.19] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.19] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.19] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.19] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.19] phaseE: koffs.txt present, skip image dump
+[   92.20] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.20] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.20] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x6d944000 base=0x7c0000000
+[   92.23] phaseF: ni244=ffffff8fd7e65c74 ni262=ffffff8fd7e65c74
+[   92.23] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.23] phaseF: forced slot=148 orig=ffffff8fd7e49670 (not an ni entry)
+[   92.23] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.23] phaseF: text=0xffffff8fd6480000 flush=148/0xffffff8fd7e5ebc0
+[   92.26] phaseI: init_task pa=0x2c25100 next=0xffffffc82974c770 prev=0xffffffc9076926f0 comm=[swapper/0]
+[   92.30] phaseI: memstart_addr=0xfffffff800000000 lm_base=0xffffffc800000000
+[   92.33] phaseI: lm_base=0xffffffc800000000 memstart=0x0
+[   92.36] walk: hop0 pa=0x107692080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.40] walk: hop1 pa=0xbdad6180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.43] walk: hop2 pa=0x1132ee180 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.43] walk: match 'jit_write_probe' at hop 2 cred=0xffffffc910e16480
+[   92.43] walk: 'jit_write_probe' prev done hops=3 found=1 0.10s
+[   92.47] phaseI: donor cred va=0xffffffc910e16480 pa=0x110e16480 uid=10158 gid=10158 euid=10158 sess=0xffffffca09ac5500 (self)
+[   92.50] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.53] phaseI: reserved page round-trip ok
+[   92.54] phaseI: fake cred pa=0x6d969000 va=0xffffffc86d969000 usage=4096 caps=7fffffffff
+[   92.54] phaseI: go-file present, committing (relay pid=6518)
+[   92.57] phaseF: poker slot 148 wr=0 got=ffffff8fd7e5ebc0 want=ffffff8fd7e5ebc0 LANDED
+[   92.57] phaseF: poker chose slot 148 (orig=ffffff8fd7e49670)
+[   92.57] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff8fd6b3866c
+[   92.60] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.67] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff8fd6b38000
+[   92.67] phaseK: modsig_restore off=0x1f41e8 va=0xffffff8fd66741e8
+[   92.70] phaseK: patch landed (sig orig restore)
+[   92.71] phaseK: sig orig restore applied
+[   92.71] phaseK: modsig_patch off=0x1f41e4 va=0xffffff8fd66741e4
+[   92.74] phaseK: patch landed (sig skip -> ok)
+[   92.75] phaseK: sig skip -> ok applied
+[   92.75] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8fd6674204
+[   92.78] phaseK: patch landed (saudit nop)
+[   92.78] phaseK: saudit nop applied
+[   92.78] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff8fd670b9e4
+[   92.81] phaseK: patch not visible (cfi slowpath ret)
+[   92.81] phaseK: seccomp_bypass off=0x233228 va=0xffffff8fd66b3228
+[   92.84] phaseK: patch landed (seccomp bypass)
+[   92.85] phaseK: seccomp bypass applied
+[   92.88] phaseI: try0 wr=0 entry262=ffffff8fd7e30da8 want=ffffff8fd7e30da8 ok
+[   92.88] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.88] lmk: pid 6466 oom_score_adj=-1000 (5)
+[   92.88] lmk: pid 6518 oom_score_adj=-1000 (5)
+[   92.88] phaseI: append existing file = 7 (ok)
+[   92.89] phaseI: create new file = 7 errno=0 (ok)
+[   92.89] phaseI: domain [u:r:kernel:s0]
+[   92.89] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.89] stage: 3/3 channel files in /data/local/tmp
+[   92.89] root channel: rootd=6521 (rootsrv/watchdog supervised by rootd)
+[   92.89] root channel: probe migrated to top-app cpuset
+[   94.89] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.89] keepalive: L2 descriptors live, holding context (pid=6466)
+[   29.14] chain_config: fast=1 spray=1536
+[    0.00] === jit_write phase C === pid=5421
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.02] gate: time mode up=29s / 400s waiting
+[  180.05] gate: time mode up=209s / 400s waiting
+[  360.05] gate: time mode up=389s / 400s waiting
+[  390.06] gate: HARD LIMIT up=419s >= 400s -> proceed
+[  390.06] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[  390.07] JIT_INIT ok (va=0x1000 trim=100)
+[  390.07] fd2 reserved 32 regions of 32 pages
+[  390.07] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[  390.10] drain region pre-allocated (0x41000)
+[  390.11] landing page at 0x7feffe000
+[  390.11] JIT_ALLOC event code=0x1 atom=1
+[  390.11] jit_va = 0x7ff000000
+[  390.11] query before: ret=0 value=25
+[  390.11] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[  390.13] chunk 0: pressure=32 MiB commit=25
+[  390.25] chunk 7: pressure=256 MiB commit=25
+[  390.40] chunk 15: pressure=512 MiB commit=25
+[  390.54] chunk 23: pressure=768 MiB commit=25
+[  390.68] chunk 31: pressure=1024 MiB commit=25
+[  390.82] chunk 39: pressure=1280 MiB commit=25
+[  390.96] chunk 47: pressure=1536 MiB commit=25
+[  391.10] chunk 55: pressure=1792 MiB commit=25
+[  391.26] chunk 63: pressure=2048 MiB commit=25
+[  391.65] chunk 71: pressure=2304 MiB commit=25
+[  392.02] chunk 79: pressure=2560 MiB commit=25
+[  392.36] chunk 87: pressure=2816 MiB commit=25
+[  393.02] evicted at chunk 94 (pressure 2528 MiB, query errno 22, released 16 chunks); sprayed 1536 native regions
+[  393.09] committed 1536 regions x 25 pages
+[  393.13] created 1536 nents=1 aliases
+[  393.15] alias coherency check done, mismatches=0
+[  393.58] released 79 pressure chunks
+[  393.60] drain pool filled and released
+[  393.60] JIT_FREE submit ret=0 errno=0 (Success)
+[  393.60] drained stale event atom=2 code=0x1
+[  393.60] spray[5] commit: ret=0 value=0
+[  393.61] find_freed_idx -> 5
+[  393.61] pre-reuse alias[5]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[  393.61] mapped 32 reserved regions on fd2
+[  393.61] post-reuse alias[5]: nonzero_qwords=510 q0=0x0 q512=0x0
+[  393.61] find_pgd -> idx=23 entry=0x40000089f99443
+[  393.61] PHASE_B OK freed_idx=5 pgd_idx=23 pgd_gpu_va=0x7f597f000 entry=0x40000089f99443
+[  393.61] phaseC: table nonzero=512 leaves=3 k256=0x2
+[  393.61] phaseC: k=509 orig=0x40000089f99443 t=510 target_pa=0x89f93000
+[  393.61] phaseC: PTE write ret=0 readback=0x89f93443
+[  393.61] phaseC: 2 candidate 2M blocks
+[  393.62] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[  393.62] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[  393.62] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[  393.62] phaseC: PTE restore ret=0 readback=0x40000089f99443
+[  393.62] PHASE_C OK freed_idx=5 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[  393.62] phaseD: target_pa=0x89f93000 cpu_val=0x447564445f524541
+[  393.62] phaseD: cfg transtab=0x20cdaf000 memattr=0x4c8d888d8f88 transcfg=0x6
+[  393.62] phaseD: rec0 level=0 pa=0x20cdaf000 valid=1 first=0x207d40403
+[  393.62] phaseD: rec1 level=1 pa=0x207d40000 valid=1 first=0x2
+[  393.62] phaseD: rec2 level=2 pa=0x2035d1000 valid=3 first=0x2
+[  393.62] phaseD: rec3 level=3 pa=0x101aa7000 valid=3 first=0x2
+[  393.62] phaseD: rec4 level=3 pa=0x10047d000 valid=512 first=0x40000089f41443
+[  393.62] phaseD: rec5 level=3 pa=0x2104ea000 valid=510 first=0x40000208163443
+[  393.62] phaseD: dump end marker after 6 records
+[  393.62] phaseD: l2_pa=0x2035d1000 slot=0 orig=0x2
+[  393.65] phaseD: L2 page not in alias, fall back to GPU writes
+[  393.65] phaseD: pt leaf[509]=0x40000089f99443
+[  393.65] phaseD: pt leaf[510]=0x40000089f93443
+[  393.65] phaseD: pt leaf[511]=0x40000089f91443
+[  393.65] phaseD: rec0 lv=0 pa=0x20cdaf000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[  393.65] phaseD: rec1 lv=1 pa=0x207d40000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[  393.65] phaseD: rec2 lv=2 pa=0x2035d1000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[  393.65] phaseD: rec3 lv=3 pa=0x101aa7000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[  393.65] phaseD: rec4 lv=3 pa=0x10047d000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[  393.65] phaseD: rec5 lv=3 pa=0x2104ea000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[  393.65] phaseD: hijack visible in rec3 pa=0x101aa7000 entry=0x89f93443
+[  393.66] phaseD: visibility test ret=0
+[  393.66] phaseD: L2 insert ret=0
+[  393.68] phaseD: target record 3 dump_val=0x447564445f524541
+[  393.69] phaseD: restore ret=0 l2=0x0 pte=0x40000089f99443
+[  393.69] PHASE_D OK target_pa=0x89f93000 value=0x447564445f524541 l2_pa=0x2035d1000 slot=0
+[  393.73] phaseE: scan 0x80000..0xfe80000 n=128
+[  393.73] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[  393.73] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[  393.73] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[  393.73] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[  393.73] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[  393.73] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[  393.74] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[  393.74] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[  393.74] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[  393.74] phaseE: koffs.txt present, skip image dump
+[  393.74] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[  393.74] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[  393.74] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x2035d1000 base=0x7c0000000
+[  393.78] phaseF: ni244=ffffff8424e65c74 ni262=ffffff8424e65c74
+[  393.78] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[  393.78] phaseF: forced slot=148 orig=ffffff8424e49670 (not an ni entry)
+[  393.78] phaseF: hook slot=148, 1 callable ni slots: 
+[  393.78] phaseF: text=0xffffff8423480000 flush=148/0xffffff8424e5ebc0
+[  393.81] phaseI: init_task pa=0x2c25100 next=0xffffffc769748670 prev=0xffffffc819f6b730 comm=[swapper/0]
+[  393.84] phaseI: memstart_addr=0xfffffff8c0000000 lm_base=0xffffffc740000000
+[  393.87] phaseI: lm_base=0xffffffc740000000 memstart=0x0
+[  393.90] walk: hop0 pa=0xd9f6b0c0 comm=76655f657361626b0000000000746e65 [kbase_event]
+[  393.94] walk: hop1 pa=0xad050000 comm=76655f657361626b0000000000746e65 [kbase_event]
+[  393.97] walk: hop2 pa=0xd9d1a080 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[  393.97] walk: match 'jit_write_probe' at hop 2 cred=0xffffffc7d688d3c0
+[  393.97] walk: 'jit_write_probe' prev done hops=3 found=1 0.09s
+[  394.00] phaseI: donor cred va=0xffffffc7d688d3c0 pa=0x9688d3c0 uid=10158 gid=10158 euid=10158 sess=0xffffffc94822ef00 (self)
+[  394.03] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[  394.06] phaseI: reserved page round-trip ok
+[  394.07] phaseI: fake cred pa=0x89f93000 va=0xffffffc7c9f93000 usage=4096 caps=7fffffffff
+[  394.07] phaseI: go-file present, committing (relay pid=6094)
+[  394.10] phaseF: poker slot 148 wr=0 got=ffffff8424e5ebc0 want=ffffff8424e5ebc0 LANDED
+[  394.10] phaseF: poker chose slot 148 (orig=ffffff8424e49670)
+[  394.10] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff8423b3866c
+[  394.13] phaseJ: slot501 preflight wr=0 map_ok=1
+[  394.19] phaseJ: patched ok, flushed 2/2 cpus, icache 0xffffff8423b38000
+[  394.19] phaseK: modsig_restore off=0x1f41e8 va=0xffffff84236741e8
+[  394.22] phaseK: patch landed (sig orig restore)
+[  394.22] phaseK: sig orig restore applied
+[  394.22] phaseK: modsig_patch off=0x1f41e4 va=0xffffff84236741e4
+[  394.25] phaseK: patch landed (sig skip -> ok)
+[  394.25] phaseK: sig skip -> ok applied
+[  394.25] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8423674204
+[  394.28] phaseK: patch landed (saudit nop)
+[  394.28] phaseK: saudit nop applied
+[  394.28] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff842370b9e4
+[  394.31] phaseK: patch not visible (cfi slowpath ret)
+[  394.32] phaseK: seccomp_bypass off=0x233228 va=0xffffff84236b3228
+[  394.34] phaseK: patch not visible (seccomp bypass)
+[  394.37] phaseI: try0 wr=0 entry262=ffffff8424e30da8 want=ffffff8424e30da8 ok
+[  394.38] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[  394.38] lmk: pid 5421 oom_score_adj=-1000 (5)
+[  394.38] lmk: pid 6094 oom_score_adj=-1000 (5)
+[  394.38] phaseI: append existing file = 7 (ok)
+[  394.38] phaseI: create new file = 7 errno=0 (ok)
+[  394.38] phaseI: domain [u:r:kernel:s0]
+[  394.38] phaseL: superseded by phaseK seccomp bypass, skipped
+[  394.38] stage: 3/3 channel files in /data/local/tmp
+[  394.39] root channel: rootd=6097 (rootsrv/watchdog supervised by rootd)
+[  394.39] root channel: probe migrated to top-app cpuset
+[  396.39] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[  396.39] keepalive: L2 descriptors live, holding context (pid=5421)
+[   32.49] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5417
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=32s / 400s waiting
+[  180.01] gate: time mode up=213s / 400s waiting
+[  360.02] gate: time mode up=393s / 400s waiting
+[  390.02] gate: HARD LIMIT up=423s >= 400s -> proceed
+[  390.03] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[  390.03] JIT_INIT ok (va=0x1000 trim=100)
+[  390.04] fd2 reserved 32 regions of 32 pages
+[  390.04] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[  390.08] drain region pre-allocated (0x41000)
+[  390.08] landing page at 0x7feffe000
+[  390.08] JIT_ALLOC event code=0x1 atom=1
+[  390.08] jit_va = 0x7ff000000
+[  390.08] query before: ret=0 value=25
+[  390.08] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[  390.10] chunk 0: pressure=32 MiB commit=25
+[  390.22] chunk 7: pressure=256 MiB commit=25
+[  390.36] chunk 15: pressure=512 MiB commit=25
+[  390.50] chunk 23: pressure=768 MiB commit=25
+[  390.64] chunk 31: pressure=1024 MiB commit=25
+[  390.79] chunk 39: pressure=1280 MiB commit=25
+[  390.93] chunk 47: pressure=1536 MiB commit=25
+[  391.07] chunk 55: pressure=1792 MiB commit=25
+[  391.25] chunk 63: pressure=2048 MiB commit=25
+[  391.69] chunk 71: pressure=2304 MiB commit=25
+[  392.03] chunk 79: pressure=2560 MiB commit=25
+[  392.37] chunk 87: pressure=2816 MiB commit=25
+[  393.03] chunk 95: pressure=3072 MiB commit=25
+[  393.38] evicted at chunk 98 (pressure 2656 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[  393.43] committed 1024 regions x 25 pages
+[  393.45] created 1024 nents=1 aliases
+[  393.46] alias coherency check done, mismatches=0
+[  393.93] released 83 pressure chunks
+[  393.94] drain pool filled and released
+[   28.86] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5424
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.02] gate: time mode up=29s / 400s waiting
+[  180.02] gate: time mode up=209s / 400s waiting
+[   29.38] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5457
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=29s / 400s waiting
+[   28.73] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5415
+[    0.02] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.03] gate: time mode up=29s / 400s waiting
+[  180.04] gate: time mode up=209s / 400s waiting
+[  360.05] gate: time mode up=389s / 400s waiting
+[  390.06] gate: HARD LIMIT up=419s >= 400s -> proceed
+[  390.06] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[  390.06] JIT_INIT ok (va=0x1000 trim=100)
+[  390.07] fd2 reserved 32 regions of 32 pages
+[  390.07] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[  390.10] drain region pre-allocated (0x41000)
+[  390.10] landing page at 0x7feffe000
+[  390.10] JIT_ALLOC event code=0x1 atom=1
+[  390.11] jit_va = 0x7ff000000
+[  390.11] query before: ret=0 value=25
+[  390.11] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[  390.12] chunk 0: pressure=32 MiB commit=25
+[  390.25] chunk 7: pressure=256 MiB commit=25
+[  390.39] chunk 15: pressure=512 MiB commit=25
+[  390.53] chunk 23: pressure=768 MiB commit=25
+[  390.66] chunk 31: pressure=1024 MiB commit=25
+[  390.80] chunk 39: pressure=1280 MiB commit=25
+[  390.94] chunk 47: pressure=1536 MiB commit=25
+[  391.08] chunk 55: pressure=1792 MiB commit=25
+[  391.22] chunk 63: pressure=2048 MiB commit=25
+[  391.53] evicted at chunk 68 (pressure 1696 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[  391.58] committed 1024 regions x 25 pages
+[  391.61] created 1024 nents=1 aliases
+[  391.62] alias coherency check done, mismatches=0
+[  391.89] released 53 pressure chunks
+[  391.92] drain pool filled and released
+[   28.33] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5390
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=28s / 400s waiting
+[  180.01] gate: time mode up=208s / 400s waiting
+[  360.02] gate: time mode up=388s / 400s waiting
+[  390.02] gate: HARD LIMIT up=418s >= 400s -> proceed
+[  390.03] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[  390.03] JIT_INIT ok (va=0x1000 trim=100)
+[  390.04] fd2 reserved 32 regions of 32 pages
+[  390.04] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[  390.08] drain region pre-allocated (0x41000)
+[  390.08] landing page at 0x7feffe000
+[  390.08] JIT_ALLOC event code=0x1 atom=1
+[  390.08] jit_va = 0x7ff000000
+[  390.08] query before: ret=0 value=25
+[  390.08] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[  390.10] chunk 0: pressure=32 MiB commit=25
+[  390.22] chunk 7: pressure=256 MiB commit=25
+[  390.36] chunk 15: pressure=512 MiB commit=25
+[  390.50] chunk 23: pressure=768 MiB commit=25
+[  390.64] chunk 31: pressure=1024 MiB commit=25
+[  390.78] chunk 39: pressure=1280 MiB commit=25
+[  390.92] chunk 47: pressure=1536 MiB commit=25
+[  391.08] chunk 55: pressure=1792 MiB commit=25
+[  391.45] chunk 63: pressure=2048 MiB commit=25
+[  391.80] chunk 71: pressure=2304 MiB commit=25
+[  392.19] chunk 79: pressure=2560 MiB commit=25
+[  392.78] chunk 87: pressure=2816 MiB commit=25
+[  393.34] chunk 95: pressure=3072 MiB commit=25
+[  393.79] evicted at chunk 100 (pressure 2720 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[  393.84] committed 1024 regions x 25 pages
+[  393.86] created 1024 nents=1 aliases
+[  393.88] alias coherency check done, mismatches=0
+[  394.37] released 85 pressure chunks
+[  394.38] drain pool filled and released
+[   29.61] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5487
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=30s / 400s waiting
+[  180.01] gate: time mode up=210s / 400s waiting
+[  360.02] gate: time mode up=390s / 400s waiting
+[  390.02] gate: HARD LIMIT up=420s >= 400s -> proceed
+[  390.03] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[  390.03] JIT_INIT ok (va=0x1000 trim=100)
+[  390.04] fd2 reserved 32 regions of 32 pages
+[  390.04] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[  390.07] drain region pre-allocated (0x41000)
+[  390.08] landing page at 0x7feffe000
+[  390.08] JIT_ALLOC event code=0x1 atom=1
+[  390.08] jit_va = 0x7ff000000
+[  390.08] query before: ret=0 value=25
+[  390.08] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[  390.10] chunk 0: pressure=32 MiB commit=25
+[  390.22] chunk 7: pressure=256 MiB commit=25
+[  390.36] chunk 15: pressure=512 MiB commit=25
+[  390.50] chunk 23: pressure=768 MiB commit=25
+[  390.63] chunk 31: pressure=1024 MiB commit=25
+[  390.77] chunk 39: pressure=1280 MiB commit=25
+[  390.91] chunk 47: pressure=1536 MiB commit=25
+[  391.05] chunk 55: pressure=1792 MiB commit=25
+[  391.21] chunk 63: pressure=2048 MiB commit=25
+[  391.64] chunk 71: pressure=2304 MiB commit=25
+[  392.04] chunk 79: pressure=2560 MiB commit=25
+[  392.43] chunk 87: pressure=2816 MiB commit=25
+[  392.98] evicted at chunk 92 (pressure 2464 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[  393.03] committed 1024 regions x 25 pages
+[  393.06] created 1024 nents=1 aliases
+[  393.07] alias coherency check done, mismatches=0
+[  393.49] released 77 pressure chunks
+[  393.51] drain pool filled and released
+[22652.69] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=10824
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: HARD LIMIT up=22653s >= 400s -> proceed
+[    0.00] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[    0.00] JIT_INIT ok (va=0x1000 trim=100)
+[    0.00] fd2 reserved 32 regions of 32 pages
+[    0.00] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[    0.02] drain region pre-allocated (0x41000)
+[    0.02] landing page at 0x7feffe000
+[    0.02] JIT_ALLOC event code=0x1 atom=1
+[    0.02] jit_va = 0x7ff000000
+[    0.02] query before: ret=0 value=25
+[    0.02] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[    0.04] chunk 0: pressure=32 MiB commit=25
+[    0.16] chunk 7: pressure=256 MiB commit=25
+[    0.30] chunk 15: pressure=512 MiB commit=25
+[    0.48] chunk 23: pressure=768 MiB commit=25
+[    0.62] chunk 31: pressure=1024 MiB commit=25
+[    0.77] chunk 39: pressure=1280 MiB commit=25
+[    0.99] chunk 47: pressure=1536 MiB commit=25
+[    1.35] evicted at chunk 55 (pressure 1280 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[    1.40] committed 1024 regions x 25 pages
+[    1.43] created 1024 nents=1 aliases
+[    1.45] alias coherency check done, mismatches=0
+[    1.65] released 40 pressure chunks
+[    1.67] drain pool filled and released
+[    1.67] JIT_FREE submit ret=0 errno=0 (Success)
+[    1.68] drained stale event atom=2 code=0x1
+[    1.68] spray[1] commit: ret=0 value=0
+[    1.68] find_freed_idx -> 1
+[    1.68] pre-reuse alias[1]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[    1.68] mapped 32 reserved regions on fd2
+[    1.68] post-reuse alias[1]: nonzero_qwords=510 q0=0x0 q512=0x0
+[    1.68] find_pgd -> idx=23 entry=0x40000045822443
+[    1.68] PHASE_B OK freed_idx=1 pgd_idx=23 pgd_gpu_va=0x7f8be3000 entry=0x40000045822443
+[    1.68] phaseC: table nonzero=512 leaves=3 k256=0x2
+[    1.68] phaseC: k=509 orig=0x40000045822443 t=510 target_pa=0x45821000
+[    1.69] phaseC: PTE write ret=0 readback=0x45821443
+[    1.69] phaseC: 2 candidate 2M blocks
+[    1.69] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[    1.69] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[    1.69] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[    1.69] phaseC: PTE restore ret=0 readback=0x40000045822443
+[    1.69] PHASE_C OK freed_idx=1 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[    1.69] phaseD: target_pa=0x45821000 cpu_val=0x447564445f524541
+[    1.69] phaseD: cfg transtab=0x41af4000 memattr=0x4c8d888d8f88 transcfg=0x6
+[    1.69] phaseD: rec0 level=0 pa=0x41af4000 valid=1 first=0x45ffd403
+[    1.69] phaseD: rec1 level=1 pa=0x45ffd000 valid=1 first=0x2
+[    1.69] phaseD: rec2 level=2 pa=0x45ffc000 valid=3 first=0x2
+[    1.69] phaseD: rec3 level=3 pa=0x2027e8000 valid=3 first=0x2
+[    1.69] phaseD: rec4 level=3 pa=0x200620000 valid=512 first=0x4000004581f443
+[    1.69] phaseD: rec5 level=3 pa=0x45ffb000 valid=510 first=0x40000045a1e443
+[    1.69] phaseD: dump end marker after 6 records
+[    1.69] phaseD: l2_pa=0x45ffc000 slot=0 orig=0x2
+[    1.72] phaseD: L2 page not in alias, fall back to GPU writes
+[    1.72] phaseD: pt leaf[509]=0x40000045822443
+[    1.72] phaseD: pt leaf[510]=0x40000045821443
+[    1.72] phaseD: pt leaf[511]=0x40000045820443
+[    1.72] phaseD: rec0 lv=0 pa=0x41af4000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[    1.72] phaseD: rec1 lv=1 pa=0x45ffd000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[    1.72] phaseD: rec2 lv=2 pa=0x45ffc000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[    1.72] phaseD: rec3 lv=3 pa=0x2027e8000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[    1.72] phaseD: rec4 lv=3 pa=0x200620000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[    1.73] phaseD: rec5 lv=3 pa=0x45ffb000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[    1.73] phaseD: hijack visible in rec3 pa=0x2027e8000 entry=0x45821443
+[    1.73] phaseD: visibility test ret=0
+[    1.73] phaseD: L2 insert ret=0
+[    1.76] phaseD: target record 3 dump_val=0x447564445f524541
+[    1.76] phaseD: restore ret=0 l2=0x0 pte=0x40000045822443
+[    1.76] PHASE_D OK target_pa=0x45821000 value=0x447564445f524541 l2_pa=0x45ffc000 slot=0
+[    1.80] phaseE: scan 0x80000..0xfe80000 n=128
+[    1.81] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[    1.81] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[    1.81] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[    1.81] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[    1.81] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[    1.81] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[    1.81] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[    1.81] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[    1.81] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[    1.81] phaseE: koffs.txt present, skip image dump
+[    1.81] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[    1.81] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[    1.81] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x45ffc000 base=0x7c0000000
+[    1.85] phaseF: ni244=ffffff9073865c74 ni262=ffffff9073865c74
+[    1.85] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[    1.85] phaseF: forced slot=148 orig=ffffff9073849670 (not an ni entry)
+[    1.85] phaseF: hook slot=148, 1 callable ni slots: 
+[    1.85] phaseF: text=0xffffff9071e80000 flush=148/0xffffff907385ebc0
+[    1.88] phaseI: init_task pa=0x2c25100 next=0xffffffe929748670 prev=0xffffffe976c28670 comm=[swapper/0]
+[    1.92] phaseI: memstart_addr=0xffffffd700000000 lm_base=0xffffffe900000000
+[    1.95] phaseI: lm_base=0xffffffe900000000 memstart=0x0
+[    1.99] walk: hop0 pa=0x76c28000 comm=2f72656b726f776b0000000000313a34 [kworker/4:1]
+[    2.02] walk: hop1 pa=0xb0c0e180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[    2.06] walk: hop2 pa=0x19e02080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[    2.09] walk: hop3 pa=0x212c58000 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[    2.09] walk: match 'jit_write_probe' at hop 3 cred=0xffffffe942212e40
+[    2.09] walk: 'jit_write_probe' prev done hops=4 found=1 0.14s
+[    2.12] phaseI: donor cred va=0xffffffe942212e40 pa=0x42212e40 uid=10158 gid=10158 euid=10158 sess=0xffffffeb06edc300 (self)
+[    2.16] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[    2.20] phaseI: reserved page round-trip ok
+[    2.20] phaseI: fake cred pa=0x45821000 va=0xffffffe945821000 usage=4096 caps=7fffffffff
+[    2.20] phaseI: go-file present, committing (relay pid=10826)
+[    2.23] phaseF: poker slot 148 wr=0 got=ffffff907385ebc0 want=ffffff907385ebc0 LANDED
+[    2.23] phaseF: poker chose slot 148 (orig=ffffff9073849670)
+[    2.23] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff907253866c
+[    2.27] phaseJ: slot501 preflight wr=0 map_ok=1
+[    2.34] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff9072538000
+[    2.34] phaseK: modsig_restore off=0x1f41e8 va=0xffffff90720741e8
+[    2.38] phaseK: patch landed (sig orig restore)
+[    2.38] phaseK: sig orig restore applied
+[    2.38] phaseK: modsig_patch off=0x1f41e4 va=0xffffff90720741e4
+[    2.41] phaseK: patch landed (sig skip -> ok)
+[    2.42] phaseK: sig skip -> ok applied
+[    2.42] phaseK: modaudit_patch off=0x1f4204 va=0xffffff9072074204
+[    2.45] phaseK: patch landed (saudit nop)
+[    2.46] phaseK: saudit nop applied
+[    2.46] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff907210b9e4
+[    2.49] phaseK: patch not visible (cfi slowpath ret)
+[    2.49] phaseK: seccomp_bypass off=0x233228 va=0xffffff90720b3228
+[    2.53] phaseK: patch not visible (seccomp bypass)
+[    2.56] phaseI: try0 wr=0 entry262=ffffff9073830da8 want=ffffff9073830da8 ok
+[    2.56] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[    2.56] lmk: pid 10824 oom_score_adj=-1000 (5)
+[    2.56] lmk: pid 10826 oom_score_adj=-1000 (5)
+[    2.56] phaseI: append existing file = 7 (ok)
+[    2.57] phaseI: create new file = 7 errno=0 (ok)
+[    2.57] phaseI: domain [u:r:kernel:s0]
+[    2.57] phaseL: superseded by phaseK seccomp bypass, skipped
+[    2.57] stage: 3/3 channel files in /data/local/tmp
+[    2.57] root channel: rootd=10834 (rootsrv/watchdog supervised by rootd)
+[    2.57] root channel: probe migrated to top-app cpuset
+[    4.57] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[    4.57] keepalive: L2 descriptors live, holding context (pid=10824)
+[  328.24] chain_config: fast=1 spray=1024
+[    0.00] === jit_write phase C === pid=5950
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=328s / 400s waiting
+[   90.00] gate: HARD LIMIT up=418s >= 400s -> proceed
+[   90.00] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.05] JIT_ALLOC event code=0x1 atom=1
+[   90.05] jit_va = 0x7ff000000
+[   90.05] query before: ret=0 value=25
+[   90.05] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.07] chunk 0: pressure=32 MiB commit=25
+[   90.19] chunk 7: pressure=256 MiB commit=25
+[   90.34] chunk 15: pressure=512 MiB commit=25
+[   90.48] chunk 23: pressure=768 MiB commit=25
+[   90.63] chunk 31: pressure=1024 MiB commit=25
+[   90.77] chunk 39: pressure=1280 MiB commit=25
+[   90.91] chunk 47: pressure=1536 MiB commit=25
+[   91.05] chunk 55: pressure=1792 MiB commit=25
+[   91.32] evicted at chunk 62 (pressure 1504 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.37] committed 1024 regions x 25 pages
+[   91.40] created 1024 nents=1 aliases
+[   91.41] alias coherency check done, mismatches=0
+[   91.67] released 47 pressure chunks
+[   91.69] drain pool filled and released
+[   91.69] JIT_FREE submit ret=0 errno=0 (Success)
+[   91.70] drained stale event atom=2 code=0x1
+[   91.70] spray[7] commit: ret=0 value=0
+[   91.70] find_freed_idx -> 7
+[   91.70] pre-reuse alias[7]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   91.70] mapped 32 reserved regions on fd2
+[   91.70] post-reuse alias[7]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   91.70] find_pgd -> idx=23 entry=0x4000020dcdf443
+[   91.70] PHASE_B OK freed_idx=7 pgd_idx=23 pgd_gpu_va=0x7f8b4d000 entry=0x4000020dcdf443
+[   91.71] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   91.71] phaseC: k=509 orig=0x4000020dcdf443 t=510 target_pa=0x20ddb7000
+[   91.71] phaseC: PTE write ret=0 readback=0x20ddb7443
+[   91.71] phaseC: 2 candidate 2M blocks
+[   91.71] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   91.71] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   91.71] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   91.71] phaseC: PTE restore ret=0 readback=0x4000020dcdf443
+[   91.71] PHASE_C OK freed_idx=7 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   91.71] phaseD: target_pa=0x20ddb7000 cpu_val=0x447564445f524541
+[   91.71] phaseD: cfg transtab=0x216c6b000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   91.71] phaseD: rec0 level=0 pa=0x216c6b000 valid=1 first=0xc853c403
+[   91.71] phaseD: rec1 level=1 pa=0xc853c000 valid=1 first=0x2
+[   91.71] phaseD: rec2 level=2 pa=0xcb33f000 valid=3 first=0x2
+[   91.71] phaseD: rec3 level=3 pa=0x20ec60000 valid=3 first=0x2
+[   91.71] phaseD: rec4 level=3 pa=0x20f27f000 valid=512 first=0x4000020df1b443
+[   91.71] phaseD: rec5 level=3 pa=0x134348000 valid=510 first=0x4000020224c443
+[   91.72] phaseD: dump end marker after 6 records
+[   91.72] phaseD: l2_pa=0xcb33f000 slot=0 orig=0x2
+[   91.74] phaseD: L2 page not in alias, fall back to GPU writes
+[   91.75] phaseD: pt leaf[509]=0x4000020dcdf443
+[   91.75] phaseD: pt leaf[510]=0x4000020ddb7443
+[   91.75] phaseD: pt leaf[511]=0x4000020dcef443
+[   91.75] phaseD: rec0 lv=0 pa=0x216c6b000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   91.75] phaseD: rec1 lv=1 pa=0xc853c000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   91.75] phaseD: rec2 lv=2 pa=0xcb33f000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.75] phaseD: rec3 lv=3 pa=0x20ec60000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.75] phaseD: rec4 lv=3 pa=0x20f27f000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.75] phaseD: rec5 lv=3 pa=0x134348000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.75] phaseD: hijack visible in rec3 pa=0x20ec60000 entry=0x20ddb7443
+[   91.75] phaseD: visibility test ret=0
+[   91.75] phaseD: L2 insert ret=0
+[   91.78] phaseD: target record 3 dump_val=0x447564445f524541
+[   91.78] phaseD: restore ret=0 l2=0x0 pte=0x4000020dcdf443
+[   91.78] PHASE_D OK target_pa=0x20ddb7000 value=0x447564445f524541 l2_pa=0xcb33f000 slot=0
+[   91.83] phaseE: scan 0x80000..0xfe80000 n=128
+[   91.83] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   91.83] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   91.83] phaseE: pa=0x4080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.83] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.83] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.83] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.83] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.83] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.83] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   91.83] phaseE: koffs.txt present, skip image dump
+[   91.83] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   91.83] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   91.84] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0xcb33f000 base=0x7c0000000
+[   91.87] phaseF: ni244=ffffff806a265c74 ni262=ffffff806a265c74
+[   91.87] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   91.87] phaseF: forced slot=148 orig=ffffff806a249670 (not an ni entry)
+[   91.88] phaseF: hook slot=148, 1 callable ni slots: 
+[   91.88] phaseF: text=0xffffff8068880000 flush=148/0xffffff806a25ebc0
+[   91.91] phaseI: init_task pa=0x2c25100 next=0xfffffff9297496b0 prev=0xfffffff9b8f357b0 comm=[swapper/0]
+[   91.94] phaseI: memstart_addr=0xffffffc700000000 lm_base=0xfffffff900000000
+[   91.97] phaseI: lm_base=0xfffffff900000000 memstart=0x0
+[   92.01] walk: hop0 pa=0xb8f35140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.04] walk: hop1 pa=0xcc00c100 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.07] walk: hop2 pa=0x112871040 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.07] walk: match 'jit_write_probe' at hop 2 cred=0xfffffff9db99f6c0
+[   92.07] walk: 'jit_write_probe' prev done hops=3 found=1 0.10s
+[   92.11] phaseI: donor cred va=0xfffffff9db99f6c0 pa=0xdb99f6c0 uid=10158 gid=10158 euid=10158 sess=0xfffffffb06dde400 (self)
+[   92.14] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.17] phaseI: reserved page round-trip ok
+[   92.17] phaseI: fake cred pa=0x20ddb7000 va=0xfffffffb0ddb7000 usage=4096 caps=7fffffffff
+[   92.18] phaseI: go-file present, committing (relay pid=5963)
+[   92.21] phaseF: poker slot 148 wr=0 got=ffffff806a25ebc0 want=ffffff806a25ebc0 LANDED
+[   92.21] phaseF: poker chose slot 148 (orig=ffffff806a249670)
+[   92.21] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff8068f3866c
+[   92.24] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.31] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff8068f38000
+[   92.31] phaseK: modsig_restore off=0x1f41e8 va=0xffffff8068a741e8
+[   92.34] phaseK: patch landed (sig orig restore)
+[   92.35] phaseK: sig orig restore applied
+[   92.35] phaseK: modsig_patch off=0x1f41e4 va=0xffffff8068a741e4
+[   92.38] phaseK: patch landed (sig skip -> ok)
+[   92.38] phaseK: sig skip -> ok applied
+[   92.38] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8068a74204
+[   92.42] phaseK: patch landed (saudit nop)
+[   92.42] phaseK: saudit nop applied
+[   92.42] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff8068b0b9e4
+[   92.46] phaseK: patch not visible (cfi slowpath ret)
+[   92.46] phaseK: seccomp_bypass off=0x233228 va=0xffffff8068ab3228
+[   92.49] phaseK: patch landed (seccomp bypass)
+[   92.49] phaseK: seccomp bypass applied
+[   92.52] phaseI: try0 wr=0 entry262=ffffff806a230da8 want=ffffff806a230da8 ok
+[   92.52] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.52] lmk: pid 5950 oom_score_adj=-1000 (5)
+[   92.53] lmk: pid 5963 oom_score_adj=-1000 (5)
+[   92.53] phaseI: append existing file = 7 (ok)
+[   92.53] phaseI: create new file = 7 errno=0 (ok)
+[   92.53] phaseI: domain [u:r:kernel:s0]
+[   92.53] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.53] stage: 3/3 channel files in /data/local/tmp
+[   92.53] root channel: rootd=5966 (rootsrv/watchdog supervised by rootd)
+[   92.53] root channel: probe migrated to top-app cpuset
+[   94.53] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.53] keepalive: L2 descriptors live, holding context (pid=5950)
+[  326.99] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=5943
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=327s / 400s waiting
+[   90.00] gate: HARD LIMIT up=417s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.05] JIT_ALLOC event code=0x1 atom=1
+[   90.05] jit_va = 0x7ff000000
+[   90.05] query before: ret=0 value=25
+[   90.05] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.07] chunk 0: pressure=32 MiB commit=25
+[   90.20] chunk 7: pressure=256 MiB commit=25
+[   90.34] chunk 15: pressure=512 MiB commit=25
+[   90.49] chunk 23: pressure=768 MiB commit=25
+[   90.63] chunk 31: pressure=1024 MiB commit=25
+[   90.78] chunk 39: pressure=1280 MiB commit=25
+[   90.93] chunk 47: pressure=1536 MiB commit=25
+[   91.07] chunk 55: pressure=1792 MiB commit=25
+[   91.31] chunk 63: pressure=2048 MiB commit=25
+[   91.77] chunk 71: pressure=2304 MiB commit=25
+[   92.16] chunk 79: pressure=2560 MiB commit=25
+[   92.32] jit_sync_destroy: rc=0 (worker completed), online_cpus=8, mode=1
+[   92.42] slot claim: 256 regions over 8 cpus
+[   92.45] evicted at chunk 82 (pressure 2144 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   92.51] committed 1024 regions x 25 pages
+[   92.52] created 1024 nents=1 aliases
+[   92.52] alias coherency check done, mismatches=0
+[   92.65] released 67 pressure chunks
+[   92.66] drain pool filled and released
+[   92.67] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.67] drained stale event atom=2 code=0x1
+[   92.67] spray[43] commit: ret=0 value=0
+[   92.67] find_freed_idx -> 43
+[   92.67] pre-reuse alias[43]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.67] mapped 32 reserved regions on fd2
+[   92.67] post-reuse alias[43]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.67] find_pgd -> idx=23 entry=0x4000020de99443
+[   92.67] PHASE_B OK freed_idx=43 pgd_idx=23 pgd_gpu_va=0x7f87c9000 entry=0x4000020de99443
+[   92.67] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.67] phaseC: k=509 orig=0x4000020de99443 t=510 target_pa=0x20e3e4000
+[   92.67] phaseC: PTE write ret=0 readback=0x20e3e4443
+[   92.67] phaseC: 2 candidate 2M blocks
+[   92.67] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.67] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.67] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.67] phaseC: PTE restore ret=0 readback=0x4000020de99443
+[   92.67] PHASE_C OK freed_idx=43 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.67] phaseD: target_pa=0x20e3e4000 cpu_val=0x447564445f524541
+[   92.67] phaseD: cfg transtab=0xd9063000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.67] phaseD: rec0 level=0 pa=0xd9063000 valid=1 first=0x9e4bf403
+[   92.67] phaseD: rec1 level=1 pa=0x9e4bf000 valid=1 first=0x2
+[   92.67] phaseD: rec2 level=2 pa=0xa170b000 valid=3 first=0x2
+[   92.67] phaseD: rec3 level=3 pa=0x116548000 valid=3 first=0x2
+[   92.67] phaseD: rec4 level=3 pa=0x116547000 valid=512 first=0x400002168a4443
+[   92.67] phaseD: rec5 level=3 pa=0x9d3c6000 valid=510 first=0x4000007fc63443
+[   92.67] phaseD: dump end marker after 6 records
+[   92.67] phaseD: l2_pa=0xa170b000 slot=0 orig=0x2
+[   92.69] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.69] phaseD: pt leaf[509]=0x4000020de99443
+[   92.69] phaseD: pt leaf[510]=0x4000020e3e4443
+[   92.69] phaseD: pt leaf[511]=0x4000020ac5c443
+[   92.69] phaseD: rec0 lv=0 pa=0xd9063000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.69] phaseD: rec1 lv=1 pa=0x9e4bf000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.69] phaseD: rec2 lv=2 pa=0xa170b000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.69] phaseD: rec3 lv=3 pa=0x116548000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.69] phaseD: rec4 lv=3 pa=0x116547000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.69] phaseD: rec5 lv=3 pa=0x9d3c6000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.69] phaseD: hijack visible in rec3 pa=0x116548000 entry=0x20e3e4443
+[   92.69] phaseD: visibility test ret=0
+[   92.69] phaseD: L2 insert ret=0
+[   92.71] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.71] phaseD: restore ret=0 l2=0x0 pte=0x4000020de99443
+[   92.71] PHASE_D OK target_pa=0x20e3e4000 value=0x447564445f524541 l2_pa=0xa170b000 slot=0
+[   92.74] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.74] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.74] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.74] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.74] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.74] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.74] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.74] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.74] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.74] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.74] phaseE: koffs.txt present, skip image dump
+[   92.74] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.74] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.74] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0xa170b000 base=0x7c0000000
+[   92.76] phaseF: ni244=ffffff93d9a65c74 ni262=ffffff93d9a65c74
+[   92.76] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.76] phaseF: forced slot=148 orig=ffffff93d9a49670 (not an ni entry)
+[   92.76] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.76] phaseF: text=0xffffff93d8080000 flush=148/0xffffff93d9a5ebc0
+[   92.78] phaseI: init_task pa=0x2c25100 next=0xffffffd2a974d7b0 prev=0xffffffd48628c770 comm=[swapper/0]
+[   92.80] phaseI: memstart_addr=0xffffffed80000000 lm_base=0xffffffd280000000
+[   92.82] phaseI: lm_base=0xffffffd280000000 memstart=0x0
+[   92.84] walk: hop0 pa=0x20628c100 comm=2f72656b726f776b0000000000303a32 [kworker/2:0]
+[   92.86] walk: hop1 pa=0x20628e180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.88] walk: hop2 pa=0xb988e180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.90] walk: hop3 pa=0xb9081040 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.90] walk: match 'jit_write_probe' at hop 3 cred=0xffffffd32a85cc00
+[   92.91] walk: 'jit_write_probe' prev done hops=4 found=1 0.08s
+[   92.92] phaseI: donor cred va=0xffffffd32a85cc00 pa=0xaa85cc00 uid=10158 gid=10158 euid=10158 sess=0xffffffd489216c00 (self)
+[   92.94] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.96] phaseI: reserved page round-trip ok
+[   92.96] phaseI: fake cred pa=0x20e3e4000 va=0xffffffd48e3e4000 usage=4096 caps=7fffffffff
+[   92.96] phaseI: go-file present, committing (relay pid=5996)
+[   92.98] phaseF: poker slot 148 wr=0 got=ffffff93d9a5ebc0 want=ffffff93d9a5ebc0 LANDED
+[   92.98] phaseF: poker chose slot 148 (orig=ffffff93d9a49670)
+[   92.98] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff93d873866c
+[   93.00] phaseJ: slot501 preflight wr=0 map_ok=1
+[   93.04] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff93d8738000
+[   93.04] phaseK: modsig_restore off=0x1f41e8 va=0xffffff93d82741e8
+[   93.07] phaseK: patch landed (sig orig restore)
+[   93.07] phaseK: sig orig restore applied
+[   93.07] phaseK: modsig_patch off=0x1f41e4 va=0xffffff93d82741e4
+[   93.10] phaseK: patch landed (sig skip -> ok)
+[   93.10] phaseK: sig skip -> ok applied
+[   93.10] phaseK: modaudit_patch off=0x1f4204 va=0xffffff93d8274204
+[   93.13] phaseK: patch landed (saudit nop)
+[   93.14] phaseK: saudit nop applied
+[   93.14] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff93d830b9e4
+[   93.17] phaseK: patch not visible (cfi slowpath ret)
+[   93.17] phaseK: seccomp_bypass off=0x233228 va=0xffffff93d82b3228
+[   93.20] phaseK: patch landed (seccomp bypass)
+[   93.21] phaseK: seccomp bypass applied
+[   93.24] phaseI: try0 wr=0 entry262=ffffff93d9a30da8 want=ffffff93d9a30da8 ok
+[   93.24] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   93.24] lmk: pid 5943 oom_score_adj=-1000 (5)
+[   93.24] lmk: pid 5996 oom_score_adj=-1000 (5)
+[   93.24] phaseI: append existing file = 7 (ok)
+[   93.24] phaseI: create new file = 7 errno=0 (ok)
+[   93.24] phaseI: domain [u:r:kernel:s0]
+[   93.24] phaseL: superseded by phaseK seccomp bypass, skipped
+[   93.25] stage: 3/3 channel files in /data/local/tmp
+[   93.25] root channel: rootd=6000 (rootsrv/watchdog supervised by rootd)
+[   93.25] root channel: probe migrated to top-app cpuset
+[   95.25] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   95.25] keepalive: L2 descriptors live, holding context (pid=5943)
+[  327.93] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=5938
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=328s / 400s waiting
+[   90.01] gate: HARD LIMIT up=418s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.05] JIT_ALLOC event code=0x1 atom=1
+[   90.05] jit_va = 0x7ff000000
+[   90.05] query before: ret=0 value=25
+[   90.05] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.20] chunk 7: pressure=256 MiB commit=25
+[   90.34] chunk 15: pressure=512 MiB commit=25
+[   90.48] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.90] chunk 47: pressure=1536 MiB commit=25
+[   91.05] chunk 55: pressure=1792 MiB commit=25
+[   91.24] chunk 63: pressure=2048 MiB commit=25
+[   91.70] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   91.81] slot claim: 192 regions over 6 cpus
+[   91.88] evicted at chunk 71 (pressure 1792 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.93] committed 1024 regions x 25 pages
+[   91.96] created 1024 nents=1 aliases
+[   91.97] alias coherency check done, mismatches=0
+[   92.26] released 56 pressure chunks
+[   92.28] drain pool filled and released
+[   92.29] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.29] drained stale event atom=2 code=0x1
+[   92.29] spray[12] commit: ret=0 value=0
+[   92.29] find_freed_idx -> 12
+[   92.29] pre-reuse alias[12]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.29] mapped 32 reserved regions on fd2
+[   92.30] post-reuse alias[12]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.30] find_pgd -> idx=23 entry=0x400002083ac443
+[   92.30] PHASE_B OK freed_idx=12 pgd_idx=23 pgd_gpu_va=0x7f8ad0000 entry=0x400002083ac443
+[   92.30] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.30] phaseC: k=509 orig=0x400002083ac443 t=510 target_pa=0x2082f6000
+[   92.30] phaseC: PTE write ret=0 readback=0x2082f6443
+[   92.30] phaseC: 2 candidate 2M blocks
+[   92.30] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.30] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.30] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.30] phaseC: PTE restore ret=0 readback=0x400002083ac443
+[   92.30] PHASE_C OK freed_idx=12 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.30] phaseD: target_pa=0x2082f6000 cpu_val=0x447564445f524541
+[   92.31] phaseD: cfg transtab=0x1033c3000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.31] phaseD: rec0 level=0 pa=0x1033c3000 valid=1 first=0x11557a403
+[   92.31] phaseD: rec1 level=1 pa=0x11557a000 valid=1 first=0x2
+[   92.31] phaseD: rec2 level=2 pa=0x115602000 valid=3 first=0x2
+[   92.31] phaseD: rec3 level=3 pa=0x2068bc000 valid=3 first=0x2
+[   92.31] phaseD: rec4 level=3 pa=0x2071b6000 valid=512 first=0x400002082f2443
+[   92.31] phaseD: rec5 level=3 pa=0x1155e0000 valid=510 first=0x400000b00fe443
+[   92.31] phaseD: dump end marker after 6 records
+[   92.31] phaseD: l2_pa=0x115602000 slot=0 orig=0x2
+[   92.34] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.34] phaseD: pt leaf[509]=0x400002083ac443
+[   92.34] phaseD: pt leaf[510]=0x400002082f6443
+[   92.34] phaseD: pt leaf[511]=0x400002082f4443
+[   92.34] phaseD: rec0 lv=0 pa=0x1033c3000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.34] phaseD: rec1 lv=1 pa=0x11557a000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.34] phaseD: rec2 lv=2 pa=0x115602000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.34] phaseD: rec3 lv=3 pa=0x2068bc000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.34] phaseD: rec4 lv=3 pa=0x2071b6000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.34] phaseD: rec5 lv=3 pa=0x1155e0000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.35] phaseD: hijack visible in rec3 pa=0x2068bc000 entry=0x2082f6443
+[   92.35] phaseD: visibility test ret=0
+[   92.35] phaseD: L2 insert ret=0
+[   92.38] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.38] phaseD: restore ret=0 l2=0x0 pte=0x400002083ac443
+[   92.38] PHASE_D OK target_pa=0x2082f6000 value=0x447564445f524541 l2_pa=0x115602000 slot=0
+[   92.43] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.43] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.43] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.43] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.43] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.43] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.43] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.43] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.43] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.43] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.43] phaseE: koffs.txt present, skip image dump
+[   92.43] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.43] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.43] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x115602000 base=0x7c0000000
+[   92.46] phaseF: ni244=ffffff819d665c74 ni262=ffffff819d665c74
+[   92.47] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.47] phaseF: forced slot=148 orig=ffffff819d649670 (not an ni entry)
+[   92.47] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.47] phaseF: text=0xffffff819bc80000 flush=148/0xffffff819d65ebc0
+[   92.50] phaseI: init_task pa=0x2c25100 next=0xfffffff76974c770 prev=0xfffffff7d4b796b0 comm=[swapper/0]
+[   92.53] phaseI: memstart_addr=0xffffffc8c0000000 lm_base=0xfffffff740000000
+[   92.57] phaseI: lm_base=0xfffffff740000000 memstart=0x0
+[   92.60] walk: hop0 pa=0x94b79040 comm=2f72656b726f776b000000313a373175 [kworker/u17:1]
+[   92.63] walk: hop1 pa=0x969ba080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.66] walk: hop2 pa=0x96bbb0c0 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.70] walk: hop3 pa=0x94b7b0c0 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.70] walk: match 'jit_write_probe' at hop 3 cred=0xfffffff7dd66d300
+[   92.70] walk: 'jit_write_probe' prev done hops=4 found=1 0.13s
+[   92.73] phaseI: donor cred va=0xfffffff7dd66d300 pa=0x9d66d300 uid=10158 gid=10158 euid=10158 sess=0xfffffff948303600 (self)
+[   92.77] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.80] phaseI: reserved page round-trip ok
+[   92.80] phaseI: fake cred pa=0x2082f6000 va=0xfffffff9482f6000 usage=4096 caps=7fffffffff
+[   92.81] phaseI: go-file present, committing (relay pid=6068)
+[   92.84] phaseF: poker slot 148 wr=0 got=ffffff819d65ebc0 want=ffffff819d65ebc0 LANDED
+[   92.84] phaseF: poker chose slot 148 (orig=ffffff819d649670)
+[   92.84] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff819c33866c
+[   92.87] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.94] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff819c338000
+[   92.94] phaseK: modsig_restore off=0x1f41e8 va=0xffffff819be741e8
+[   92.97] phaseK: patch landed (sig orig restore)
+[   92.97] phaseK: sig orig restore applied
+[   92.97] phaseK: modsig_patch off=0x1f41e4 va=0xffffff819be741e4
+[   93.00] phaseK: patch landed (sig skip -> ok)
+[   93.00] phaseK: sig skip -> ok applied
+[   93.00] phaseK: modaudit_patch off=0x1f4204 va=0xffffff819be74204
+[   93.03] phaseK: patch landed (saudit nop)
+[   93.04] phaseK: saudit nop applied
+[   93.04] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff819bf0b9e4
+[   93.07] phaseK: patch landed (cfi slowpath ret)
+[   93.07] phaseK: cfi slowpath ret applied
+[   93.07] phaseK: seccomp_bypass off=0x233228 va=0xffffff819beb3228
+[   93.10] phaseK: patch landed (seccomp bypass)
+[   93.11] phaseK: seccomp bypass applied
+[   93.14] phaseI: try0 wr=0 entry262=ffffff819d630da8 want=ffffff819d630da8 ok
+[   93.14] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   93.14] lmk: pid 5938 oom_score_adj=-1000 (5)
+[   93.14] lmk: pid 6068 oom_score_adj=-1000 (5)
+[   93.14] phaseI: append existing file = 7 (ok)
+[   93.14] phaseI: create new file = 7 errno=0 (ok)
+[   93.14] phaseI: domain [u:r:kernel:s0]
+[   93.14] phaseL: superseded by phaseK seccomp bypass, skipped
+[   93.15] stage: 3/3 channel files in /data/local/tmp
+[   93.15] root channel: rootd=6074 (rootsrv/watchdog supervised by rootd)
+[   93.15] root channel: probe migrated to top-app cpuset
+[   95.15] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   95.15] keepalive: L2 descriptors live, holding context (pid=5938)
+[  328.54] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=5969
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=329s / 400s waiting
+[   90.00] gate: HARD LIMIT up=419s >= 400s -> proceed
+[   90.00] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.04] drain region pre-allocated (0x41000)
+[   90.04] landing page at 0x7feffe000
+[   90.04] JIT_ALLOC event code=0x1 atom=1
+[   90.04] jit_va = 0x7ff000000
+[   90.04] query before: ret=0 value=25
+[   90.04] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.06] chunk 0: pressure=32 MiB commit=25
+[   90.19] chunk 7: pressure=256 MiB commit=25
+[   90.33] chunk 15: pressure=512 MiB commit=25
+[   90.47] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.90] chunk 47: pressure=1536 MiB commit=25
+[   91.04] chunk 55: pressure=1792 MiB commit=25
+[   91.11] jit_sync_destroy: rc=0 (worker completed), online_cpus=8, mode=1
+[   91.40] slot claim: 256 regions over 8 cpus
+[   91.42] evicted at chunk 58 (pressure 1376 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.45] committed 1024 regions x 25 pages
+[   91.46] created 1024 nents=1 aliases
+[   91.47] alias coherency check done, mismatches=0
+[   91.54] released 43 pressure chunks
+[   91.55] drain pool filled and released
+[   91.56] JIT_FREE submit ret=0 errno=0 (Success)
+[   91.56] drained stale event atom=2 code=0x1
+[   91.56] spray[136] commit: ret=0 value=0
+[   91.56] find_freed_idx -> 136
+[   91.56] pre-reuse alias[136]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   91.56] mapped 32 reserved regions on fd2
+[   91.56] post-reuse alias[136]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   91.56] find_pgd -> idx=23 entry=0x400002147c1443
+[   91.56] PHASE_B OK freed_idx=136 pgd_idx=23 pgd_gpu_va=0x7f7eb4000 entry=0x400002147c1443
+[   91.56] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   91.56] phaseC: k=509 orig=0x400002147c1443 t=510 target_pa=0x208d25000
+[   91.56] phaseC: PTE write ret=0 readback=0x208d25443
+[   91.56] phaseC: 2 candidate 2M blocks
+[   91.56] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   91.56] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   91.56] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   91.56] phaseC: PTE restore ret=0 readback=0x400002147c1443
+[   91.56] PHASE_C OK freed_idx=136 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   91.56] phaseD: target_pa=0x208d25000 cpu_val=0x447564445f524541
+[   91.56] phaseD: cfg transtab=0xbf7cb000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   91.56] phaseD: rec0 level=0 pa=0xbf7cb000 valid=1 first=0x20d992403
+[   91.56] phaseD: rec1 level=1 pa=0x20d992000 valid=1 first=0x2
+[   91.56] phaseD: rec2 level=2 pa=0x134a4b000 valid=3 first=0x2
+[   91.56] phaseD: rec3 level=3 pa=0x6e152000 valid=3 first=0x2
+[   91.56] phaseD: rec4 level=3 pa=0x6e153000 valid=512 first=0x400000dea90443
+[   91.56] phaseD: rec5 level=3 pa=0xacc57000 valid=510 first=0x4000020440d443
+[   91.56] phaseD: dump end marker after 6 records
+[   91.56] phaseD: l2_pa=0x134a4b000 slot=0 orig=0x2
+[   91.58] phaseD: L2 page not in alias, fall back to GPU writes
+[   91.58] phaseD: pt leaf[509]=0x400002147c1443
+[   91.58] phaseD: pt leaf[510]=0x40000208d25443
+[   91.58] phaseD: pt leaf[511]=0x400002147b1443
+[   91.58] phaseD: rec0 lv=0 pa=0xbf7cb000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   91.58] phaseD: rec1 lv=1 pa=0x20d992000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   91.58] phaseD: rec2 lv=2 pa=0x134a4b000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.58] phaseD: rec3 lv=3 pa=0x6e152000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.58] phaseD: rec4 lv=3 pa=0x6e153000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.58] phaseD: rec5 lv=3 pa=0xacc57000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.59] phaseD: hijack visible in rec3 pa=0x6e152000 entry=0x208d25443
+[   91.59] phaseD: visibility test ret=0
+[   91.59] phaseD: L2 insert ret=0
+[   91.60] phaseD: target record 3 dump_val=0x447564445f524541
+[   91.61] phaseD: restore ret=0 l2=0x0 pte=0x400002147c1443
+[   91.61] PHASE_D OK target_pa=0x208d25000 value=0x447564445f524541 l2_pa=0x134a4b000 slot=0
+[   91.63] phaseE: scan 0x80000..0xfe80000 n=128
+[   91.64] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   91.64] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   91.64] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: pa=0xa080000 m0=0x29002200630065 off=0x20003d003d0020 size=0x6c006c0075006e flags=0xa007b00200029 
+[   91.64] phaseE: pa=0xc080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.64] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   91.64] phaseE: koffs.txt present, skip image dump
+[   91.64] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   91.64] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   91.64] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x134a4b000 base=0x7c0000000
+[   91.66] phaseF: ni244=ffffff88f5c65c74 ni262=ffffff88f5c65c74
+[   91.66] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   91.66] phaseF: forced slot=148 orig=ffffff88f5c49670 (not an ni entry)
+[   91.66] phaseF: hook slot=148, 1 callable ni slots: 
+[   91.66] phaseF: text=0xffffff88f4280000 flush=148/0xffffff88f5c5ebc0
+[   91.68] phaseI: init_task pa=0x2c25100 next=0xffffffe729748670 prev=0xffffffe7be2ce7f0 comm=[swapper/0]
+[   91.70] phaseI: memstart_addr=0xffffffd900000000 lm_base=0xffffffe700000000
+[   91.71] phaseI: lm_base=0xffffffe700000000 memstart=0x0
+[   91.73] walk: hop0 pa=0xbe2ce180 comm=2f72656b726f776b0000000048323a34 [kworker/4:2H]
+[   91.75] walk: hop1 pa=0x14af3a080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.77] walk: hop2 pa=0xb9025140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.79] walk: hop3 pa=0xb9020000 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.81] walk: hop4 pa=0x100b6a080 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   91.82] walk: match 'jit_write_probe' at hop 4 cred=0xffffffe833857b40
+[   91.82] walk: 'jit_write_probe' prev done hops=5 found=1 0.10s
+[   91.83] phaseI: donor cred va=0xffffffe833857b40 pa=0x133857b40 uid=10158 gid=10158 euid=10158 sess=0xffffffe908422a00 (self)
+[   91.85] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   91.87] phaseI: reserved page round-trip ok
+[   91.88] phaseI: fake cred pa=0x208d25000 va=0xffffffe908d25000 usage=4096 caps=7fffffffff
+[   91.88] phaseI: go-file present, committing (relay pid=6114)
+[   91.89] phaseF: poker slot 148 wr=0 got=ffffff88f5c5ebc0 want=ffffff88f5c5ebc0 LANDED
+[   91.89] phaseF: poker chose slot 148 (orig=ffffff88f5c49670)
+[   91.89] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff88f493866c
+[   91.91] phaseJ: slot501 preflight wr=0 map_ok=1
+[   91.96] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff88f4938000
+[   91.96] phaseK: modsig_restore off=0x1f41e8 va=0xffffff88f44741e8
+[   91.99] phaseK: patch landed (sig orig restore)
+[   91.99] phaseK: sig orig restore applied
+[   91.99] phaseK: modsig_patch off=0x1f41e4 va=0xffffff88f44741e4
+[   92.03] phaseK: patch landed (sig skip -> ok)
+[   92.03] phaseK: sig skip -> ok applied
+[   92.03] phaseK: modaudit_patch off=0x1f4204 va=0xffffff88f4474204
+[   92.06] phaseK: patch landed (saudit nop)
+[   92.06] phaseK: saudit nop applied
+[   92.07] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff88f450b9e4
+[   92.10] phaseK: patch not visible (cfi slowpath ret)
+[   92.10] phaseK: seccomp_bypass off=0x233228 va=0xffffff88f44b3228
+[   92.13] phaseK: patch not visible (seccomp bypass)
+[   92.17] phaseI: try0 wr=0 entry262=ffffff88f5c30da8 want=ffffff88f5c30da8 ok
+[   92.17] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.17] lmk: pid 5969 oom_score_adj=-1000 (5)
+[   92.17] lmk: pid 6114 oom_score_adj=-1000 (5)
+[   92.17] phaseI: append existing file = 7 (ok)
+[   92.17] phaseI: create new file = 7 errno=0 (ok)
+[   92.17] phaseI: domain [u:r:kernel:s0]
+[   92.17] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.18] stage: 3/3 channel files in /data/local/tmp
+[   92.18] root channel: rootd=6119 (rootsrv/watchdog supervised by rootd)
+[   92.18] root channel: probe migrated to top-app cpuset
+[   94.18] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.18] keepalive: L2 descriptors live, holding context (pid=5969)
+[  328.90] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=5857
+[    0.01] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.01] gate: time mode up=329s / 400s waiting
+[   90.01] gate: HARD LIMIT up=419s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.02] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.06] drain region pre-allocated (0x41000)
+[   90.06] landing page at 0x7feffe000
+[   90.06] JIT_ALLOC event code=0x1 atom=1
+[   90.06] jit_va = 0x7ff000000
+[   90.06] query before: ret=0 value=25
+[   90.06] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.21] chunk 7: pressure=256 MiB commit=25
+[   90.35] chunk 15: pressure=512 MiB commit=25
+[   90.49] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.90] chunk 47: pressure=1536 MiB commit=25
+[   91.04] chunk 55: pressure=1792 MiB commit=25
+[   91.24] chunk 63: pressure=2048 MiB commit=25
+[   91.64] chunk 71: pressure=2304 MiB commit=25
+[   92.00] chunk 79: pressure=2560 MiB commit=25
+[   92.05] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   92.17] slot claim: 192 regions over 6 cpus
+[   92.25] evicted at chunk 80 (pressure 2080 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   92.30] committed 1024 regions x 25 pages
+[   92.33] created 1024 nents=1 aliases
+[   92.34] alias coherency check done, mismatches=0
+[   92.67] released 65 pressure chunks
+[   92.69] drain pool filled and released
+[   92.69] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.70] drained stale event atom=2 code=0x1
+[   92.70] spray[0] commit: ret=0 value=0
+[   92.70] find_freed_idx -> 0
+[   92.70] pre-reuse alias[0]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.70] mapped 32 reserved regions on fd2
+[   92.70] post-reuse alias[0]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.70] find_pgd -> idx=23 entry=0x4000010c1d6443
+[   92.70] PHASE_B OK freed_idx=0 pgd_idx=23 pgd_gpu_va=0x7f8bfc000 entry=0x4000010c1d6443
+[   92.70] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.70] phaseC: k=509 orig=0x4000010c1d6443 t=510 target_pa=0xa3e28000
+[   92.71] phaseC: PTE write ret=0 readback=0xa3e28443
+[   92.71] phaseC: 2 candidate 2M blocks
+[   92.71] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.71] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.71] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.71] phaseC: PTE restore ret=0 readback=0x4000010c1d6443
+[   92.71] PHASE_C OK freed_idx=0 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.71] phaseD: target_pa=0xa3e28000 cpu_val=0x447564445f524541
+[   92.71] phaseD: cfg transtab=0xbdbc1000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.71] phaseD: rec0 level=0 pa=0xbdbc1000 valid=1 first=0xa2ca3403
+[   92.71] phaseD: rec1 level=1 pa=0xa2ca3000 valid=1 first=0x2
+[   92.71] phaseD: rec2 level=2 pa=0xa2dbe000 valid=3 first=0x2
+[   92.71] phaseD: rec3 level=3 pa=0x2061bb000 valid=3 first=0x2
+[   92.71] phaseD: rec4 level=3 pa=0x21038f000 valid=512 first=0x400000a3e30443
+[   92.71] phaseD: rec5 level=3 pa=0xa2dc7000 valid=510 first=0x400000bdfe6443
+[   92.71] phaseD: dump end marker after 6 records
+[   92.71] phaseD: l2_pa=0xa2dbe000 slot=0 orig=0x2
+[   92.74] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.74] phaseD: pt leaf[509]=0x4000010c1d6443
+[   92.74] phaseD: pt leaf[510]=0x400000a3e28443
+[   92.74] phaseD: pt leaf[511]=0x400000a3e5b443
+[   92.74] phaseD: rec0 lv=0 pa=0xbdbc1000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.75] phaseD: rec1 lv=1 pa=0xa2ca3000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.75] phaseD: rec2 lv=2 pa=0xa2dbe000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.75] phaseD: rec3 lv=3 pa=0x2061bb000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.75] phaseD: rec4 lv=3 pa=0x21038f000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.75] phaseD: rec5 lv=3 pa=0xa2dc7000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.75] phaseD: hijack visible in rec3 pa=0x2061bb000 entry=0xa3e28443
+[   92.75] phaseD: visibility test ret=0
+[   92.75] phaseD: L2 insert ret=0
+[   92.78] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.78] phaseD: restore ret=0 l2=0x0 pte=0x4000010c1d6443
+[   92.79] PHASE_D OK target_pa=0xa3e28000 value=0x447564445f524541 l2_pa=0xa2dbe000 slot=0
+[   92.83] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.83] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.83] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.83] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.83] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.83] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.83] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.83] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.83] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.83] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.83] phaseE: koffs.txt present, skip image dump
+[   92.83] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.83] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.83] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0xa2dbe000 base=0x7c0000000
+[   92.86] phaseF: ni244=ffffff9c9e665c74 ni262=ffffff9c9e665c74
+[   92.87] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.87] phaseF: forced slot=148 orig=ffffff9c9e649670 (not an ni entry)
+[   92.87] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.87] phaseF: text=0xffffff9c9cc80000 flush=148/0xffffff9c9e65ebc0
+[   92.90] phaseI: init_task pa=0x2c25100 next=0xffffffd8e9748670 prev=0xffffffd969b7b730 comm=[swapper/0]
+[   92.93] phaseI: memstart_addr=0xffffffe740000000 lm_base=0xffffffd8c0000000
+[   92.96] phaseI: lm_base=0xffffffd8c0000000 memstart=0x0
+[   92.99] walk: hop0 pa=0xa9b7b0c0 comm=2f72656b726f776b000000313a373175 [kworker/u17:1]
+[   93.02] walk: hop1 pa=0xbcabd140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   93.05] walk: hop2 pa=0xc2b1d140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   93.08] walk: hop3 pa=0xbcab9040 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   93.09] walk: match 'jit_write_probe' at hop 3 cred=0xffffffdac84c7d80
+[   93.09] walk: 'jit_write_probe' prev done hops=4 found=1 0.12s
+[   93.12] phaseI: donor cred va=0xffffffdac84c7d80 pa=0x2084c7d80 uid=10158 gid=10158 euid=10158 sess=0xffffffdac9b4e000 (self)
+[   93.15] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   93.18] phaseI: reserved page round-trip ok
+[   93.18] phaseI: fake cred pa=0xa3e28000 va=0xffffffd963e28000 usage=4096 caps=7fffffffff
+[   93.18] phaseI: go-file present, committing (relay pid=6163)
+[   93.21] phaseF: poker slot 148 wr=0 got=ffffff9c9e65ebc0 want=ffffff9c9e65ebc0 LANDED
+[   93.21] phaseF: poker chose slot 148 (orig=ffffff9c9e649670)
+[   93.22] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff9c9d33866c
+[   93.24] phaseJ: slot501 preflight wr=0 map_ok=1
+[   93.31] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff9c9d338000
+[   93.31] phaseK: modsig_restore off=0x1f41e8 va=0xffffff9c9ce741e8
+[   93.34] phaseK: patch landed (sig orig restore)
+[   93.34] phaseK: sig orig restore applied
+[   93.34] phaseK: modsig_patch off=0x1f41e4 va=0xffffff9c9ce741e4
+[   93.37] phaseK: patch landed (sig skip -> ok)
+[   93.37] phaseK: sig skip -> ok applied
+[   93.37] phaseK: modaudit_patch off=0x1f4204 va=0xffffff9c9ce74204
+[   93.40] phaseK: patch landed (saudit nop)
+[   93.41] phaseK: saudit nop applied
+[   93.41] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff9c9cf0b9e4
+[   93.44] phaseK: patch not visible (cfi slowpath ret)
+[   93.44] phaseK: seccomp_bypass off=0x233228 va=0xffffff9c9ceb3228
+[   93.47] phaseK: patch not visible (seccomp bypass)
+[   93.50] phaseI: try0 wr=0 entry262=ffffff9c9e630da8 want=ffffff9c9e630da8 ok
+[   93.50] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   93.50] lmk: pid 5857 oom_score_adj=-1000 (5)
+[   93.50] lmk: pid 6163 oom_score_adj=-1000 (5)
+[   93.50] phaseI: append existing file = 7 (ok)
+[   93.50] phaseI: create new file = 7 errno=0 (ok)
+[   93.50] phaseI: domain [u:r:kernel:s0]
+[   93.50] phaseL: superseded by phaseK seccomp bypass, skipped
+[   93.51] stage: 3/3 channel files in /data/local/tmp
+[   93.51] root channel: rootd=6169 (rootsrv/watchdog supervised by rootd)
+[   93.51] root channel: probe migrated to top-app cpuset
+[   95.51] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   95.51] keepalive: L2 descriptors live, holding context (pid=5857)
+[  327.08] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=6035
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=327s / 400s waiting
+[   90.00] gate: HARD LIMIT up=417s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.05] JIT_ALLOC event code=0x1 atom=1
+[   90.05] jit_va = 0x7ff000000
+[   90.05] query before: ret=0 value=25
+[   90.05] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.07] chunk 0: pressure=32 MiB commit=25
+[   90.19] chunk 7: pressure=256 MiB commit=25
+[   90.33] chunk 15: pressure=512 MiB commit=25
+[   90.47] chunk 23: pressure=768 MiB commit=25
+[   90.61] chunk 31: pressure=1024 MiB commit=25
+[   90.75] chunk 39: pressure=1280 MiB commit=25
+[   90.89] chunk 47: pressure=1536 MiB commit=25
+[   91.03] chunk 55: pressure=1792 MiB commit=25
+[   91.24] chunk 63: pressure=2048 MiB commit=25
+[   91.54] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   91.68] slot claim: 192 regions over 6 cpus
+[   91.76] evicted at chunk 69 (pressure 1728 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.82] committed 1024 regions x 25 pages
+[   91.84] created 1024 nents=1 aliases
+[   91.85] alias coherency check done, mismatches=0
+[   92.13] released 54 pressure chunks
+[   92.15] drain pool filled and released
+[   92.15] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.15] drained stale event atom=2 code=0x1
+[   92.15] spray[42] commit: ret=0 value=0
+[   92.15] find_freed_idx -> 42
+[   92.15] pre-reuse alias[42]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.15] mapped 32 reserved regions on fd2
+[   92.16] post-reuse alias[42]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.16] find_pgd -> idx=23 entry=0x400000d3265443
+[   92.16] PHASE_B OK freed_idx=42 pgd_idx=23 pgd_gpu_va=0x7f87e2000 entry=0x400000d3265443
+[   92.16] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.16] phaseC: k=509 orig=0x400000d3265443 t=510 target_pa=0x116d57000
+[   92.16] phaseC: PTE write ret=0 readback=0x116d57443
+[   92.16] phaseC: 2 candidate 2M blocks
+[   92.16] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.16] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.16] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.16] phaseC: PTE restore ret=0 readback=0x400000d3265443
+[   92.16] PHASE_C OK freed_idx=42 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.16] phaseD: target_pa=0x116d57000 cpu_val=0x447564445f524541
+[   92.17] phaseD: cfg transtab=0xcff61000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.17] phaseD: rec0 level=0 pa=0xcff61000 valid=1 first=0x84e73403
+[   92.17] phaseD: rec1 level=1 pa=0x84e73000 valid=1 first=0x2
+[   92.17] phaseD: rec2 level=2 pa=0x84e25000 valid=3 first=0x2
+[   92.17] phaseD: rec3 level=3 pa=0x1493dd000 valid=3 first=0x2
+[   92.17] phaseD: rec4 level=3 pa=0x20a2e4000 valid=512 first=0x40000116ebd443
+[   92.17] phaseD: rec5 level=3 pa=0x116d6f000 valid=510 first=0x400000a35c9443
+[   92.17] phaseD: dump end marker after 6 records
+[   92.17] phaseD: l2_pa=0x84e25000 slot=0 orig=0x2
+[   92.19] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.20] phaseD: pt leaf[509]=0x400000d3265443
+[   92.20] phaseD: pt leaf[510]=0x40000116d57443
+[   92.20] phaseD: pt leaf[511]=0x40000116ff7443
+[   92.20] phaseD: rec0 lv=0 pa=0xcff61000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.20] phaseD: rec1 lv=1 pa=0x84e73000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.20] phaseD: rec2 lv=2 pa=0x84e25000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.20] phaseD: rec3 lv=3 pa=0x1493dd000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.20] phaseD: rec4 lv=3 pa=0x20a2e4000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.20] phaseD: rec5 lv=3 pa=0x116d6f000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.20] phaseD: hijack visible in rec3 pa=0x1493dd000 entry=0x116d57443
+[   92.20] phaseD: visibility test ret=0
+[   92.20] phaseD: L2 insert ret=0
+[   92.23] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.23] phaseD: restore ret=0 l2=0x0 pte=0x400000d3265443
+[   92.23] PHASE_D OK target_pa=0x116d57000 value=0x447564445f524541 l2_pa=0x84e25000 slot=0
+[   92.28] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.28] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.28] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.28] phaseE: pa=0x4080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   92.28] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.28] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.28] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.28] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.28] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.28] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.28] phaseE: koffs.txt present, skip image dump
+[   92.28] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.28] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.28] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x84e25000 base=0x7c0000000
+[   92.32] phaseF: ni244=ffffff80c9e65c74 ni262=ffffff80c9e65c74
+[   92.32] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.32] phaseF: forced slot=148 orig=ffffff80c9e49670 (not an ni entry)
+[   92.32] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.32] phaseF: text=0xffffff80c8480000 flush=148/0xffffff80c9e5ebc0
+[   92.35] phaseI: init_task pa=0x2c25100 next=0xffffffc9a974c770 prev=0xffffffc9f4803730 comm=[swapper/0]
+[   92.38] phaseI: memstart_addr=0xfffffff680000000 lm_base=0xffffffc980000000
+[   92.41] phaseI: lm_base=0xffffffc980000000 memstart=0x0
+[   92.45] walk: hop0 pa=0x748030c0 comm=2f72656b726f776b000000303a373175 [kworker/u17:0]
+[   92.48] walk: hop1 pa=0x8a80a080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.51] walk: hop2 pa=0xaefd2080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.54] walk: hop3 pa=0x89c04100 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.55] walk: match 'jit_write_probe' at hop 3 cred=0xffffffcac062f600
+[   92.55] walk: 'jit_write_probe' prev done hops=4 found=1 0.13s
+[   92.58] phaseI: donor cred va=0xffffffcac062f600 pa=0x14062f600 uid=10158 gid=10158 euid=10158 sess=0xffffffcb87e82500 (self)
+[   92.61] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.64] phaseI: reserved page round-trip ok
+[   92.64] phaseI: fake cred pa=0x116d57000 va=0xffffffca96d57000 usage=4096 caps=7fffffffff
+[   92.64] phaseI: go-file present, committing (relay pid=6136)
+[   92.67] phaseF: poker slot 148 wr=0 got=ffffff80c9e5ebc0 want=ffffff80c9e5ebc0 LANDED
+[   92.67] phaseF: poker chose slot 148 (orig=ffffff80c9e49670)
+[   92.67] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff80c8b3866c
+[   92.70] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.76] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff80c8b38000
+[   92.76] phaseK: modsig_restore off=0x1f41e8 va=0xffffff80c86741e8
+[   92.79] phaseK: patch landed (sig orig restore)
+[   92.79] phaseK: sig orig restore applied
+[   92.79] phaseK: modsig_patch off=0x1f41e4 va=0xffffff80c86741e4
+[   92.82] phaseK: patch landed (sig skip -> ok)
+[   92.82] phaseK: sig skip -> ok applied
+[   92.82] phaseK: modaudit_patch off=0x1f4204 va=0xffffff80c8674204
+[   92.85] phaseK: patch landed (saudit nop)
+[   92.85] phaseK: saudit nop applied
+[   92.86] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff80c870b9e4
+[   92.88] phaseK: patch not visible (cfi slowpath ret)
+[   92.89] phaseK: seccomp_bypass off=0x233228 va=0xffffff80c86b3228
+[   92.92] phaseK: patch not visible (seccomp bypass)
+[   92.92] phaseK: seccomp bypass applied (forced, readback stale)
+[   92.92] phaseK2: seccomp functional=0 retries=2
+[   93.00] phaseK2: retry 1 slot=504 functional=1
+[   93.00] phaseK2: seccomp bypass CONFIRMED
+[   93.06] phaseI: try0 wr=0 entry262=ffffff80c9e30da8 want=ffffff80c9e30da8 ok
+[   93.06] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   93.06] lmk: pid 6035 oom_score_adj=-1000 (5)
+[   93.06] lmk: pid 6136 oom_score_adj=-1000 (5)
+[   93.06] phaseI: append existing file = 7 (ok)
+[   93.06] phaseI: create new file = 7 errno=0 (ok)
+[   93.06] phaseI: domain [u:r:kernel:s0]
+[   93.06] phaseL: superseded by phaseK seccomp bypass, skipped
+[   93.06] stage: 3/3 channel files in /data/local/tmp
+[   93.07] root channel: rootd=6142 (rootsrv/watchdog supervised by rootd)
+[   93.07] root channel: probe migrated to top-app cpuset
+[   95.07] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   95.07] keepalive: L2 descriptors live, holding context (pid=6035)
+[  327.93] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=5839
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.01] gate: time mode up=328s / 400s waiting
+[   90.01] gate: HARD LIMIT up=418s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.02] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.06] drain region pre-allocated (0x41000)
+[   90.06] landing page at 0x7feffe000
+[   90.06] JIT_ALLOC event code=0x1 atom=1
+[   90.06] jit_va = 0x7ff000000
+[   90.06] query before: ret=0 value=25
+[   90.06] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.21] chunk 7: pressure=256 MiB commit=25
+[   90.35] chunk 15: pressure=512 MiB commit=25
+[   90.49] chunk 23: pressure=768 MiB commit=25
+[   90.64] chunk 31: pressure=1024 MiB commit=25
+[   90.78] chunk 39: pressure=1280 MiB commit=25
+[   90.92] chunk 47: pressure=1536 MiB commit=25
+[   91.06] chunk 55: pressure=1792 MiB commit=25
+[   91.22] chunk 63: pressure=2048 MiB commit=25
+[   91.49] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   91.59] slot claim: 192 regions over 6 cpus
+[   91.65] evicted at chunk 68 (pressure 1696 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.70] committed 1024 regions x 25 pages
+[   91.73] created 1024 nents=1 aliases
+[   91.74] alias coherency check done, mismatches=0
+[   92.02] released 53 pressure chunks
+[   92.05] drain pool filled and released
+[   92.05] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.05] drained stale event atom=2 code=0x1
+[   92.05] spray[0] commit: ret=0 value=0
+[   92.05] find_freed_idx -> 0
+[   92.05] pre-reuse alias[0]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.05] mapped 32 reserved regions on fd2
+[   92.06] post-reuse alias[0]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.06] find_pgd -> idx=23 entry=0x4000012c429443
+[   92.06] PHASE_B OK freed_idx=0 pgd_idx=23 pgd_gpu_va=0x7f8bfc000 entry=0x4000012c429443
+[   92.06] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.06] phaseC: k=509 orig=0x4000012c429443 t=510 target_pa=0x12c42a000
+[   92.06] phaseC: PTE write ret=0 readback=0x12c42a443
+[   92.06] phaseC: 2 candidate 2M blocks
+[   92.06] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.06] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.06] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.06] phaseC: PTE restore ret=0 readback=0x4000012c429443
+[   92.06] PHASE_C OK freed_idx=0 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.06] phaseD: target_pa=0x12c42a000 cpu_val=0x447564445f524541
+[   92.07] phaseD: cfg transtab=0x12f37c000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.07] phaseD: rec0 level=0 pa=0x12f37c000 valid=1 first=0x12de8e403
+[   92.07] phaseD: rec1 level=1 pa=0x12de8e000 valid=1 first=0x2
+[   92.07] phaseD: rec2 level=2 pa=0x12c555000 valid=3 first=0x2
+[   92.07] phaseD: rec3 level=3 pa=0x148043000 valid=3 first=0x2
+[   92.07] phaseD: rec4 level=3 pa=0x12f198000 valid=512 first=0x4000012c41d443
+[   92.07] phaseD: rec5 level=3 pa=0x12c553000 valid=510 first=0x4000020f18a443
+[   92.07] phaseD: dump end marker after 6 records
+[   92.07] phaseD: l2_pa=0x12c555000 slot=0 orig=0x2
+[   92.09] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.09] phaseD: pt leaf[509]=0x4000012c429443
+[   92.10] phaseD: pt leaf[510]=0x4000012c42a443
+[   92.10] phaseD: pt leaf[511]=0x4000012df80443
+[   92.10] phaseD: rec0 lv=0 pa=0x12f37c000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.10] phaseD: rec1 lv=1 pa=0x12de8e000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.10] phaseD: rec2 lv=2 pa=0x12c555000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.10] phaseD: rec3 lv=3 pa=0x148043000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.10] phaseD: rec4 lv=3 pa=0x12f198000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.10] phaseD: rec5 lv=3 pa=0x12c553000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.10] phaseD: hijack visible in rec3 pa=0x148043000 entry=0x12c42a443
+[   92.10] phaseD: visibility test ret=0
+[   92.10] phaseD: L2 insert ret=0
+[   92.13] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.13] phaseD: restore ret=0 l2=0x0 pte=0x4000012c429443
+[   92.13] PHASE_D OK target_pa=0x12c42a000 value=0x447564445f524541 l2_pa=0x12c555000 slot=0
+[   92.18] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.18] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.18] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.18] phaseE: pa=0x4080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   92.18] phaseE: pa=0x6080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   92.18] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.18] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.18] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.18] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.18] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.18] phaseE: koffs.txt present, skip image dump
+[   92.18] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.18] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.18] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x12c555000 base=0x7c0000000
+[   92.22] phaseF: ni244=ffffff8b6ba65c74 ni262=ffffff8b6ba65c74
+[   92.22] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.22] phaseF: forced slot=148 orig=ffffff8b6ba49670 (not an ni entry)
+[   92.22] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.22] phaseF: text=0xffffff8b6a080000 flush=148/0xffffff8b6ba5ebc0
+[   92.25] phaseI: init_task pa=0x2c25100 next=0xfffffff32974b730 prev=0xfffffff3cbca4770 comm=[swapper/0]
+[   92.28] phaseI: memstart_addr=0xffffffcd00000000 lm_base=0xfffffff300000000
+[   92.31] phaseI: lm_base=0xfffffff300000000 memstart=0x0
+[   92.34] walk: hop0 pa=0xcbca4100 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.37] walk: hop1 pa=0x105155140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.41] walk: hop2 pa=0xd8509040 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.41] walk: match 'jit_write_probe' at hop 2 cred=0xfffffff3da24d900
+[   92.41] walk: 'jit_write_probe' prev done hops=3 found=1 0.09s
+[   92.44] phaseI: donor cred va=0xfffffff3da24d900 pa=0xda24d900 uid=10158 gid=10158 euid=10158 sess=0xfffffff5079eb100 (self)
+[   92.47] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.50] phaseI: reserved page round-trip ok
+[   92.51] phaseI: fake cred pa=0x12c42a000 va=0xfffffff42c42a000 usage=4096 caps=7fffffffff
+[   92.51] phaseI: go-file present, committing (relay pid=5917)
+[   92.54] phaseF: poker slot 148 wr=0 got=ffffff8b6ba5ebc0 want=ffffff8b6ba5ebc0 LANDED
+[   92.54] phaseF: poker chose slot 148 (orig=ffffff8b6ba49670)
+[   92.54] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff8b6a73866c
+[   92.57] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.63] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff8b6a738000
+[   92.63] phaseK: modsig_restore off=0x1f41e8 va=0xffffff8b6a2741e8
+[   92.66] phaseK: patch landed (sig orig restore)
+[   92.66] phaseK: sig orig restore applied
+[   92.66] phaseK: modsig_patch off=0x1f41e4 va=0xffffff8b6a2741e4
+[   92.69] phaseK: patch landed (sig skip -> ok)
+[   92.69] phaseK: sig skip -> ok applied
+[   92.70] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8b6a274204
+[   92.73] phaseK: patch landed (saudit nop)
+[   92.73] phaseK: saudit nop applied
+[   92.73] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff8b6a30b9e4
+[   92.76] phaseK: patch not visible (cfi slowpath ret)
+[   92.76] phaseK: seccomp_bypass off=0x233228 va=0xffffff8b6a2b3228
+[   92.79] phaseK: patch not visible (seccomp bypass)
+[   92.79] phaseK: seccomp bypass applied (forced, readback stale)
+[   92.79] phaseK2: seccomp functional=0 retries=2
+[   92.88] phaseK2: retry 1 slot=504 functional=1
+[   92.88] phaseK2: seccomp bypass CONFIRMED
+[   92.93] phaseI: try0 wr=0 entry262=ffffff8b6ba30da8 want=ffffff8b6ba30da8 ok
+[   92.93] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.94] lmk: pid 5839 oom_score_adj=-1000 (5)
+[   92.94] lmk: pid 5917 oom_score_adj=-1000 (5)
+[   92.94] phaseI: append existing file = 7 (ok)
+[   92.94] phaseI: create new file = 7 errno=0 (ok)
+[   92.94] phaseI: domain [u:r:kernel:s0]
+[   92.94] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.95] stage: 3/3 channel files in /data/local/tmp
+[   92.95] root channel: rootd=5924 (rootsrv/watchdog supervised by rootd)
+[   92.95] root channel: probe migrated to top-app cpuset
+[   94.95] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.95] keepalive: L2 descriptors live, holding context (pid=5839)
+[  328.59] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=5989
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=329s / 400s waiting
+[   90.00] gate: HARD LIMIT up=419s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.06] JIT_ALLOC event code=0x1 atom=1
+[   90.06] jit_va = 0x7ff000000
+[   90.06] query before: ret=0 value=25
+[   90.06] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.21] chunk 7: pressure=256 MiB commit=25
+[   90.35] chunk 15: pressure=512 MiB commit=25
+[   90.49] chunk 23: pressure=768 MiB commit=25
+[   90.63] chunk 31: pressure=1024 MiB commit=25
+[   90.78] chunk 39: pressure=1280 MiB commit=25
+[   90.92] chunk 47: pressure=1536 MiB commit=25
+[   91.06] chunk 55: pressure=1792 MiB commit=25
+[   91.25] chunk 63: pressure=2048 MiB commit=25
+[   91.71] chunk 71: pressure=2304 MiB commit=25
+[   91.77] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   91.89] slot claim: 192 regions over 6 cpus
+[   91.97] evicted at chunk 72 (pressure 1824 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   92.03] committed 1024 regions x 25 pages
+[   92.05] created 1024 nents=1 aliases
+[   92.07] alias coherency check done, mismatches=0
+[   92.35] released 57 pressure chunks
+[   92.37] drain pool filled and released
+[   92.38] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.38] drained stale event atom=2 code=0x1
+[   92.38] spray[66] commit: ret=0 value=0
+[   92.38] find_freed_idx -> 66
+[   92.38] pre-reuse alias[66]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.38] mapped 32 reserved regions on fd2
+[   92.39] post-reuse alias[66]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.39] find_pgd -> idx=23 entry=0x4000012e35e443
+[   92.39] PHASE_B OK freed_idx=66 pgd_idx=23 pgd_gpu_va=0x7f858a000 entry=0x4000012e35e443
+[   92.39] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.39] phaseC: k=509 orig=0x4000012e35e443 t=510 target_pa=0x12e355000
+[   92.39] phaseC: PTE write ret=0 readback=0x12e355443
+[   92.39] phaseC: 2 candidate 2M blocks
+[   92.39] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.39] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.39] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.39] phaseC: PTE restore ret=0 readback=0x4000012e35e443
+[   92.39] PHASE_C OK freed_idx=66 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.39] phaseD: target_pa=0x12e355000 cpu_val=0x447564445f524541
+[   92.39] phaseD: cfg transtab=0x13dc58000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.39] phaseD: rec0 level=0 pa=0x13dc58000 valid=1 first=0x214a68403
+[   92.40] phaseD: rec1 level=1 pa=0x214a68000 valid=1 first=0x2
+[   92.40] phaseD: rec2 level=2 pa=0x214a80000 valid=3 first=0x2
+[   92.40] phaseD: rec3 level=3 pa=0x20e795000 valid=3 first=0x2
+[   92.40] phaseD: rec4 level=3 pa=0x20e7a7000 valid=512 first=0x4000012e3ae443
+[   92.40] phaseD: rec5 level=3 pa=0x214a9c000 valid=510 first=0x40000134f26443
+[   92.40] phaseD: dump end marker after 6 records
+[   92.40] phaseD: l2_pa=0x214a80000 slot=0 orig=0x2
+[   92.43] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.43] phaseD: pt leaf[509]=0x4000012e35e443
+[   92.43] phaseD: pt leaf[510]=0x4000012e355443
+[   92.43] phaseD: pt leaf[511]=0x4000012e3ad443
+[   92.43] phaseD: rec0 lv=0 pa=0x13dc58000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.43] phaseD: rec1 lv=1 pa=0x214a68000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.43] phaseD: rec2 lv=2 pa=0x214a80000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.43] phaseD: rec3 lv=3 pa=0x20e795000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.43] phaseD: rec4 lv=3 pa=0x20e7a7000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.43] phaseD: rec5 lv=3 pa=0x214a9c000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.44] phaseD: hijack visible in rec3 pa=0x20e795000 entry=0x12e355443
+[   92.44] phaseD: visibility test ret=0
+[   92.44] phaseD: L2 insert ret=0
+[   92.47] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.47] phaseD: restore ret=0 l2=0x0 pte=0x4000012e35e443
+[   92.47] PHASE_D OK target_pa=0x12e355000 value=0x447564445f524541 l2_pa=0x214a80000 slot=0
+[   92.52] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.52] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.52] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.52] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.52] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.52] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.52] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.52] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.52] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.52] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.52] phaseE: koffs.txt present, skip image dump
+[   92.52] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.52] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.52] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x214a80000 base=0x7c0000000
+[   92.56] phaseF: ni244=ffffff9524a65c74 ni262=ffffff9524a65c74
+[   92.56] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.56] phaseF: forced slot=148 orig=ffffff9524a49670 (not an ni entry)
+[   92.56] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.56] phaseF: text=0xffffff9523080000 flush=148/0xffffff9524a5ebc0
+[   92.59] phaseI: init_task pa=0x2c25100 next=0xffffffd2a974d7b0 prev=0xffffffd337dd96b0 comm=[swapper/0]
+[   92.62] phaseI: memstart_addr=0xffffffed80000000 lm_base=0xffffffd280000000
+[   92.65] phaseI: lm_base=0xffffffd280000000 memstart=0x0
+[   92.69] walk: hop0 pa=0xb7dd9040 comm=2f72656b726f776b000000303a373175 [kworker/u17:0]
+[   92.72] walk: hop1 pa=0xb7dda080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.75] walk: hop2 pa=0xb7ddd140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   92.79] walk: hop3 pa=0xb2fbd140 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   92.79] walk: match 'jit_write_probe' at hop 3 cred=0xffffffd38a9a5a80
+[   92.79] walk: 'jit_write_probe' prev done hops=4 found=1 0.13s
+[   92.82] phaseI: donor cred va=0xffffffd38a9a5a80 pa=0x10a9a5a80 uid=10158 gid=10158 euid=10158 sess=0xffffffd480034600 (self)
+[   92.85] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   92.89] phaseI: reserved page round-trip ok
+[   92.89] phaseI: fake cred pa=0x12e355000 va=0xffffffd3ae355000 usage=4096 caps=7fffffffff
+[   92.89] phaseI: go-file present, committing (relay pid=6091)
+[   92.93] phaseF: poker slot 148 wr=0 got=ffffff9524a5ebc0 want=ffffff9524a5ebc0 LANDED
+[   92.93] phaseF: poker chose slot 148 (orig=ffffff9524a49670)
+[   92.93] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff952373866c
+[   92.96] phaseJ: slot501 preflight wr=0 map_ok=1
+[   93.02] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff9523738000
+[   93.02] phaseK: modsig_restore off=0x1f41e8 va=0xffffff95232741e8
+[   93.05] phaseK: patch landed (sig orig restore)
+[   93.06] phaseK: sig orig restore applied
+[   93.06] phaseK: modsig_patch off=0x1f41e4 va=0xffffff95232741e4
+[   93.09] phaseK: patch landed (sig skip -> ok)
+[   93.09] phaseK: sig skip -> ok applied
+[   93.09] phaseK: modaudit_patch off=0x1f4204 va=0xffffff9523274204
+[   93.12] phaseK: patch landed (saudit nop)
+[   93.12] phaseK: saudit nop applied
+[   93.13] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff952330b9e4
+[   93.16] phaseK: patch not visible (cfi slowpath ret)
+[   93.16] phaseK: seccomp_bypass off=0x233228 va=0xffffff95232b3228
+[   93.19] phaseK: patch not visible (seccomp bypass)
+[   93.19] phaseK: seccomp bypass applied (forced, readback stale)
+[   93.19] phaseK2: seccomp functional=0 retries=2
+[   93.27] phaseK2: retry 1 slot=504 functional=0
+[   93.38] phaseK2: retry 2 slot=505 functional=0
+[   93.38] phaseK2: seccomp bypass FAILED (UMH fallback will cover insmod)
+[   93.43] phaseI: try0 wr=0 entry262=ffffff9524a30da8 want=ffffff9524a30da8 ok
+[   93.43] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   93.43] lmk: pid 5989 oom_score_adj=-1000 (5)
+[   93.43] lmk: pid 6091 oom_score_adj=-1000 (5)
+[   93.43] phaseI: append existing file = 7 (ok)
+[   93.44] phaseI: create new file = 7 errno=0 (ok)
+[   93.44] phaseI: domain [u:r:kernel:s0]
+[   93.44] phaseL: superseded by phaseK seccomp bypass, skipped
+[   93.44] stage: 3/3 channel files in /data/local/tmp
+[   93.44] root channel: rootd=6100 (rootsrv/watchdog supervised by rootd)
+[   93.44] root channel: probe migrated to top-app cpuset
+[   95.44] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   95.44] keepalive: L2 descriptors live, holding context (pid=5989)
+[  329.99] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=6196
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=330s / 400s waiting
+[   90.00] gate: HARD LIMIT up=420s >= 400s -> proceed
+[   90.00] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.03] drain region pre-allocated (0x41000)
+[   90.03] landing page at 0x7feffe000
+[   90.03] JIT_ALLOC event code=0x1 atom=1
+[   90.03] jit_va = 0x7ff000000
+[   90.03] query before: ret=0 value=25
+[   90.03] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.05] chunk 0: pressure=32 MiB commit=25
+[   90.17] chunk 7: pressure=256 MiB commit=25
+[   90.31] chunk 15: pressure=512 MiB commit=25
+[   90.46] chunk 23: pressure=768 MiB commit=25
+[   90.60] chunk 31: pressure=1024 MiB commit=25
+[   90.75] chunk 39: pressure=1280 MiB commit=25
+[   90.89] chunk 47: pressure=1536 MiB commit=25
+[   91.03] jit_sync_destroy: rc=0 (worker completed), online_cpus=8, mode=1
+[   91.11] slot claim: 256 regions over 8 cpus
+[   91.14] evicted at chunk 54 (pressure 1248 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.19] committed 1024 regions x 25 pages
+[   91.20] created 1024 nents=1 aliases
+[   91.21] alias coherency check done, mismatches=0
+[   91.27] released 39 pressure chunks
+[   91.29] drain pool filled and released
+[   91.29] JIT_FREE submit ret=0 errno=0 (Success)
+[   91.29] drained stale event atom=2 code=0x1
+[   91.29] spray[48] commit: ret=0 value=0
+[   91.29] find_freed_idx -> 48
+[   91.29] pre-reuse alias[48]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   91.29] mapped 32 reserved regions on fd2
+[   91.29] post-reuse alias[48]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   91.29] find_pgd -> idx=23 entry=0x400000bd96d443
+[   91.29] PHASE_B OK freed_idx=48 pgd_idx=23 pgd_gpu_va=0x7f874c000 entry=0x400000bd96d443
+[   91.29] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   91.30] phaseC: k=509 orig=0x400000bd96d443 t=510 target_pa=0xbd96c000
+[   91.30] phaseC: PTE write ret=0 readback=0xbd96c443
+[   91.30] phaseC: 2 candidate 2M blocks
+[   91.30] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   91.30] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   91.30] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   91.30] phaseC: PTE restore ret=0 readback=0x400000bd96d443
+[   91.30] PHASE_C OK freed_idx=48 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   91.30] phaseD: target_pa=0xbd96c000 cpu_val=0x447564445f524541
+[   91.30] phaseD: cfg transtab=0xd03c2000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   91.30] phaseD: rec0 level=0 pa=0xd03c2000 valid=1 first=0xbd948403
+[   91.30] phaseD: rec1 level=1 pa=0xbd948000 valid=1 first=0x2
+[   91.30] phaseD: rec2 level=2 pa=0xbd947000 valid=3 first=0x2
+[   91.30] phaseD: rec3 level=3 pa=0x14e350000 valid=3 first=0x2
+[   91.30] phaseD: rec4 level=3 pa=0x1155b9000 valid=512 first=0x400000bd96a443
+[   91.30] phaseD: rec5 level=3 pa=0xbd946000 valid=510 first=0x4000012a13e443
+[   91.30] phaseD: dump end marker after 6 records
+[   91.30] phaseD: l2_pa=0xbd947000 slot=0 orig=0x2
+[   91.31] phaseD: L2 page not in alias, fall back to GPU writes
+[   91.32] phaseD: pt leaf[509]=0x400000bd96d443
+[   91.32] phaseD: pt leaf[510]=0x400000bd96c443
+[   91.32] phaseD: pt leaf[511]=0x400000bd96b443
+[   91.32] phaseD: rec0 lv=0 pa=0xd03c2000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   91.32] phaseD: rec1 lv=1 pa=0xbd948000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   91.32] phaseD: rec2 lv=2 pa=0xbd947000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.32] phaseD: rec3 lv=3 pa=0x14e350000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.32] phaseD: rec4 lv=3 pa=0x1155b9000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.32] phaseD: rec5 lv=3 pa=0xbd946000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.32] phaseD: hijack visible in rec3 pa=0x14e350000 entry=0xbd96c443
+[   91.32] phaseD: visibility test ret=0
+[   91.32] phaseD: L2 insert ret=0
+[   91.34] phaseD: target record 3 dump_val=0x447564445f524541
+[   91.34] phaseD: restore ret=0 l2=0x0 pte=0x400000bd96d443
+[   91.34] PHASE_D OK target_pa=0xbd96c000 value=0x447564445f524541 l2_pa=0xbd947000 slot=0
+[   91.36] phaseE: scan 0x80000..0xfe80000 n=128
+[   91.37] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   91.37] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   91.37] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.37] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.37] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.37] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.37] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.37] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.37] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   91.37] phaseE: koffs.txt present, skip image dump
+[   91.37] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   91.37] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   91.37] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0xbd947000 base=0x7c0000000
+[   91.39] phaseF: ni244=ffffff8034a65c74 ni262=ffffff8034a65c74
+[   91.39] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   91.39] phaseF: forced slot=148 orig=ffffff8034a49670 (not an ni entry)
+[   91.39] phaseF: hook slot=148, 1 callable ni slots: 
+[   91.39] phaseF: text=0xffffff8033080000 flush=148/0xffffff8034a5ebc0
+[   91.41] phaseI: init_task pa=0x2c25100 next=0xffffffd22974a6f0 prev=0xffffffd2d899e7f0 comm=[swapper/0]
+[   91.43] phaseI: memstart_addr=0xffffffee00000000 lm_base=0xffffffd200000000
+[   91.45] phaseI: lm_base=0xffffffd200000000 memstart=0x0
+[   91.46] walk: hop0 pa=0xd899e180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.48] walk: hop1 pa=0xd8999040 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.50] walk: hop2 pa=0x7fd1d140 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   91.51] walk: match 'jit_write_probe' at hop 2 cred=0xffffffd2bc2569c0
+[   91.51] walk: 'jit_write_probe' prev done hops=3 found=1 0.06s
+[   91.52] phaseI: donor cred va=0xffffffd2bc2569c0 pa=0xbc2569c0 uid=10158 gid=10158 euid=10158 sess=0xffffffd202ad6500 (self)
+[   91.54] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   91.56] phaseI: reserved page round-trip ok
+[   91.56] phaseI: fake cred pa=0xbd96c000 va=0xffffffd2bd96c000 usage=4096 caps=7fffffffff
+[   91.56] phaseI: go-file present, committing (relay pid=6237)
+[   91.58] phaseF: poker slot 148 wr=0 got=ffffff8034a5ebc0 want=ffffff8034a5ebc0 LANDED
+[   91.58] phaseF: poker chose slot 148 (orig=ffffff8034a49670)
+[   91.58] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff803373866c
+[   91.60] phaseJ: slot501 preflight wr=0 map_ok=1
+[   91.64] phaseJ: patched ok, flushed 8/8 cpus, icache 0xffffff8033738000
+[   91.64] phaseK: modsig_restore off=0x1f41e8 va=0xffffff80332741e8
+[   91.67] phaseK: patch landed (sig orig restore)
+[   91.67] phaseK: sig orig restore applied
+[   91.67] phaseK: modsig_patch off=0x1f41e4 va=0xffffff80332741e4
+[   91.70] phaseK: patch landed (sig skip -> ok)
+[   91.70] phaseK: sig skip -> ok applied
+[   91.70] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8033274204
+[   91.74] phaseK: patch landed (saudit nop)
+[   91.74] phaseK: saudit nop applied
+[   91.74] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff803330b9e4
+[   91.77] phaseK: patch not visible (cfi slowpath ret)
+[   91.77] phaseK: seccomp_bypass off=0x233228 va=0xffffff80332b3228
+[   91.81] phaseK: patch landed (seccomp bypass)
+[   91.81] phaseK: seccomp bypass applied
+[   91.81] phaseK2: seccomp functional=1 retries=2
+[   91.81] phaseK2: seccomp bypass CONFIRMED
+[   91.84] phaseI: try0 wr=0 entry262=ffffff8034a30da8 want=ffffff8034a30da8 ok
+[   91.85] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   91.85] lmk: pid 6196 oom_score_adj=-1000 (5)
+[   91.85] lmk: pid 6237 oom_score_adj=-1000 (5)
+[   91.85] phaseI: append existing file = 7 (ok)
+[   91.85] phaseI: create new file = 7 errno=0 (ok)
+[   91.85] phaseI: domain [u:r:kernel:s0]
+[   91.85] phaseL: superseded by phaseK seccomp bypass, skipped
+[   91.85] stage: 3/3 channel files in /data/local/tmp
+[   91.86] root channel: rootd=6243 (rootsrv/watchdog supervised by rootd)
+[   91.86] root channel: probe migrated to top-app cpuset
+[   93.86] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   93.86] keepalive: L2 descriptors live, holding context (pid=6196)
+[  337.63] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=7204
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=338s / 400s waiting
+[   90.00] gate: HARD LIMIT up=428s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.01] fd2 reserved 32 regions of 32 pages
+[   90.01] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.05] drain region pre-allocated (0x41000)
+[   90.05] landing page at 0x7feffe000
+[   90.05] JIT_ALLOC event code=0x1 atom=1
+[   90.05] jit_va = 0x7ff000000
+[   90.05] query before: ret=0 value=25
+[   90.05] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.07] chunk 0: pressure=32 MiB commit=25
+[   90.20] chunk 7: pressure=256 MiB commit=25
+[   90.34] chunk 15: pressure=512 MiB commit=25
+[   90.48] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.93] chunk 47: pressure=1536 MiB commit=25
+[   91.00] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   91.10] slot claim: 192 regions over 6 cpus
+[   91.17] evicted at chunk 49 (pressure 1088 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   91.23] committed 1024 regions x 25 pages
+[   91.25] created 1024 nents=1 aliases
+[   91.27] alias coherency check done, mismatches=0
+[   91.47] released 34 pressure chunks
+[   91.50] drain pool filled and released
+[   91.50] JIT_FREE submit ret=0 errno=0 (Success)
+[   91.50] drained stale event atom=2 code=0x1
+[   91.50] spray[6] commit: ret=0 value=0
+[   91.50] find_freed_idx -> 6
+[   91.51] pre-reuse alias[6]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   91.51] mapped 32 reserved regions on fd2
+[   91.51] post-reuse alias[6]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   91.51] find_pgd -> idx=23 entry=0x40000113778443
+[   91.51] PHASE_B OK freed_idx=6 pgd_idx=23 pgd_gpu_va=0x7f8b66000 entry=0x40000113778443
+[   91.51] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   91.51] phaseC: k=509 orig=0x40000113778443 t=510 target_pa=0x113474000
+[   91.51] phaseC: PTE write ret=0 readback=0x113474443
+[   91.51] phaseC: 2 candidate 2M blocks
+[   91.51] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   91.52] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   91.52] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   91.52] phaseC: PTE restore ret=0 readback=0x40000113778443
+[   91.52] PHASE_C OK freed_idx=6 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   91.52] phaseD: target_pa=0x113474000 cpu_val=0x447564445f524541
+[   91.52] phaseD: cfg transtab=0x5ff44000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   91.52] phaseD: rec0 level=0 pa=0x5ff44000 valid=1 first=0x11289e403
+[   91.52] phaseD: rec1 level=1 pa=0x11289e000 valid=1 first=0x2
+[   91.52] phaseD: rec2 level=2 pa=0x11289d000 valid=3 first=0x2
+[   91.52] phaseD: rec3 level=3 pa=0x20afed000 valid=3 first=0x2
+[   91.52] phaseD: rec4 level=3 pa=0x20f9ac000 valid=512 first=0x40000113701443
+[   91.52] phaseD: rec5 level=3 pa=0x112944000 valid=510 first=0x40000106c4a443
+[   91.52] phaseD: dump end marker after 6 records
+[   91.52] phaseD: l2_pa=0x11289d000 slot=0 orig=0x2
+[   91.55] phaseD: L2 page not in alias, fall back to GPU writes
+[   91.55] phaseD: pt leaf[509]=0x40000113778443
+[   91.55] phaseD: pt leaf[510]=0x40000113474443
+[   91.55] phaseD: pt leaf[511]=0x400000a5b4b443
+[   91.55] phaseD: rec0 lv=0 pa=0x5ff44000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   91.55] phaseD: rec1 lv=1 pa=0x11289e000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   91.55] phaseD: rec2 lv=2 pa=0x11289d000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.55] phaseD: rec3 lv=3 pa=0x20afed000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   91.55] phaseD: rec4 lv=3 pa=0x20f9ac000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.55] phaseD: rec5 lv=3 pa=0x112944000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   91.55] phaseD: hijack visible in rec3 pa=0x20afed000 entry=0x113474443
+[   91.56] phaseD: visibility test ret=0
+[   91.56] phaseD: L2 insert ret=0
+[   91.59] phaseD: target record 3 dump_val=0x447564445f524541
+[   91.59] phaseD: restore ret=0 l2=0x0 pte=0x40000113778443
+[   91.59] PHASE_D OK target_pa=0x113474000 value=0x447564445f524541 l2_pa=0x11289d000 slot=0
+[   91.63] phaseE: scan 0x80000..0xfe80000 n=128
+[   91.63] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   91.63] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   91.63] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: pa=0x8080000 m0=0xffffffd8d1314800 off=0x0 size=0x19 flags=0x0 
+[   91.64] phaseE: pa=0xa080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.64] phaseE: pa=0xc080000 m0=0x0 off=0x0 size=0x0 flags=0x0 
+[   91.64] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   91.64] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   91.64] phaseE: koffs.txt present, skip image dump
+[   91.64] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   91.64] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   91.64] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x11289d000 base=0x7c0000000
+[   91.67] phaseF: ni244=ffffff8239c65c74 ni262=ffffff8239c65c74
+[   91.67] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   91.67] phaseF: forced slot=148 orig=ffffff8239c49670 (not an ni entry)
+[   91.67] phaseF: hook slot=148, 1 callable ni slots: 
+[   91.67] phaseF: text=0xffffff8238280000 flush=148/0xffffff8239c5ebc0
+[   91.70] phaseI: init_task pa=0x2c25100 next=0xffffffd7e974b730 prev=0xffffffd8097bd7b0 comm=[swapper/0]
+[   91.74] phaseI: memstart_addr=0xffffffe840000000 lm_base=0xffffffd7c0000000
+[   91.77] phaseI: lm_base=0xffffffd7c0000000 memstart=0x0
+[   91.80] walk: hop0 pa=0x497bd140 comm=2f72656b726f776b000000313a373175 [kworker/u17:1]
+[   91.83] walk: hop1 pa=0x2166c6180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.86] walk: hop2 pa=0x9a25d140 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   91.89] walk: hop3 pa=0x943a4100 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   91.89] walk: match 'jit_write_probe' at hop 3 cred=0xffffffd81d1f2840
+[   91.89] walk: 'jit_write_probe' prev done hops=4 found=1 0.13s
+[   91.93] phaseI: donor cred va=0xffffffd81d1f2840 pa=0x5d1f2840 uid=10158 gid=10158 euid=10158 sess=0xffffffd9c9e4b100 (self)
+[   91.96] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   91.99] phaseI: reserved page round-trip ok
+[   91.99] phaseI: fake cred pa=0x113474000 va=0xffffffd8d3474000 usage=4096 caps=7fffffffff
+[   91.99] phaseI: go-file present, committing (relay pid=7304)
+[   92.02] phaseF: poker slot 148 wr=0 got=ffffff8239c5ebc0 want=ffffff8239c5ebc0 LANDED
+[   92.02] phaseF: poker chose slot 148 (orig=ffffff8239c49670)
+[   92.02] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff823893866c
+[   92.05] phaseJ: slot501 preflight wr=0 map_ok=1
+[   92.11] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff8238938000
+[   92.11] phaseK: modsig_restore off=0x1f41e8 va=0xffffff82384741e8
+[   92.15] phaseK: patch landed (sig orig restore)
+[   92.15] phaseK: sig orig restore applied
+[   92.15] phaseK: modsig_patch off=0x1f41e4 va=0xffffff82384741e4
+[   92.18] phaseK: patch landed (sig skip -> ok)
+[   92.18] phaseK: sig skip -> ok applied
+[   92.18] phaseK: modaudit_patch off=0x1f4204 va=0xffffff8238474204
+[   92.21] phaseK: patch landed (saudit nop)
+[   92.21] phaseK: saudit nop applied
+[   92.21] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff823850b9e4
+[   92.24] phaseK: patch not visible (cfi slowpath ret)
+[   92.24] phaseK: seccomp_bypass off=0x233228 va=0xffffff82384b3228
+[   92.27] phaseK: patch not visible (seccomp bypass)
+[   92.28] phaseK: seccomp bypass applied (forced, readback stale)
+[   92.28] phaseK2: seccomp functional=0 retries=2
+[   92.36] phaseK2: retry 1 slot=504 functional=1
+[   92.36] phaseK2: seccomp bypass CONFIRMED
+[   92.40] phaseI: try0 wr=0 entry262=ffffff8239c30da8 want=ffffff8239c30da8 ok
+[   92.40] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   92.40] lmk: pid 7204 oom_score_adj=-1000 (5)
+[   92.40] lmk: pid 7304 oom_score_adj=-1000 (5)
+[   92.41] phaseI: append existing file = 7 (ok)
+[   92.41] phaseI: create new file = 7 errno=0 (ok)
+[   92.41] phaseI: domain [u:r:kernel:s0]
+[   92.41] phaseL: superseded by phaseK seccomp bypass, skipped
+[   92.41] stage: 3/3 channel files in /data/local/tmp
+[   92.41] root channel: rootd=7312 (rootsrv/watchdog supervised by rootd)
+[   92.41] root channel: probe migrated to top-app cpuset
+[   94.42] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   94.42] keepalive: L2 descriptors live, holding context (pid=7204)
+[  337.95] chain_config: fast=0 spray=1024 jit_sync=1 allcpu=1
+[    0.00] === jit_write phase C === pid=7173
+[    0.00] gate_config: mode=time hard_up=400s min_up=300s window=6 tol_av=100MiB tol_ca=64MiB
+[    0.00] gate: time mode up=338s / 400s waiting
+[   90.01] gate: HARD LIMIT up=428s >= 400s -> proceed
+[   90.01] wait_for_idle: /proc/loadavg unreadable (Permission denied), using the uptime gate alone
+[   90.01] JIT_INIT ok (va=0x1000 trim=100)
+[   90.02] fd2 reserved 32 regions of 32 pages
+[   90.02] job streams jc1=0x7fefff000 jc2=0x7ffffd000
+[   90.06] drain region pre-allocated (0x41000)
+[   90.06] landing page at 0x7feffe000
+[   90.06] JIT_ALLOC event code=0x1 atom=1
+[   90.06] jit_va = 0x7ff000000
+[   90.06] query before: ret=0 value=25
+[   90.06] FLAGS_CHANGE(DONT_NEED) ret=0 errno=0 (Success)
+[   90.08] chunk 0: pressure=32 MiB commit=25
+[   90.20] chunk 7: pressure=256 MiB commit=25
+[   90.34] chunk 15: pressure=512 MiB commit=25
+[   90.48] chunk 23: pressure=768 MiB commit=25
+[   90.62] chunk 31: pressure=1024 MiB commit=25
+[   90.76] chunk 39: pressure=1280 MiB commit=25
+[   90.94] chunk 47: pressure=1536 MiB commit=25
+[   91.30] chunk 55: pressure=1792 MiB commit=25
+[   91.67] chunk 63: pressure=2048 MiB commit=25
+[   92.10] chunk 71: pressure=2304 MiB commit=25
+[   92.15] jit_sync_destroy: rc=0 (worker completed), online_cpus=6, mode=1
+[   92.28] slot claim: 192 regions over 6 cpus
+[   92.35] evicted at chunk 72 (pressure 1824 MiB, query errno 22, released 16 chunks); sprayed 1024 native regions
+[   92.39] committed 1024 regions x 25 pages
+[   92.42] created 1024 nents=1 aliases
+[   92.43] alias coherency check done, mismatches=0
+[   92.77] released 57 pressure chunks
+[   92.79] drain pool filled and released
+[   92.79] JIT_FREE submit ret=0 errno=0 (Success)
+[   92.79] drained stale event atom=2 code=0x1
+[   92.79] spray[12] commit: ret=0 value=0
+[   92.80] find_freed_idx -> 12
+[   92.80] pre-reuse alias[12]: q0=0x0 q1=0x0 pattern_qwords=0 zero_qwords=12800
+[   92.80] mapped 32 reserved regions on fd2
+[   92.80] post-reuse alias[12]: nonzero_qwords=510 q0=0x0 q512=0x0
+[   92.80] find_pgd -> idx=23 entry=0x4000020501f443
+[   92.80] PHASE_B OK freed_idx=12 pgd_idx=23 pgd_gpu_va=0x7f8ad0000 entry=0x4000020501f443
+[   92.80] phaseC: table nonzero=512 leaves=3 k256=0x2
+[   92.80] phaseC: k=509 orig=0x4000020501f443 t=510 target_pa=0x117513000
+[   92.80] phaseC: PTE write ret=0 readback=0x117513443
+[   92.80] phaseC: 2 candidate 2M blocks
+[   92.80] phaseC: B=0x7ffc00000 page[k]=0x4d414749435f4f4b MAGIC
+[   92.80] phaseC: B=0x7ffa00000 page[k]=0x0 (not magic)
+[   92.81] phaseC: V0=0x7ffa00000 page[t=510]=0x4d414749435f4f4b MAGIC
+[   92.81] phaseC: PTE restore ret=0 readback=0x4000020501f443
+[   92.81] PHASE_C OK freed_idx=12 pgd_idx=23 k=509 t=510 v0=0x7ffa00000
+[   92.81] phaseD: target_pa=0x117513000 cpu_val=0x447564445f524541
+[   92.81] phaseD: cfg transtab=0x20aad9000 memattr=0x4c8d888d8f88 transcfg=0x6
+[   92.81] phaseD: rec0 level=0 pa=0x20aad9000 valid=1 first=0x11779d403
+[   92.81] phaseD: rec1 level=1 pa=0x11779d000 valid=1 first=0x2
+[   92.81] phaseD: rec2 level=2 pa=0x11779f000 valid=3 first=0x2
+[   92.81] phaseD: rec3 level=3 pa=0x2141ed000 valid=3 first=0x2
+[   92.81] phaseD: rec4 level=3 pa=0x1363ab000 valid=512 first=0x40000117606443
+[   92.81] phaseD: rec5 level=3 pa=0x11777b000 valid=510 first=0x4000011bce0443
+[   92.81] phaseD: dump end marker after 6 records
+[   92.81] phaseD: l2_pa=0x11779f000 slot=0 orig=0x2
+[   92.84] phaseD: L2 page not in alias, fall back to GPU writes
+[   92.84] phaseD: pt leaf[509]=0x4000020501f443
+[   92.84] phaseD: pt leaf[510]=0x40000117513443
+[   92.84] phaseD: pt leaf[511]=0x400001180c6443
+[   92.84] phaseD: rec0 lv=0 pa=0x20aad9000 nvalid=1 idx=0,-1,-1,-1,-1,-1,-1,-1
+[   92.85] phaseD: rec1 lv=1 pa=0x11779d000 nvalid=1 idx=31,-1,-1,-1,-1,-1,-1,-1
+[   92.85] phaseD: rec2 lv=2 pa=0x11779f000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.85] phaseD: rec3 lv=3 pa=0x2141ed000 nvalid=3 idx=509,510,511,-1,-1,-1,-1,-1
+[   92.85] phaseD: rec4 lv=3 pa=0x1363ab000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.85] phaseD: rec5 lv=3 pa=0x11777b000 nvalid=8 idx=0,1,2,3,4,5,6,7
+[   92.85] phaseD: visibility test ret=0
+[   92.85] phaseD: L2 insert ret=0
+[   92.88] phaseD: target record 3 dump_val=0x447564445f524541
+[   92.88] phaseD: restore ret=0 l2=0x0 pte=0x4000020501f443
+[   92.88] PHASE_D OK target_pa=0x117513000 value=0x447564445f524541 l2_pa=0x11779f000 slot=0
+[   92.92] phaseE: scan 0x80000..0xfe80000 n=128
+[   92.93] phaseE: pa=0x80000 m0=0x14960000 off=0x80000 size=0x3222000 flags=0xa ARM64-IMAGE
+[   92.93] phaseE: pa=0x2080000 m0=0x343038382e444544 off=0x45434152545fff24 size=0x5f4d45545359535f flags=0x5f544341504d4f43 
+[   92.93] phaseE: pa=0x4080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.93] phaseE: pa=0x6080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.93] phaseE: pa=0x8080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.93] phaseE: pa=0xa080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.93] phaseE: pa=0xc080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.93] phaseE: pa=0xe080000 m0=0x5a5a5a5a5a5a5a5a off=0x5a5a5a5a5a5a5a5a size=0x5a5a5a5a5a5a5a5a flags=0x5a5a5a5a5a5a5a5a 
+[   92.93] phaseE: IMAGE base=0x80000 size=0x3222000 pages=12834
+[   92.93] phaseE: koffs.txt present, skip image dump
+[   92.93] ksym: using /data/user/0/com.hlk.rootguard/files/chan/koffs.txt ($PROBE_KOFFS)
+[   92.93] ksym: using 24 offsets from /data/user/0/com.hlk.rootguard/files/chan/koffs.txt
+[   92.93] phaseF: img=0x80000 body=0x7474b8 tab=0x1c12000 l2=0x11779f000 base=0x7c0000000
+[   92.96] phaseF: ni244=ffffff943ba65c74 ni262=ffffff943ba65c74
+[   92.96] phaseF: 51 ni entries: 42,89,104,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,235,236,237,238,239,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,262,263,264,265,272,282,288,289,290,
+[   92.96] phaseF: forced slot=148 orig=ffffff943ba49670 (not an ni entry)
+[   92.96] phaseF: hook slot=148, 1 callable ni slots: 
+[   92.96] phaseF: text=0xffffff943a080000 flush=148/0xffffff943ba5ebc0
+[   92.99] phaseI: init_task pa=0x2c25100 next=0xfffffff0a974e7f0 prev=0xfffffff0e314c770 comm=[swapper/0]
+[   93.03] phaseI: memstart_addr=0xffffffcf80000000 lm_base=0xfffffff080000000
+[   93.06] phaseI: lm_base=0xfffffff080000000 memstart=0x0
+[   93.10] walk: hop0 pa=0x6314c100 comm=2f72007065656c730000000000000030 [sleep]
+[   93.14] walk: hop1 pa=0x83216180 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   93.18] walk: hop2 pa=0x83212080 comm=76655f657361626b0000000000746e65 [kbase_event]
+[   93.22] walk: hop3 pa=0xb6d0b0c0 comm=746972775f74696a0065626f72705f65 [jit_write_probe]
+[   93.22] walk: match 'jit_write_probe' at hop 3 cred=0xfffffff0dc33f6c0
+[   93.22] walk: 'jit_write_probe' prev done hops=4 found=1 0.16s
+[   93.26] phaseI: donor cred va=0xfffffff0dc33f6c0 pa=0x5c33f6c0 uid=10158 gid=10158 euid=10158 sess=0xfffffff288401200 (self)
+[   93.29] phaseI: switch go=/data/user/0/com.hlk.rootguard/files/chan/v16_go(1) avc=/data/user/0/com.hlk.rootguard/files/chan/v16_avc(1)
+[   93.32] phaseI: reserved page round-trip ok
+[   93.33] phaseI: fake cred pa=0x117513000 va=0xfffffff197513000 usage=4096 caps=7fffffffff
+[   93.33] phaseI: go-file present, committing (relay pid=7243)
+[   93.36] phaseF: poker slot 148 wr=0 got=ffffff943ba5ebc0 want=ffffff943ba5ebc0 LANDED
+[   93.36] phaseF: poker chose slot 148 (orig=ffffff943ba49670)
+[   93.36] phaseJ: avc_denied off=0x6b866c pa=0x73866c va=0xffffff943a73866c
+[   93.39] phaseJ: slot501 preflight wr=0 map_ok=1
+[   93.46] phaseJ: patched ok, flushed 6/6 cpus, icache 0xffffff943a738000
+[   93.46] phaseK: modsig_restore off=0x1f41e8 va=0xffffff943a2741e8
+[   93.49] phaseK: patch landed (sig orig restore)
+[   93.49] phaseK: sig orig restore applied
+[   93.49] phaseK: modsig_patch off=0x1f41e4 va=0xffffff943a2741e4
+[   93.52] phaseK: patch landed (sig skip -> ok)
+[   93.53] phaseK: sig skip -> ok applied
+[   93.53] phaseK: modaudit_patch off=0x1f4204 va=0xffffff943a274204
+[   93.56] phaseK: patch landed (saudit nop)
+[   93.56] phaseK: saudit nop applied
+[   93.56] phaseK: cfi_bypass off=0x28b9e4 va=0xffffff943a30b9e4
+[   93.59] phaseK: patch landed (cfi slowpath ret)
+[   93.59] phaseK: cfi slowpath ret applied
+[   93.59] phaseK: seccomp_bypass off=0x233228 va=0xffffff943a2b3228
+[   93.62] phaseK: patch landed (seccomp bypass)
+[   93.63] phaseK: seccomp bypass applied
+[   93.63] phaseK2: seccomp functional=1 retries=2
+[   93.63] phaseK2: seccomp bypass CONFIRMED
+[   93.66] phaseI: try0 wr=0 entry262=ffffff943ba30da8 want=ffffff943ba30da8 ok
+[   93.66] phaseI: commit_creds rc=0 errno=0 uid=0 euid=0 gid=0
+[   93.66] lmk: pid 7173 oom_score_adj=-1000 (5)
+[   93.66] lmk: pid 7243 oom_score_adj=-1000 (5)
+[   93.66] phaseI: append existing file = 7 (ok)
+[   93.66] phaseI: create new file = 7 errno=0 (ok)
+[   93.67] phaseI: domain [u:r:kernel:s0]
+[   93.67] phaseL: superseded by phaseK seccomp bypass, skipped
+[   93.67] stage: 3/3 channel files in /data/local/tmp
+[   93.67] root channel: rootd=7249 (rootsrv/watchdog supervised by rootd)
+[   93.67] root channel: probe migrated to top-app cpuset
+[   95.67] PHASE_I OK uid=0 caps=7fffffffff avc=1 sid=kernel(init_cred)
+[   95.67] keepalive: L2 descriptors live, holding context (pid=7173)
