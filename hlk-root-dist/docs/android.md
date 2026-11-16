@@ -1,7 +1,7 @@
 # android/ —— 一体化 APK 工程（2026-11-10 精简版）
 
 `bin/hlk-root-guard.apk` 是**主 APK**
-（versionCode 14 / versionName 1.4，3.7 MB，md5 `3707b66af5293da4be4d08107876ab94`）。
+（versionCode 15 / versionName 1.5，2.99 MB，md5 `1bad2a8955fe333a98755649159eb84d`）。
 它把开机 root 链、两个内核模块与部署脚本全部打包，装完重启即可，
 不需要 PC、不需要手动 `insmod`。官方 Manager 从本版起**不再内置**，
 需要图形授权界面时用 `../bin/SukiSU_v4.2.1_40994-release.apk`
@@ -25,8 +25,10 @@ assets/ksu/termux_su termux_tsu grant_su hlk_termux_setup.sh
 
 > 2026-11-10：`assets/ksu/ksu_manager.apk`（17 MB）与
 > `assets/ksu/ksu_install_mgr.sh` 已移出主 APK，签名后体积从 20.2 MB
-> 降到 3.7 MB。Manager 改为独立 APK 手动安装；v1.4 起
+> 降到 3.7 MB（v1.5 为 2.99 MB）。Manager 改为独立 APK 手动安装；v1.4 起
 > `KsuBootstrap.linkManagerOnce()` 只在开机链末尾与打开 APP 时各查一次 uid。
+> v1.5 只新增一条**低频**采样线程（`ksu-grants-snap`，60 s / 上限 2880 次），
+> 用于发现「用户在 Manager 面板点了授权」并落盘，见包根 README §4.2。
 
 ## 启动链
 
@@ -36,9 +38,12 @@ assets/ksu/termux_su termux_tsu grant_su hlk_termux_setup.sh
 `KsuBootstrap`（**绝不能阻塞 stdout pump**）→ 提取 9 个 assets →
 经 root 通道跑 `ksu_bootstrap.sh` 装两个模块 → **一次性**查 Manager uid
 写入 `/proc/hlksu_fd9`（日志 `Manager linked`）→
+`replayGrants()`（重放 `Prefs.grants` 里的授权）→ `snapshotGrants()` →
 `SukiSU layer ready (Termux patch is manual: open 补丁)`。
-**v1.4 起没有任何常驻轮询线程**：Termux 适配完全由「补丁」页手动触发，
-Manager 在每次打开 APP 时再用 `ensureUid()` 查一次。
+**v1.4 起没有 Termux / Manager 的常驻轮询线程**：Termux 适配完全由「补丁」页
+手动触发，Manager 在每次打开 APP 时再用 `ensureUid()` 查一次。
+v1.5 只多了一个**授权采样**线程 `ksu-grants-snap`（60 s 一次、上限 2880 次，
+值不变不写盘），用来发现「用户刚在 Manager 面板点了授权」，见包根 README §4.2。
 
 关键点（真机踩出来的）：
 

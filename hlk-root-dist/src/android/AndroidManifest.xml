@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hlk.rootguard"
-    android:versionCode="14"
-    android:versionName="1.4">
+    android:versionCode="15"
+    android:versionName="1.5">
 
     <!-- targetSdk 28 on purpose: Android 10 only blocks exec() of files in the
          app's own directories for apps targeting 29+.  The probe is executed
