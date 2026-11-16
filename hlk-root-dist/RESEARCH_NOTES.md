@@ -1,12 +1,18 @@
 # HLK-AL00（荣耀9X 全网通，代号 HLK-AL00）内核安全研究笔记
 
-## 当前状态速查（2026-11-11 v1.4 三页 UI + 手动补丁版）
+## 当前状态速查（2026-11-16 v1.5 授权跨重启自动恢复版）
 
-- **主交付物**：`bin/hlk-root-guard.apk`（code 14 / 1.4，3.7 MB，
-  md5 `3707b66a…`）；开机约 7 分钟（最坏约 15 分钟，见 §46）自动提权 +
-  双模块。**Termux 补丁改为「补丁」页手动点一次，无常驻后台线程**（§47）。
-  官方 Manager 是**可选的第二包** `bin/SukiSU_v4.2.1_40994-release.apk`，
-  开机 / 每次打开 APP 时接管（「工作中 + 越狱模式」）；不装不影响 root。
+- **主交付物**：`bin/hlk-root-guard.apk`（code 15 / 1.5，2.99 MB，
+  md5 `1bad2a89…`）；开机约 7 分钟（最坏约 15 分钟，见 §46）自动提权 +
+  双模块 + **重放持久化的授权**（C-95）。**Termux 补丁仍是「补丁」页手动
+  点一次，无常驻后台线程**（§47）。官方 Manager 是**可选的第二包**
+  `bin/SukiSU_v4.2.1_40994-release.apk`，开机 / 每次打开 APP 时接管
+  （「工作中 + 越狱模式」）；不装不影响 root。
+- **★ 授权跨重启自动恢复（v1.5，C-95）**：shim 的 allowlist 只在模块内存，
+  重启必清零。`grant_su list` 读回 → `Prefs.grants` 落盘 → 开机链重放。
+  真机验收：重启 `allow_su=0` → 自动 `allow_su=1`，NP(10557) `uid=0(root)`。
+  配套 P2（C-96）：`mgr_uid` 不匹配时首页红字提示，否则面板点授权会被内核
+  **静默拒绝**而 UI 仍显示「已授权」。
 - **★ su 前端修复（tmoe 兼容性）**：`su -c` / `sudo CMD` 的多参数逐个
   重新加引号，tmoe 的 `sudo sed -i -E "s@^(...)@..."` 不再报
   `unexpected '('`；「Termux 补丁」同时放开 tmoe 配置目录权限（0700→0755）、
@@ -24,8 +30,10 @@
 - **★ 全新出厂流程（v1.4 起）**：开机链只做提权 + 双模块，**不碰 Termux**；
   装好 Termux 并首次打开后，进 APP「补丁」页点一次「应用补丁」即可让
   `su` / `sudo` / `tsu` 与 `mount` 等系统工具全部可用，无需电脑。
-  **每次重启、pkg upgrade、tmoe 重新部署容器后需再点一次**（allowlist 是
-  模块内存）。见 C-85 / C-87 / C-92、`docs/RESEARCH_LOG.md` §40 / §42 / §47。
+  v1.4 时「**每次重启**」也要补一次（第 ⑥ 项重建 allowlist）；**v1.5 起开机链
+  自动重放已保存的授权，日常重启不再需要点补丁**，只有 `pkg upgrade`、
+  tmoe 重新部署容器、或 Termux 重装导致 uid 变化后才需要再点一次。
+  见 C-85 / C-87 / C-92 / C-95、`docs/RESEARCH_LOG.md` §40 / §42 / §47。
 - **★ mount namespace 可用（纠错）**：`CONFIG_NAMESPACES is not set` 只关掉
   UTS / IPC / USER / PID / NET 五类；mnt ns 无条件编进内核，`unshare -m`
   真机实测隔离且支持多实例，但必须配 `mount --make-rprivate /`。
@@ -2171,3 +2179,42 @@ syscall 时装 fd」，必然早于 `HomeViewModel.buildState()`，也不需要�
   MemAvailable 3.5 GB——杀探针收益 <5 MB。可选方向（还原 L2 后退出 /
   探针瘦身 / fd 托管 / 优化 APP 自身）均未实施。见 §48、
   `docs/USAGE.md` §2.1 红线、`research/evidence/probe_mem_probe.sh`。
+
+
+- **C-95｜授权表只在模块内存，重启必清零；v1.5 用「读回 + 落盘 + 开机重放」修复**。
+  机制（2026-11-16 实测）：`hlk_ksu_shim9.ko` 的 allowlist 是 `g_allow[64]`
+  （`allow_set()` 用 CAS 占槽），**没有第二处副本**——Manager 的 `settings.xml`
+  里只有 `ui_mode` 之类 UI 项，不存授权；所以重启后内核表是空的，而
+  Manager 面板照样画「已授权」（它显示的是自己的 UI 缓存）。实测链：
+  重启前 `allow_su=3`（NP `com.wn.app.np` 10557 授权后 2→3，
+  `hlk_su --as-uid 10557 -c id` 得 `uid=0`）→ 重启 → 开机链日志
+  `mgr_uid=10164 allow_su=0`，MT(10556) / NP(10557) **双双**
+  `GRANT_ROOT denied: Operation not permitted` → 手工 `grant_su <uid> allow <pkg>`
+  重放立刻恢复。修法四步：① `grant_su` 加只读模式 `list`
+  （`KSU_IOCTL_NEW_GET_ALLOW_LIST`，**编码 `0xC0044B06`**
+  ＝`_IOWR('K',6,4)`，结构 `u16 count; u16 total_count; u32 uids[]`，
+  最多 64 项；写成 `0xC0004B06` 漏掉 size 位会 `ENOTTY`）；② 快照
+  `Prefs.grants = "uid:pkg;uid:pkg"`；③ 开机链在 `linkManagerOnce()` 之后、
+  置 `ready` 之前批量重放；④ 之后 60 s 一次、上限 2880 次的
+  `ksu-grants-snap` 线程采样，值变才写盘。防呆两条：解析必须匹配到
+  `grant_su: list` 头，否则当「没回答」而非「空表」；APK 的
+  `assets/ksu/grant_su` 必须同步换新版，因为 `extract()` 每次开机 / 每次点
+  补丁页都会把它覆盖回设备（旧二进制会让采样永远
+  `no answer from grant_su list`，调试中真实复现过）。**真机闭环（2026-11-16）**：
+  `17:47:08 bootstrap … allow_su=0` → `17:47:09 grants replay: 1 entries
+  -> uid=10557 allow_su=1 OK` → `17:47:10 SukiSU layer ready` →
+  NP `uid=0(root)` 且 `ls /data/data` 可读，MT 仍 `GRANT_ROOT denied`。
+  见包根 README §4.2。
+
+
+- **C-96｜管理器面板「点了允许但没生效」的成因是 `mgr_uid` 门禁，不是授权丢失**。
+  `SET_APP_PROFILE` 的放行条件是 `uid==0 || uid==2000 || uid==g_mgr_uid`；
+  `g_mgr_uid` 默认 `10164`，而本机 SukiSU Ultra 实际 uid 是 **10116**。
+  门禁不匹配时内核返回 `-EPERM`，Manager 拿不到结果却已经把 UI 画成
+  「已授权」——用户看到的现象就是「面板点了允许，应用还是进不去 `/data/data`」。
+  v1.5 加了自检：`writeUid()` 记录 `sMgrWant` / `sMgrGot`，不一致时日志写
+  `WARN: 管理器未接管：内核 mgr_uid=…，管理器 uid=…`；首页新增「管理器接管」
+  （`OK` / 不匹配值，WARN 色）与「已授权应用」（`N 个 · 重启后自动恢复`）两行，
+  不匹配时提示区红字说明「现在在管理器面板点授权，会被内核直接拒绝」。
+  顺带解释历史疑问：同一台机「授权 MT 却访问不了 `/data/data`、重启后又能了」
+  不是概率问题——是重启后 `mgr_uid` 被重新写对（10116）且 allowlist 经重放恢复。

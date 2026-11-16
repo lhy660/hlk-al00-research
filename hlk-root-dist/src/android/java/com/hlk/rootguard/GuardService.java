@@ -443,7 +443,7 @@ public class GuardService extends Service {
      *
      * @return the command output, or null when the daemon did not answer
      */
-    static String runAsRoot(Context c, String cmd, int timeoutMs) {
+    static synchronized String runAsRoot(Context c, String cmd, int timeoutMs) {
         File dir = inbox(c);
         if (!dir.isDirectory())
             return null;

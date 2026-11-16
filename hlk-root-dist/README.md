@@ -1,8 +1,9 @@
 # HLK-AL00 临时 Root —— 发布包（2026-11-10 目录整理版）
 
 目标设备：Huawei HLK-AL00（orlando / Kirin 810 / EMUI 10 / 内核 4.14.116，BL 锁定）。
-装主 APK（3.7 MB，位于 `bin/`），开机后约 7 分钟（EMUI 丢广播时最坏约 15 分钟）
-自动完成临时 root + SukiSU Ultra 垫片；**Termux 补丁需到 APP「补丁」页手动点一次**（v1.4）。
+装主 APK（3.0 MB，位于 `bin/`），开机后约 7 分钟（EMUI 丢广播时最坏约 15 分钟）
+自动完成临时 root + SukiSU Ultra 垫片；**已授权的应用会在重启后自动恢复**
+（v1.5 起，见 §4.2），**Termux 补丁仍需到 APP「补丁」页手动点一次**（v1.4 起）。
 官方 Manager 是**可选的第二包**，单独安装后在开机 / 打开 APP 时接管。
 root 会话保留 FBE 会话 keyring 与完整 capability，可正常读写 `/data`、
 访问应用私有数据。2026-11-10 起主包不再内置 17 MB 的 Manager，同日完成
@@ -24,7 +25,8 @@ root 会话保留 FBE 会话 keyring 与完整 capability，可正常读写 `/da
 | **★ 主 APK（推荐）** | `adb install -r -d bin/hlk-root-guard.apk` → 开机链自动提权 + `insmod` 双模块；Termux 补丁到「补丁」页点一次 |
 | 图形授权界面（可选） | `adb install -r -d bin/SukiSU_v4.2.1_40994-release.apk` | 开机 / 每次打开 APP 时写 `mgr_uid` → 首页 **工作中 + 越狱模式** |
 | 获取 root 命令 | `/data/local/tmp/hlk_su <cmd>` 或裸 `su` | `uid=0(root) ... u:r:shell:s0` |
-| 逐应用授权 root | SukiSU Ultra Manager 超级用户页 | 授权 uid 可读 `/data`（MT 管理器验收通过） |
+| 逐应用授权 root | SukiSU Ultra Manager 超级用户页 | 授权 uid 可读 `/data`（MT / NP 管理器验收通过） |
+| **授权跨重启恢复（v1.5）** | 开机链自动重放 + APP 内 `grants` 快照 | 重启后 `allow_su` 自动恢复，不用重新授权 |
 | 校验完整性 | `md5sum -c MANIFEST.md5`（包根，唯一一份） | 全部 OK |
 
 **三层结构**：① 开机链（APK 内探针，Mali JIT UAF → 页表劫持 →
@@ -126,7 +128,7 @@ hlk-root-dist/
 
 | 文件 | 用途 |
 |---|---|
-| `hlk-root-guard.apk` | ★ 主 APK（3.7 MB，md5 `3707b66a…`，versionCode 14），唯一必需安装项 |
+| `hlk-root-guard.apk` | ★ 主 APK（2.99 MB，md5 `1bad2a89…`，versionCode 15 / 1.5），唯一必需安装项 |
 | `SukiSU_v4.2.1_40994-release.apk` | 可选官方 Manager（40994 / UAPI5），不内置于主包 |
 | `hlk_ksu_shim9.ko` / `hlk_sucompat.ko` | 开机链自动 `insmod` 的两个模块 |
 | `hlk_su` / `grant_su` | root 请求 helper / `SET_APP_PROFILE` 授权工具 |
@@ -154,7 +156,7 @@ hlk-root-dist/
 
 | 文件 | md5 |
 |---|---|
-| `bin/hlk-root-guard.apk` | `3707b66af5293da4be4d08107876ab94`（3.7 MB，精简版） |
+| `bin/hlk-root-guard.apk` | `1bad2a8955fe333a98755649159eb84d`（2.99 MB，v1.5 / code 15） |
 | `bin/jit_write_probe_v16` | `7a86966f54eed1445b0b9ac107d00fc4` |
 | `src/probe/jit_write_probe_v16.c` | `ef6279d0bc124e13ff3076286c7f91a1` |
 | `bin/hlk_ksu_shim9.ko` | `66f895bd9a2366c2101e8ee591ebb8bf` |
@@ -165,7 +167,7 @@ hlk-root-dist/
 
 全量清单用 `MANIFEST.md5`（唯一一份），不要手工比对上表。
 
-### v1.4：三页 UI 与「补丁」页（2026-11-10 重构）
+### 4.1 v1.4：三页 UI 与「补丁」页（2026-11-10 重构）
 
 APP 参照 KernelSU / SukiSU Manager 重做成**纯代码绘制**的界面：浅粉背景、
 暗玫瑰圆角状态卡（带同心圆装饰）、白色信息卡片、悬浮胶囊底部导航，
@@ -197,16 +199,19 @@ Material 库。`am start -n com.hlk.rootguard/.MainActivity --ei page 1`
 | tmoe 配置目录 `0700 → 0755` | setup | `grep: Permission denied`、菜单假默认值 |
 | 补 `$PREFIX/bin/tsudo` 链接 | setup | `check_sudo()` 丢失 root 前缀 |
 | 容器 `etc/profile.d/` 绝对软链 → 相对软链 | setup | `cp/chmod: dangling symlink` |
-| 重建 shim 的 su allowlist（模块内存） | `grant_su` | 重启后授权丢失 |
+| 重建 shim 的 su allowlist（模块内存） | `grant_su` | 重启后授权丢失（**v1.5 起由开机链自动重放，这一项不再必需**） |
 
 入口是 `KsuBootstrap.applyTermuxPatch()` / `checkTermuxPatch()`；等价 adb
 命令 `am broadcast -n com.hlk.rootguard/.CtlReceiver -a com.hlk.rootguard.CTL --es cmd patch`
 （`patchcheck` 是只读检查）。`hlk_termux_setup.sh check <asset_dir>` 提供
 只读状态报告；`Prefs` 记录「上次应用」时间。脚本幂等，可重复点。
 
-**什么时候需要点**：恢复出厂 / 全新装 Termux、Termux 首次启动解压
-bootstrap、`pkg upgrade`、tmoe 重新部署容器、**每次手机重启**之后。
-开机链只负责提权 + 双模块，**不会**自动应用这些补丁。
+**什么时候需要点**：恢复出厂 / 全新装 Termux（uid 会重新分配）、Termux 首次
+启动解压 bootstrap、`pkg upgrade`、tmoe 重新部署容器之后。
+v1.4 时「每次手机重启」也要点一次，唯一原因是第 ⑥ 项；**v1.5 起开机链会
+自动重放已保存的授权，日常重启不再需要点补丁**。只有 Termux 的 uid 变了
+（重装 / 恢复出厂）才需要点一次，把新 uid 送进授权表。
+开机链只负责提权 + 双模块，**不会**自动应用 ①–⑤ 这些补丁。
 
 **时序与边界**：
 
@@ -236,6 +241,52 @@ bootstrap、`pkg upgrade`、tmoe 重新部署容器、**每次手机重启**之�
 > 调 `PR_CAP_AMBIENT_RAISE`，保住 capability 跨 `execve` 重算不丢失。
 > 部署必须重编 APK：`KsuBootstrap.extract()` 每次开机都会从 assets 覆盖
 > 设备上的 `.ko` 与 `hlk_su`。机制见 `docs/RESEARCH_LOG.md` §39。
+
+### 4.2 v1.5：授权跨重启自动恢复 + 管理器接管自检（2026-11-16）
+
+**问题（实测）**：shim 的授权表 `g_allow[64]` 只存在于模块内存，Manager 的
+`settings.xml` 里只有 UI 项、**没有任何持久化的授权列表**。所以重启后
+`allow_su` 归零：实测重启前 `allow_su=3`，重启后开机链日志写
+`mgr_uid=10164 allow_su=0`，MT(10556) / NP(10557) 双双 `GRANT_ROOT denied`。
+
+**做法（四步闭环，全部在 APP 侧，不动内核）**：
+
+1. `grant_su` 新增只读模式 `grant_su list`
+   （`KSU_IOCTL_NEW_GET_ALLOW_LIST`，编码 **`0xC0044B06`** = `_IOWR('K',6,4 字节)`，
+   结构 `__u16 count; __u16 total_count; __u32 uids[];`，最多 64 项），
+   把内核 allowlist 读回用户态；
+2. 快照存进 `Prefs`：`grants = "uid:pkg;uid:pkg;…"`；
+3. 开机链在 `linkManagerOnce()` 之后、置 `ready` 之前批量重放
+   `grant_su <uid> allow <pkg>`；
+4. 之后每 60 秒采样一次（上限 2880 次，daemon 线程 `ksu-grants-snap`），
+   值不变不写盘。**这一步是唯一能发现「用户刚在 Manager 面板点的那一下」的办法**
+   —— APP 挂不到那个 ioctl，只能轮询。
+
+防呆：`grant_su list` 的解析必须匹配到 `grant_su: list` 头才认；拿不到答案
+（通道没响应 / 二进制不对）一律当「没回答」，**绝不**当成「表是空的」，
+否则重启瞬间一次空采样就会把存档抹掉。
+
+**P2（管理器接管自检）**：`writeUid()` 现在记录 `sMgrWant` / `sMgrGot`，不一致时
+日志写 `WARN: 管理器未接管：内核 mgr_uid=…，管理器 uid=…`，首页新增两行
+「管理器接管」（`OK` / 具体不匹配值）与「已授权应用」（`N 个 · 重启后自动恢复`）；
+不匹配时首页提示区直接红字说明「在管理器面板点授权会被内核直接拒绝」。
+`mgr_uid` 门禁的成因：`SET_APP_PROFILE` 只放行 `uid==0 || 2000 || g_mgr_uid`，
+Manager 面板的授权请求来自 Manager 自己的 uid，门禁不匹配就被 `-EPERM` 静默吞掉、
+而面板照样显示「已授权」。
+
+**真机验收（2026-11-16）**：
+
+```
+安装 v1.5 -> 重启 -> 17:47:08 bootstrap … allow_su=0 … BOOTSTRAP-DONE
+                    17:47:09 grants replay: 1 entries -> uid=10557 allow_su=1 OK
+                    17:47:10 SukiSU layer ready
+NP 10557: uid=0(root) …, 可 ls /data/data
+MT 10556: hlk_su: GRANT_ROOT denied: Operation not permitted
+```
+
+**注意**：APK 的 `assets/ksu/grant_su` 必须是含 `list` 的新版。`extract()` 每次
+开机 / 每次点「补丁」页都会把它从 assets 覆盖回设备，装旧 APK 会让采样一直
+报 `no answer from grant_su list`（这个现象在 2026-11-16 的调试里真实发生过）。
 
 ---
 
@@ -276,6 +327,19 @@ JDK 17，已随包，可用 `ANDTOOL` 覆盖）。两个 `.ko` 由新增的
 回退系统 `aarch64-linux-gnu-gcc -static`。完整依赖、环境变量与 Linux 端验证结果见 **[`../tools/README-linux.md`](../tools/README-linux.md)**；
 使用教程见 `docs/USAGE.md`。
 
+**2026-11-16 构建注意（v1.5 实跑踩到的三个坑）**：
+
+- 包内 `../tools/andtool-linux/jdk/jdk-17.0.21+9/lib/modules` 在本仓库里是
+  **Git LFS 指针（134 字节）**，直接拿它起 JVM 会 `SIGSEGV`
+  （`SharedClassPathEntry::validate`）。改用系统 JDK：
+  `JDK_DIR=/usr/lib/jvm/java-17-openjdk-amd64 sh src/android/build.sh`。
+- `aapt2 link` 的 `--version-code` / `--version-name` **不生效**：版本号必须改
+  `src/android/AndroidManifest.xml`。只改 `build.sh` 打出来的还是旧号（实测）。
+- `build9.sh` 只编 `hlk_su`，**不编 `grant_su`**。v1.5 的 `grant_su` 需单独产出：
+  `aarch64-linux-gnu-gcc -static -O2 -o bin/grant_su src/sukisu/grant_su.c`
+  （646 KB，glibc 静态；NDK/bionic 版约 4 MB）。改完 `grant_su.c` 必须先出新
+  `bin/grant_su` 再打 APK，否则 `assets/ksu/grant_su` 还是旧逻辑。
+
 ---
 
 ## 6. 2026-11-10 收尾整理
@@ -289,7 +353,7 @@ JDK 17，已随包，可用 `ANDTOOL` 覆盖）。两个 `.ko` 由新增的
 - **构建链改造并实跑验证**：新布局下重编 APK，与发布包 20 个条目中
   除签名外**逐字节一致**；当时发布 APK 保持 `5a2aab93…` 不变（与真机一致），§45 的 su 前端修复后更新为 `4bf639d0…`，§46 把 tmoe 软链自愈固化后为
   `b448b475…`、§47 的三页 UI 与手动补丁后为 `f6b781dc…`、§47.7 日志页交互修复后为
-  `3707b66a…`。
+  `3707b66a…`；v1.5 的授权持久化后为 `1bad2a89…`（code 15）。
 - **回滚点**：工作区 `history/snapshots/pre-layout-20261110/`
   （整理前完整副本 + `TREE_MANIFEST.tsv`）；逐项清单见
   `history/LAYOUT_20261110.md`。

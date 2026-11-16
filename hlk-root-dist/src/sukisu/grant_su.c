@@ -1,5 +1,6 @@
 /*
- * grant_su.c -- add/remove a uid in hlk_ksu_shim9's in-kernel su allowlist.
+ * grant_su.c -- add/remove a uid in hlk_ksu_shim9's in-kernel su allowlist,
+ * or dump the whole allowlist so the app can persist it across reboots.
  *
  * The shim's allowlist lives in module memory only: it is empty after every
  * reboot and there is no on-disk persistence (Manager's settings.xml only
@@ -8,10 +9,14 @@
  *
  *   grant_su 10161 allow com.termux
  *   grant_su 10161 deny
+ *   grant_su list
  *
  * ioctl: KSU_IOCTL_SET_APP_PROFILE = _IOC(_IOC_WRITE, 'K', 12, 0)
  * struct app_profile { __u32 version; char key[256]; __s32 curr_uid;
  *                      bool allow_su; ... };  sizeof == 784
+ * ioctl: KSU_IOCTL_NEW_GET_ALLOW_LIST = _IOWR('K', 6, struct
+ *        ksu_new_get_allow_list_cmd { __u16 count; __u16 total_count;
+ *        __u32 uids[]; });  use 0xC0044B06u (dir 3 | size 4<<16 | 'K' | nr 6)
  */
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -28,11 +33,15 @@
 #define KSU_MAGIC1			0xDEADBEEFu
 #define KSU_MAGIC2			0xCAFEBABEu
 #define KSU_IOCTL_SET_APP_PROFILE	0x40004B0Cu
+#define KSU_IOCTL_NEW_GET_ALLOW_LIST	0xC0044B06u
 
 #define OFF_KEY				4
 #define OFF_UID				260
 #define OFF_ALLOW			264
 #define PROFILE_SIZE			784
+
+#define MAX_ALLOW			64
+#define LIST_HEAD			4	/* count + total_count, uids follow */
 
 static int find_driver_fd(void)
 {
@@ -67,14 +76,77 @@ static int find_driver_fd(void)
 	return found;
 }
 
+/* Inherit the shim fd when we are its child, else ask the supercall. */
+static int open_driver_fd(void)
+{
+	int fd = find_driver_fd(), nfd = -1;
+
+	if (fd >= 0)
+		return fd;
+	syscall(SYS_reboot, KSU_MAGIC1, KSU_MAGIC2, 0, &nfd);
+	return nfd;
+}
+
+static unsigned short rd16(const unsigned char *p)
+{
+	unsigned short v;
+
+	memcpy(&v, p, sizeof(v));
+	return v;
+}
+
+/* Read-only dump of the kernel allowlist: one "uid=N" line per entry. */
+static int do_list(int fd)
+{
+	unsigned char *buf;
+	unsigned short count, total, i;
+
+	buf = calloc(1, LIST_HEAD + MAX_ALLOW * 4);
+	if (!buf)
+		return 1;
+	/* Tell the shim how much room it has; it writes back what it used. */
+	memcpy(buf, &(unsigned short){ MAX_ALLOW }, sizeof(unsigned short));
+	if (ioctl(fd, KSU_IOCTL_NEW_GET_ALLOW_LIST, buf) != 0) {
+		fprintf(stderr, "grant_su: GET_ALLOW_LIST failed: %s (uid=%d)\n",
+			strerror(errno), getuid());
+		free(buf);
+		return 1;
+	}
+	count = rd16(buf);
+	total = rd16(buf + 2);
+	if (count > MAX_ALLOW)
+		count = MAX_ALLOW;
+	printf("grant_su: list total=%hu shown=%hu\n", total, count);
+	for (i = 0; i < count; i++) {
+		unsigned int uid;
+
+		memcpy(&uid, buf + LIST_HEAD + i * 4, sizeof(uid));
+		printf("uid=%u\n", uid);
+	}
+	free(buf);
+	return 0;
+}
+
 int main(int argc, char **argv)
 {
 	unsigned char *buf;
-	int fd, nfd = -1, allow = 1;
+	int fd, allow = 1;
 	unsigned int uid;
 
+	if (argc >= 2 && strcmp(argv[1], "list") == 0) {
+		fd = open_driver_fd();
+		if (fd < 0) {
+			fprintf(stderr, "grant_su: no [ksu_driver] fd (uid=%d)\n",
+				(int)getuid());
+			return 1;
+		}
+		return do_list(fd);
+	}
+
 	if (argc < 3) {
-		fprintf(stderr, "usage: grant_su UID allow|deny [KEY]\n");
+		fprintf(stderr,
+			"usage: grant_su UID allow|deny [KEY]\n"
+			"       grant_su list\n");
 		return 2;
 	}
 	uid = (unsigned int)strtoul(argv[1], NULL, 10);
@@ -89,22 +161,21 @@ int main(int argc, char **argv)
 	*(unsigned int *)(buf + OFF_UID) = uid;
 	buf[OFF_ALLOW] = (unsigned char)allow;
 
-	fd = find_driver_fd();
-	if (fd < 0) {
-		syscall(SYS_reboot, KSU_MAGIC1, KSU_MAGIC2, 0, &nfd);
-		fd = nfd;
-	}
+	fd = open_driver_fd();
 	if (fd < 0) {
 		fprintf(stderr, "grant_su: no [ksu_driver] fd (uid=%d)\n",
-			getuid());
+			(int)getuid());
+		free(buf);
 		return 1;
 	}
 	if (ioctl(fd, KSU_IOCTL_SET_APP_PROFILE, buf) != 0) {
 		fprintf(stderr, "grant_su: SET_APP_PROFILE failed: %s (uid=%d)\n",
-			strerror(errno), getuid());
+			strerror(errno), (int)getuid());
+		free(buf);
 		return 1;
 	}
 	printf("grant_su: uid=%u allow_su=%d key=%s OK\n",
 	       uid, allow, argc > 3 ? argv[3] : "(none)");
+	free(buf);
 	return 0;
 }

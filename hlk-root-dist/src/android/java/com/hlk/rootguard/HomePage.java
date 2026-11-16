@@ -36,6 +36,8 @@ final class HomePage {
     private final TextView vPid;
     private final TextView vRoot;
     private final TextView vKsu;
+    private final TextView vMgr;
+    private final TextView vGrants;
     private final TextView vStrikes;
     private final Switch toggle;
     private final EditText delay;
@@ -105,6 +107,8 @@ final class HomePage {
         info.addView(Ui.rule(c));
         info.addView(Ui.row(c, "管理器版本", "40994-5"));
         info.addView(Ui.rule(c));
+        vMgr = addRow(info, "管理器接管", "-");
+        info.addView(Ui.rule(c));
         info.addView(Ui.row(c, "内核完整版本", "v4.2.1-40994-hlk-shim9"));
         info.addView(Ui.rule(c));
         vAutostart = addRow(info, "开机自启", "-");
@@ -114,6 +118,8 @@ final class HomePage {
         vRoot = addRow(info, "ROOT 通道", "-");
         info.addView(Ui.rule(c));
         vKsu = addRow(info, "SukiSU 层", "-");
+        info.addView(Ui.rule(c));
+        vGrants = addRow(info, "已授权应用", "-");
         info.addView(Ui.rule(c));
         vStrikes = addRow(info, "崩溃计数", "-");
         page.addView(info);
@@ -258,6 +264,13 @@ final class HomePage {
         badge.setText(badges[phase]);
         hint.setText(hints[phase]);
         hint.setTextColor(phase == 3 ? Ui.HINT_TEXT : Ui.HINT_TEXT);
+        // P2: once the chain is up, say out loud whether the Manager link
+        // actually landed.  A mismatched mgr_uid makes every grant made in the
+        // panel fail with -EPERM, while the panel still shows "authorized".
+        String mp = phase == 3 ? KsuBootstrap.mgrProblem() : null;
+        if (mp != null)
+            hint.setText(hints[phase] + "\n⚠ " + mp
+                    + "：现在在管理器面板点授权，会被内核直接拒绝。");
 
         if (toggle.isChecked() != enabled)
             toggle.setChecked(enabled);
@@ -267,6 +280,11 @@ final class HomePage {
         vRoot.setText(root ? "yes (uid 0)" : "no");
         vRoot.setTextColor(root ? Ui.OK : Ui.SUB);
         vKsu.setText(ksu);
+        vMgr.setText(phase != 3 ? "-" : (mp == null ? "OK" : mp));
+        vMgr.setTextColor(phase == 3 && mp != null ? Ui.WARN : Ui.OK);
+        int gc = KsuBootstrap.grantCount();
+        vGrants.setText(gc < 0 ? "-" : (gc + " 个 · 重启后自动恢复"));
+        vGrants.setTextColor(gc > 0 ? Ui.OK : Ui.SUB);
         vStrikes.setText(Prefs.fails(c) + "/" + Prefs.MAX_FAILS);
     }
 }
