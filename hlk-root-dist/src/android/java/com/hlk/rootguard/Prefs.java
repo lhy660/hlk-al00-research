@@ -36,6 +36,13 @@ final class Prefs {
      * It panicked.  Without an arming flag every restart is a loaded gun.
      */
     static final String ARMED = "armed";
+    /**
+     * Authorization snapshot: "uid:pkg;uid:pkg" of the shim's in-kernel
+     * allowlist.  The shim keeps that table in module memory only, so without
+     * this copy every grant a user makes in the Manager panel is gone after
+     * the next reboot.
+     */
+    static final String GRANTS = "grants";
 
     static final int DEFAULT_DELAY_S = 300;
     static final int MAX_FAILS = 2;
@@ -61,5 +68,10 @@ final class Prefs {
 
     static int fails(Context c) {
         return sp(c).getInt(FAILS, 0);
+    }
+
+    static String grants(Context c) {
+        String s = sp(c).getString(GRANTS, "");
+        return s == null ? "" : s;
     }
 }
