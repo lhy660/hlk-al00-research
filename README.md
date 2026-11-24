@@ -4,6 +4,9 @@
 通过 Mali GPU JIT UAF（CVE-2022-38181 / HM2）获得内核物理读写，进而在免解锁前提下
 取得临时 root 并加载 SukiSU Ultra 垫片。
 
+# 大标题警告⚠️
+## 目前仅可获取临时root并授权给应用，模块功能无法使用！
+
 **唯一交付物是 [`hlk-root-dist/`](hlk-root-dist/README.md)**（自包含发布包）；
 其余 4 个顶层目录是研究与复现环境，不随发布包分发。
 
